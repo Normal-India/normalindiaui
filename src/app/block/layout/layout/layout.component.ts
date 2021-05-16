@@ -73,11 +73,11 @@ export class LayoutComponent implements OnInit {
       phonenumber: ['', [Validators.required]],
       regularBed: [false, [Validators.required]],
       icuBed: [false, [Validators.required]],
-      oxygenBed: [false, [Validators.required]],
+      //oxygenBed: [false, [Validators.required]],
       // vaccine: [false, [Validators.required]],
       regularBedCount: ['', [Validators.required]],
       icuBedCount: ['', [Validators.required]],
-      oxygenBedCount: ['', [Validators.required]],
+      //oxygenBedCount: ['', [Validators.required]],
       // vaccineCount: ['', [Validators.required]],
       comment: ['']
     });
@@ -225,19 +225,19 @@ export class LayoutComponent implements OnInit {
       return;
     }
 
-    
+
     if (this.selectedMode != 'Plasma') {
       const params = new HttpParams()
-      .set("state", this.listOfStates.find(res => res.state_id == +this.form.get('state').value).state_name)
-      .set("type", this.selectedMode)
-      .set("subtype", this.selectedChildMode)
-      .set("district", this.listOfDistrict.find(res => res.district_id == +this.form.get('district').value).district_name)
+        .set("state", this.listOfStates.find(res => res.state_id == +this.form.get('state').value).state_name)
+        .set("type", this.selectedMode)
+        .set("subtype", this.selectedChildMode)
+        .set("district", this.listOfDistrict.find(res => res.district_id == +this.form.get('district').value).district_name)
       this.commonCode(COMPONENTS.fecthdata + '?' + params);
     } else {
       const params = new HttpParams()
-      .set("state", this.listOfStates.find(res => res.state_id == +this.form.get('state').value).state_name)
-      .set("type", this.selectedMode)
-      .set("subtype", this.selectedChildMode)
+        .set("state", this.listOfStates.find(res => res.state_id == +this.form.get('state').value).state_name)
+        .set("type", this.selectedMode)
+        .set("subtype", this.selectedChildMode)
       this.commonCode(COMPONENTS.fecthdata + '?' + params);
     }
   }
@@ -275,10 +275,11 @@ export class LayoutComponent implements OnInit {
           this.reportForm.patchValue({
             regularBed: hospital.resources[0].subtypes[h].available ? true : false
           })
-        } else if (hospital.resources[0].subtypes[h].type === 'Oxygen') {
-          this.reportForm.patchValue({
-            oxygenBed: hospital.resources[0].subtypes[h].available ? true : false
-          })
+        // } 
+        // else if (hospital.resources[0].subtypes[h].type === 'Oxygen') {
+        //   this.reportForm.patchValue({
+        //     oxygenBed: hospital.resources[0].subtypes[h].available ? true : false
+        //   })
         } else if (hospital.resources[0].subtypes[h].type === 'ICU') {
           this.reportForm.patchValue({
             icuBed: hospital.resources[0].subtypes[h].available ? true : false
@@ -291,7 +292,7 @@ export class LayoutComponent implements OnInit {
       }
     }
     this.selectedHospital = hospital;
-    this.modalRef = this.modalService.show(template, { class: 'modal-dialog-width' });
+    this.modalRef = this.modalService.show(template, {  backdrop: 'static', keyboard: false, class: 'modal-dialog-width' });
   }
 
 
@@ -308,10 +309,12 @@ export class LayoutComponent implements OnInit {
       if (this.selectedHospital.resources[0].subtypes[h].type === 'Normal') {
         this.selectedHospital.resources[0].subtypes[h].available = this.reportForm.get('regularBed').value;
         this.selectedHospital.resources[0].subtypes[h].current = this.reportForm.get('regularBedCount').value;
-      } else if (this.selectedHospital.resources[0].subtypes[h].type === 'Oxygen') {
-        this.selectedHospital.resources[0].subtypes[h].available = this.reportForm.get('oxygenBed').value;
-        this.selectedHospital.resources[0].subtypes[h].current = this.reportForm.get('oxygenBedCount').value;
-      } else if (this.selectedHospital.resources[0].subtypes[h].type === 'ICU') {
+      }
+      // else if (this.selectedHospital.resources[0].subtypes[h].type === 'Oxygen') {
+      //   this.selectedHospital.resources[0].subtypes[h].available = this.reportForm.get('oxygenBed').value;
+      //   this.selectedHospital.resources[0].subtypes[h].current = this.reportForm.get('oxygenBedCount').value;
+      // } 
+      else if (this.selectedHospital.resources[0].subtypes[h].type === 'ICU') {
         this.selectedHospital.resources[0].subtypes[h].available = this.reportForm.get('icuBed').value;
         this.selectedHospital.resources[0].subtypes[h].current = this.reportForm.get('icuBedCount').value;
       }
@@ -350,12 +353,13 @@ export class LayoutComponent implements OnInit {
   }
 
   childList(child) {
-    this.selectedMode = child;
-    this.childLists = [];
-    this.childLists = this.listOfComponents.find(res => res.componentname === child).componentvalues;
-    if (this.childLists.length) {
-      this.selectedChildMode = this.childLists[0];
-    }
+      this.filterList = [];
+      this.selectedMode = child;
+      this.childLists = [];
+      this.childLists = this.listOfComponents.find(res => res.componentname === child).componentvalues;
+      if (this.childLists.length) {
+        this.selectedChildMode = this.childLists[0];
+      }
   }
 
   selectedChild(data) {
