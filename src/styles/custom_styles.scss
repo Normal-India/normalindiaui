@@ -2936,7 +2936,11 @@ fieldset:disabled a.btn {
 }
 .search-results{
 	// background: #e9ecef;
-  margin-top: 20px;
+  margin-top: 10px;
+    max-height: calc(100vh - 345px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-top: 1px #ddd solid;
 }
 
 input[type=submit].btn-block,
@@ -4122,6 +4126,9 @@ input[type=button].btn-block {
 .dropdown-mobile{
   display: flex !important;
 }
+#wrapper{
+  min-height: calc(100vh - 53px);
+}
 
 @media(max-width: 767.98px) and (min-width: 360px){
 .available-details .mobile-view{
@@ -4923,7 +4930,7 @@ a.badge-dark:focus, a.badge-dark.focus {
 }
 @media (min-width: 576px) {
   .jumbotron {
-    padding: 1rem 1rem;
+    padding: .5rem 1rem;
   }
 }
 

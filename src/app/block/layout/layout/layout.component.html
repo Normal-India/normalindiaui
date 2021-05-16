@@ -1,5 +1,4 @@
 <div id="wrapper">
-
     <div id="page-content-wrapper">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
@@ -25,7 +24,6 @@
                     <!-- active -->
                 </header>
                 <header class="jumbotron my-1">
-
                     <a *ngFor="let child of childLists" (click)="selectedChild(child)"
                         [ngClass]="{ 'active': child == selectedChildMode }" class="btn btn-primary filter-btn btn-lg"
                         href="#!">
@@ -45,7 +43,7 @@
                             <div id="menu1" class="tab-pane fade in show active">
                                 <form [formGroup]="pinForm" (ngSubmit)="fetchdatabypin()">
                                     <div class="row">
-                                        <div class="col-md-4 text-left dropdown-mobile">
+                                        <div class="col-md-4 text-left d-flex dropdown-mobile">
                                             <input class="form-control" formControlName="pinCode" type="text"
                                                 placeholder="pincode">
                                             <div *ngIf="submitted && pinForm.get('pinCode').errors"
@@ -53,7 +51,7 @@
                                                 <div *ngIf="pinForm.get('pinCode').errors.required">pincode is required.
                                                 </div>
                                             </div>
-                                            <div class="col-sm searchtn">
+                                            <div class="col-sm searchtn col-auto">
                                                 <button class="btn btn-primary" type="submit">Search</button>
                                             </div>
                                         </div>
@@ -61,12 +59,11 @@
                                 </form>
                                 <div class="row">
                                     <div class="col-12 ">
-                                        <div class="p-2 search-results">
+                                        <div class=" search-results">
                                             <h5 class="text-left fw-bold">Search Results</h5>
                                             <div class="row">
                                                 <div class="col-lg-12 mb-4">
                                                     <!-- card for all start -->
-
                                                     <ng-container *ngIf="selectedMode == 'Bed'">
                                                         <div class="card shadow-sm mt-2" *ngFor="let bed of filterList">
                                                             <div class="card-body text-left">
@@ -119,7 +116,6 @@
                                                             </div>
                                                         </div>
                                                     </ng-container>
-
                                                     <ng-container *ngIf="selectedMode == 'Plasma'">
                                                         <div class="card shadow-sm mt-2" *ngFor="let bed of filterList">
                                                             <div class="card-body text-left">
@@ -177,8 +173,6 @@
                                                             </div>
                                                         </div>
                                                     </ng-container>
-
-
                                                     <!-- card for all vaccine -->
                                                     <!-- <div class="card border-0 shadow-sm mt-2">
                                                         <div class="card-body text-left">
@@ -307,7 +301,6 @@
                                                         </div>
                                                     </div> -->
                                                     <!-- card for Plasma end -->
-
                                                     <!-- card for all Plasma -->
                                                     <!-- <div class="card border-0 shadow-sm mt-2">
                                                         <div class="card-body text-left">
@@ -436,7 +429,6 @@
                                             <h6 class="text-left">Search Results</h6>
                                             <div class="row">
                                                 <div class="col-lg-12 mb-4">
-
                                                     <ng-container *ngIf="selectedMode == 'Bed'">
                                                         <div class="card shadow-sm mt-2" *ngFor="let bed of filterList">
                                                             <div class="card-body text-left">
@@ -487,7 +479,6 @@
                                                             </div>
                                                         </div>
                                                     </ng-container>
-
                                                     <ng-container *ngIf="selectedMode == 'Plasma'">
                                                         <div class="card shadow-sm mt-2" *ngFor="let bed of filterList">
                                                             <div class="card-body text-left">
@@ -543,8 +534,6 @@
                                                             </div>
                                                         </div>
                                                     </ng-container>
-
-
                                                     <!-- card for all start -->
                                                     <!-- <div class="card shadow-sm">
                                                         <div class="card-body text-left">
@@ -595,7 +584,6 @@
                                                         </div>
                                                     </div> -->
                                                     <!-- card for all end -->
-
                                                     <!-- card for all vaccine -->
                                                     <!-- <div class="card shadow-sm mt-2">
                                                         <div class="card-body text-left">
@@ -673,11 +661,8 @@
                                                     </div> -->
                                                     <!-- card for vaccine available end -->
                                                     <!-- card for all Plasma -->
-
                                                     <!-- card for Plasma end -->
-
                                                     <!-- card for all Plasma -->
-
                                                     <!-- card for Plasma end -->
                                                 </div>
                                             </div>
@@ -689,7 +674,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -700,11 +684,7 @@
         </div>
     </footer>
 </div>
-
-
-
 <ng-template #reportTemplate>
-
     <div class="modal-header">
         <h4 class="modal-title pull-left">New Report</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
@@ -712,7 +692,6 @@
         </button>
     </div>
     <div class="modal-body">
-
         <form [formGroup]="reportForm">
             <div class="row">
                 <div class="col-sm-12">
@@ -748,7 +727,6 @@
                                 formControlName="regularBedCount">
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label for="">ICU Bed</label>
                         <div class="tab-slider--nav">
@@ -764,7 +742,6 @@
                             <input class="form-control" type="text" name="icuBedCount" formControlName="icuBedCount">
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label for="">Oxygen Bed</label>
                         <div class="tab-slider--nav">
@@ -782,7 +759,6 @@
                                 formControlName="oxygenBedCount">
                         </div>
                     </div>
-
                     <!-- <div class="form-group">
                         <label for="">Vaccine</label>
                         <div class="tab-slider--nav">
@@ -798,7 +774,6 @@
                             <input class="form-control" type="text" name="vaccineCount" formControlName="vaccineCount">
                         </div>
                     </div> -->
-
                     <!-- <div class="form-group">
                         <label for="">Comment</label>
                         <textarea type="text" name="comment" class="form-control" formControlName="comment"></textarea>
@@ -812,10 +787,7 @@
         </form>
     </div>
 </ng-template>
-
-
 <ng-template #vaccineReportTemplate>
-
     <div class="modal-header">
         <h4 class="modal-title pull-left">New Report - Vaccine</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
@@ -823,7 +795,6 @@
         </button>
     </div>
     <div class="modal-body">
-
         <form [formGroup]="vaccineReportForm">
             <div class="row">
                 <div class="col-sm-12">
@@ -860,26 +831,22 @@
                                 formControlName="vaccineAvailablityCount">
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label for="">Age</label>
                         <button (click)="setFormValue(false, 'forthyFivePlus', 'vaccineReportForm')"> 18 - 44 </button>
                         <button (click)="setFormValue(true, 'forthyFivePlus', 'vaccineReportForm')"> 45+ </button>
                     </div>
-
                     <div class="form-group">
                         <label for="">Vaccine Type</label>
                         <button (click)="setFormValue('covishield', 'vaccineType', 'vaccineReportForm')"> Covishield
                         </button>
                         <button (click)="setFormValue('covaxin', 'vaccineType', 'vaccineReportForm')"> Covaxin </button>
                     </div>
-
                     <div class="form-group">
                         <label for="">Price</label>
                         <button (click)="setFormValue('paid', 'price', 'vaccineReportForm')"> Paid </button>
                         <button (click)="setFormValue('free', 'price', 'vaccineReportForm')"> Free </button>
                     </div>
-
                     <div class="form-group">
                         <label for="">Comment</label>
                         <textarea type="text" name="comment" class="form-control" formControlName="comment"></textarea>
@@ -893,10 +860,7 @@
         </form>
     </div>
 </ng-template>
-
-
 <ng-template #donorPlasmaTemplate>
-
     <div class="modal-header">
         <h4 class="modal-title pull-left">New Donor - Plasma</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
@@ -904,7 +868,6 @@
         </button>
     </div>
     <div class="modal-body">
-
         <form [formGroup]="donorPlasmaForm">
             <div class="row">
                 <div class="col-sm-12">
@@ -954,7 +917,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-4 text-left dropdown-mobile">
@@ -967,7 +929,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label for="">My Blood Group</label>
                         <button (click)="setFormValue('A+', 'bloodGroup', 'donorPlasmaForm')"> A+ </button>
@@ -980,7 +941,6 @@
                         <button (click)="setFormValue('AB-', 'bloodGroup', 'donorPlasmaForm')"> AB- </button>
                         <button (click)="setFormValue('Other', 'bloodGroup', 'donorPlasmaForm')"> Other </button>
                     </div>
-
                     <div class="form-group">
                         <label for="myAge">My Age(18-60 years only)</label>
                         <select formControlName="myAge" class="form-control" #distric id='districId'
@@ -995,13 +955,11 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label for="">Date of Positive Covid Test</label>
                         <textarea type="date" name="dateOfTest" class="form-control"
                             formControlName="dateOfTest"></textarea>
                     </div>
-
                 </div>
             </div>
             <div class="d-flex justify-content-between">
@@ -1011,10 +969,7 @@
         </form>
     </div>
 </ng-template>
-
-
 <ng-template #notifyPlasmaTemplate>
-
     <div class="modal-header">
         <h4 class="modal-title pull-left">Notify My - Plasma</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
@@ -1022,7 +977,6 @@
         </button>
     </div>
     <div class="modal-body">
-
         <form [formGroup]="notifyPlasmaForm">
             <div class="row">
                 <div class="col-sm-12">
@@ -1072,7 +1026,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-4 text-left dropdown-mobile">
@@ -1085,7 +1038,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label for="">My Blood Group</label>
                         <button (click)="setFormValue('A+', 'bloodGroup', 'notifyPlasmaForm')"> A+ </button>
@@ -1098,8 +1050,6 @@
                         <button (click)="setFormValue('AB-', 'bloodGroup', 'notifyPlasmaForm')"> AB- </button>
                         <button (click)="setFormValue('Other', 'bloodGroup', 'notifyPlasmaForm')"> Other </button>
                     </div>
-
-
                 </div>
             </div>
             <div class="d-flex justify-content-between">
@@ -1109,9 +1059,7 @@
         </form>
     </div>
 </ng-template>
-
 <ng-template #newReportPlasmaTemplate>
-
     <div class="modal-header">
         <h4 class="modal-title pull-left">New Report - Plasma</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
@@ -1119,7 +1067,6 @@
         </button>
     </div>
     <div class="modal-body">
-
         <form [formGroup]="newReportPlasmaForm">
             <div class="row">
                 <div class="col-sm-12">
@@ -1242,9 +1189,7 @@
                         <div>
                             <input class="form-control" type="text" name="abMinusCount" formControlName="abMinusCount">
                         </div>
-
                     </div>
-
                 </div>
             </div>
             <div class="d-flex justify-content-between">
@@ -1254,10 +1199,7 @@
         </form>
     </div>
 </ng-template>
-
-
 <ng-template #notifyVaccineTemplate>
-
     <div class="modal-header">
         <h4 class="modal-title pull-left">Notify My - Plasma</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
@@ -1265,7 +1207,6 @@
         </button>
     </div>
     <div class="modal-body">
-
         <form [formGroup]="notifyVaccineForm">
             <div class="row">
                 <div class="col-sm-12">
@@ -1316,7 +1257,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-4 text-left dropdown-mobile">
@@ -1329,7 +1269,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label for="">My Blood Group</label>
                         <button (click)="setFormValue('44', 'selectAvailablity', 'notifyVaccineForm')"> 18-44 </button>
@@ -1341,8 +1280,6 @@
                         <button (click)="setFormValue('covaxin', 'selectAvailablity', 'notifyVaccineForm')"> Covaxin
                         </button>
                     </div>
-
-
                 </div>
             </div>
             <div class="d-flex justify-content-between">
@@ -1352,8 +1289,6 @@
         </form>
     </div>
 </ng-template>
-
-
 <!-- <div class="wrapper d-flex align-items-stretch">
     <nav id="sidebar" class="active">
         <h1><a href="index.html" class="logo">Ni</a></h1>
@@ -1380,16 +1315,11 @@
                 <a><span class="fa fa-paper-plane"></span> Contact us</a>
             </li>
         </ul>
-
     </nav> 
-
     <div id="content" class="p-4 p-md-5">
-
         <div class="container-fluid">
             <router-outlet></router-outlet>
-
         </div>
-
     </div>
     <div class="footer">
         <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
@@ -1398,5 +1328,4 @@
             </div>
         </footer>
     </div>
-
 </div> -->
