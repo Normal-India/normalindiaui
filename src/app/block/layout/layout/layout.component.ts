@@ -225,15 +225,21 @@ export class LayoutComponent implements OnInit {
       return;
     }
 
-    const params = new HttpParams()
+    
+    if (this.selectedMode != 'Plasma') {
+      const params = new HttpParams()
       .set("state", this.listOfStates.find(res => res.state_id == +this.form.get('state').value).state_name)
       .set("type", this.selectedMode)
       .set("subtype", this.selectedChildMode)
-
-    if (this.selectedMode != 'Plasma') {
-      params.set("district", this.listOfDistrict.find(res => res.district_id == +this.form.get('district').value).district_name)
+      .set("district", this.listOfDistrict.find(res => res.district_id == +this.form.get('district').value).district_name)
+      this.commonCode(COMPONENTS.fecthdata + '?' + params);
+    } else {
+      const params = new HttpParams()
+      .set("state", this.listOfStates.find(res => res.state_id == +this.form.get('state').value).state_name)
+      .set("type", this.selectedMode)
+      .set("subtype", this.selectedChildMode)
+      this.commonCode(COMPONENTS.fecthdata + '?' + params);
     }
-    this.commonCode(COMPONENTS.fecthdata + '?' + params);
   }
 
   commonCode(url) {
@@ -377,3 +383,4 @@ export class LayoutComponent implements OnInit {
   }
 
 }
+
