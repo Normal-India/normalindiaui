@@ -14,6 +14,25 @@
         </nav>
         <div id="content" class="p-2 p-md-2">
             <div class="container-fluid">
+                <div class="p-4 pb-0">
+                    <h1 class="h4 fw-bold">Make India Normal Together</h1>
+                    <p>While your loved ones are suffering with Carona (COVID) and fighting for life, it is a really 
+                        painful and heart breaking experience to go in search of bed, plasma, or oxygen. Right 
+                        information at the right time can help save a life. So let us work together as one family to 
+                        bring India back to normal by sharing information the right way.</p>
+                    <h5 class="fw-bold">YOU Can Help Save Lives</h5>
+                    <ul>
+                        <li><span class="fw-bold">Report</span> - Do you have latest information about availability 
+                            of beds, plasma, vaccine, etc.? You can report in real-time to keep everyone informed</li>
+                        <li><span class="fw-bold">Support</span> - If you find a report to be helpful or not 
+                            let the world know by clicking <i class="fa fa-thumbs-up text-primary"></i> or 
+                            <i class="fa fa-thumbs-down text-primary"></i></li>
+                        <li><span class="fw-bold">Share</span> - You can inspire others to join you in this effort. 
+                            Because together we all can save more lives</li>
+                        <li><span class="fw-bold">Get Notified</span> - Are you looking for beds, plasma, 
+                            vaccine, or oxygen? Use 'Notify Me' to stay informed</li>
+                    </ul>
+                </div>
                 <!-- Jumbotron Header-->
                 <header class="jumbotron my-1">
                     <a *ngFor="let list of listOfComponents" (click)="childList(list.componentname)"
@@ -23,7 +42,7 @@
                     </a>
                     <!-- active -->
                 </header>
-                <header class="jumbotron my-1">
+                <header class="jumbotron my-1 mb-4">
                     <a *ngFor="let child of childLists" (click)="selectedChild(child)"
                         [ngClass]="{ 'active': child == selectedChildMode }" class="btn btn-primary filter-btn btn-lg"
                         href="#!">
@@ -48,7 +67,7 @@
                                                 placeholder="pincode">
                                             <div *ngIf="submitted && pinForm.get('pinCode').errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="pinForm.get('pinCode').errors.required">pincode is required.
+                                                <div *ngIf="pinForm.get('pinCode').errors.required">Pincode is required.
                                                 </div>
                                             </div>
                                             <div class="col-sm searchtn col-auto">
@@ -59,7 +78,7 @@
                                 </form>
                                 <div class="row">
                                     <div class="col-12 ">
-                                        <div class=" search-results">
+                                        <div class="pt-3 search-results">
                                             <h5 class="text-left fw-bold">Search Results</h5>
                                             <div class="row">
                                                 <div class="col-lg-12 mb-4">
@@ -385,10 +404,10 @@
                             </div>
                             <div id="menu2" class="tab-pane fade">
                                 <form [formGroup]="form" (ngSubmit)="fecthdata()">
-                                    <div class="row">
-                                        <div class="col-3 text-start">
-                                            <label for="State">State:</label>
-                                            <select formControlName="state" #stateEl class="form-control" id='state'
+                                    <div class="form-row">
+                                        <div class="col-lg-3 col-md-3 col-sm-12 text-start mb-2">
+                                            <label for="State" class="mb-1">State</label>
+                                            <select formControlName="state" #stateEl class="form-control custom-select" id='state'
                                                 [ngClass]="{ 'is-invalid': submitted && form.get('state').errors }"
                                                 (change)="getDistrictByState($event.target.value)">
                                                 <option disabled>Select State</option>
@@ -401,9 +420,9 @@
                                                 <div *ngIf="form.get('state').errors.required">State is required.</div>
                                             </div>
                                         </div>
-                                        <div class="col-3 text-start" *ngIf="selectedMode != 'Plasma'">
-                                            <label for="District">District:</label>
-                                            <select formControlName="district" class="form-control" #distric
+                                        <div class="col-lg-3 col-md-3 col-sm-12 text-start mb-2" *ngIf="selectedMode != 'Plasma'">
+                                            <label for="District" class="mb-1">District</label>
+                                            <select formControlName="district" class="form-control custom-select" #distric
                                                 id='districId'
                                                 [ngClass]="{ 'is-invalid': submitted && form.get('district').errors }">
                                                 <option disabled>Select District</option>
@@ -418,15 +437,15 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-2 searchtn align-items-end d-flex">
+                                        <div class="col-auto searchtn align-items-end d-flex mb-2">
                                             <button class="btn btn-primary" type="submit">Search</button>
                                         </div>
                                     </div>
                                 </form>
                                 <div class="row">
                                     <div class="col-12 ">
-                                        <div class="card p-2 search-results">
-                                            <h6 class="text-left">Search Results</h6>
+                                        <div class="pt-3 search-results">
+                                            <h5 class="text-left fw-bold">Search Results</h5>
                                             <div class="row">
                                                 <div class="col-lg-12 mb-4">
                                                     <ng-container *ngIf="selectedMode == 'Bed'">
