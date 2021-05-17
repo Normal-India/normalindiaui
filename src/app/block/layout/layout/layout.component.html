@@ -2,7 +2,7 @@
     <div id="page-content-wrapper">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#!">Normal India</a>
+                <a class="navbar-brand" >Normal India</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span
                         class="navbar-toggler-icon"></span></button>
@@ -37,7 +37,7 @@
                 <header class="jumbotron my-1">
                     <a *ngFor="let list of listOfComponents" (click)="childList(list.componentname)"
                         [ngClass]="{ 'active': list.componentname == selectedMode }"
-                        class="btn btn-primary filter-btn btn-lg" href="#!">{{
+                        class="btn btn-primary filter-btn btn-lg" >{{
                         list.componentname }}
                     </a>
                     <!-- active -->
@@ -45,7 +45,7 @@
                 <header class="jumbotron my-1 mb-4">
                     <a *ngFor="let child of childLists" (click)="selectedChild(child)"
                         [ngClass]="{ 'active': child == selectedChildMode }" class="btn btn-primary filter-btn btn-lg"
-                        href="#!">
+                        >
                         {{ child }}
                     </a>
                     <!-- active -->
@@ -60,7 +60,7 @@
                         </ul>
                         <div class="tab-content p-2 py-3">
                             <div id="menu1" class="tab-pane fade in show active">
-                                <form [formGroup]="pinForm" (ngSubmit)="fetchdatabypin()">
+                                <form [formGroup]="pinForm" >
                                     <div class="row">
                                         <div class="col-md-4 text-left d-flex dropdown-mobile">
                                             <input class="form-control" formControlName="pinCode" type="text"
@@ -71,8 +71,11 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm searchtn col-auto">
-                                                <button class="btn btn-primary" type="submit">Search</button>
+                                                <button class="btn btn-primary" (click)="fetchdatabypin()">Search</button>
                                             </div>
+                                        </div>
+                                        <div *ngIf="selectedMode == 'Plasma'" class="d-flex justify-content-end col">
+                                            <button class="btn btn-primary" type="submit" (click)="openDonorPlasma(donorPlasmaTemplate)">Add Donor</button>
                                         </div>
                                     </div>
                                 </form>
@@ -111,11 +114,11 @@
                                                                         </div>
                                                                         <div
                                                                             class="comments d-flex mt-1 ml-4 align-self-center">
-                                                                            <span class="like mr-1"><i
+                                                                            <span class="like mr-1" (click)="updateinfo(sub, 'up')"><i
                                                                                     class="fa fa-thumbs-up"></i> <span
                                                                                     class="d-block">{{ sub.upvote
                                                                                     }}</span></span>
-                                                                            <span class="like"><i
+                                                                            <span class="like" (click)="updateinfo(sub, 'down')"><i
                                                                                     class="fa fa-thumbs-down"></i> <span
                                                                                     class="d-block">{{ sub.downvote
                                                                                     }}</span></span>
@@ -126,11 +129,11 @@
                                                             <div class="card-footer bg-white">
                                                                 <div class="align-self-center text-right">
                                                                     <a class="btn btn-primary p-2 py-1 mr-1"
-                                                                            href="#!"
+                                                                            
                                                                             (click)="openModal(reportTemplate, bed)">Report
                                                                             Updates</a>
                                                                     <a class="btn btn-outline-primary p-2 py-1"
-                                                                            href="#!">Notify Me</a>
+                                                                            >Notify Me</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -183,11 +186,11 @@
                                                             <div class="card-footer bg-white">
                                                                 <div class="align-self-center text-right">
                                                                     <a class="btn btn-primary p-2 py-1 mr-1"
-                                                                            href="#!">Report</a>
+                                                                             (click)="openPlasmaReport(newReportPlasmaTemplate, bed)">Report</a>
                                                                     <a class="btn btn-outline-primary p-2 py-1 mr-1"
-                                                                            href="#!">Restructions</a>
+                                                                            >Restructions</a>
                                                                     <a class="btn btn-outline-primary p-2 py-1 "
-                                                                            href="#!">Notify Me</a>
+                                                                            >Notify Me</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -224,7 +227,7 @@
                                                                 </div>
                                                                 <div class="col align-self-center text-right">
                                                                     <a class="btn btn-primary p-2 py-1 "
-                                                                        href="#!">Notify Availablity</a>
+                                                                        >Notify Availablity</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -261,7 +264,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col align-self-center text-right">
-                                                                    <a class="btn btn-primary p-2 py-1 " href="#!">Book
+                                                                    <a class="btn btn-primary p-2 py-1 " >Book
                                                                         Now</a>
                                                                 </div>
                                                             </div>
@@ -310,11 +313,11 @@
                                                                 <div
                                                                     class="col align-self-center text-right mobile-buttons">
                                                                     <a class="btn btn-primary p-2 py-1 mr-1"
-                                                                        href="#!">Report</a>
+                                                                        >Report</a>
                                                                     <a class="btn btn-outline-primary p-2 py-1 mr-1"
-                                                                        href="#!">Restrictions</a>
+                                                                        >Restrictions</a>
                                                                     <a class="btn btn-outline-primary p-2 py-1 "
-                                                                        href="#!">Notify Me</a>
+                                                                        >Notify Me</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -388,9 +391,9 @@
                                                                 </div>
                                                                 <div class="col align-self-center text-right">
                                                                     <a class="btn btn-primary p-2 py-1 mr-1"
-                                                                        href="#!">Report</a>
+                                                                        >Report</a>
                                                                     <a class="btn btn-outline-primary p-2 py-1 "
-                                                                        href="#!">Notify Me</a>
+                                                                        >Notify Me</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -440,6 +443,9 @@
                                         <div class="col-auto searchtn align-items-end d-flex mb-2">
                                             <button class="btn btn-primary" type="submit">Search</button>
                                         </div>
+                                        <div *ngIf="selectedMode == 'Plasma'" class="col d-flex justify-content-end">
+                                            <button class="btn btn-primary" type="submit" (click)="openDonorPlasma(donorPlasmaTemplate)">Add Donor</button>
+                                        </div>
                                     </div>
                                 </form>
                                 <div class="row">
@@ -476,11 +482,11 @@
                                                                         </div>
                                                                         <div
                                                                             class="comments d-flex mt-1 ml-4 align-self-center">
-                                                                            <span class="like mr-1"><i
+                                                                            <span class="like mr-1" (click)="updateinfo(sub, 'up')"><i
                                                                                     class="fa fa-thumbs-up"></i> <span
                                                                                     class="d-block">{{ sub.upvote
                                                                                     }}</span></span>
-                                                                            <span class="like"><i
+                                                                            <span class="like" (click)="updateinfo(sub, 'down')"><i
                                                                                     class="fa fa-thumbs-down"></i> <span
                                                                                     class="d-block">{{ sub.downvote
                                                                                     }}</span></span>
@@ -488,11 +494,11 @@
                                                                     </div>
                                                                     <div class="col align-self-center text-right">
                                                                         <a class="btn btn-primary p-2 py-1 mr-1"
-                                                                            href="#!"
+                                                                            
                                                                             (click)="openModal(reportTemplate, bed)">Report
                                                                             Updates</a>
                                                                         <a class="btn btn-outline-primary p-2 py-1 "
-                                                                            href="#!">Notify Me</a>
+                                                                            >Notify Me</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -543,11 +549,11 @@
                                                                     </div>
                                                                     <div class="col align-self-center text-right">
                                                                         <a class="btn btn-primary p-2 py-1 mr-1"
-                                                                            href="#!">Report</a>
+                                                                             (click)="openPlasmaReport(newReportPlasmaTemplate, bed)">Report</a>
                                                                         <a class="btn btn-outline-primary p-2 py-1 mr-1"
-                                                                            href="#!">Restructions</a>
+                                                                            >Restructions</a>
                                                                         <a class="btn btn-outline-primary p-2 py-1 "
-                                                                            href="#!">Notify Me</a>
+                                                                            >Notify Me</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -635,7 +641,7 @@
                                                                 </div>
                                                                 <div class="col align-self-center text-right">
                                                                     <a class="btn btn-primary p-2 py-1 "
-                                                                        href="#!">Notify Availablity</a>
+                                                                        >Notify Availablity</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -672,7 +678,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col align-self-center text-right">
-                                                                    <a class="btn btn-primary p-2 py-1 " href="#!">Book
+                                                                    <a class="btn btn-primary p-2 py-1 " >Book
                                                                         Now</a>
                                                                 </div>
                                                             </div>
@@ -761,7 +767,7 @@
                             <input class="form-control" type="text" name="icuBedCount" formControlName="icuBedCount">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="">Oxygen Bed</label>
                         <div class="tab-slider--nav">
                             <ul class="tab-slider--tabs">
@@ -777,7 +783,7 @@
                             <input class="form-control" type="text" name="oxygenBedCount"
                                 formControlName="oxygenBedCount">
                         </div>
-                    </div>
+                    </div> -->
                     <!-- <div class="form-group">
                         <label for="">Vaccine</label>
                         <div class="tab-slider--nav">
@@ -882,7 +888,7 @@
 <ng-template #donorPlasmaTemplate>
     <div class="modal-header">
         <h4 class="modal-title pull-left">New Donor - Plasma</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide(); donorPlasmaForm.reset();">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -892,20 +898,20 @@
                 <div class="col-sm-12">
                     <div class="form-group">
                         <label for="">My Name</label>
-                        <input type="text" class="form-control" formControlName="name">
-                        <span *ngIf="donorPlasmaForm.controls.name.errors?.required" class="text-danger"> Name is
+                        <input type="text" class="form-control" formControlName="name" [ngClass]="{ 'is-invalid': submitted && donorPlasmaForm.get('name').errors }">
+                        <span *ngIf="submitted && donorPlasmaForm.controls.name.errors?.required" class="text-danger"> Name is
                             required</span>
                     </div>
                     <div class="form-group">
                         <label for="">My Mobile Number</label>
-                        <input type="text" class="form-control" formControlName="mobileNo">
-                        <span *ngIf="donorPlasmaForm.controls.mobileNo.errors?.required" class="text-danger"> Mobile
+                        <input type="text" class="form-control" formControlName="phonenumber" [ngClass]="{ 'is-invalid': submitted && donorPlasmaForm.get('phonenumber').errors }">
+                        <span *ngIf="submitted && donorPlasmaForm.controls.phonenumber.errors?.required" class="text-danger"> Mobile
                             number is
                             required</span>
                     </div>
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-3 text-start">
+                            <div class="col-6 text-start">
                                 <label for="State">State:</label>
                                 <select formControlName="state" #stateEl class="form-control" id='state'
                                     [ngClass]="{ 'is-invalid': submitted && donorPlasmaForm.get('state').errors }"
@@ -919,18 +925,18 @@
                                     <div *ngIf="donorPlasmaForm.get('state').errors.required">State is required.</div>
                                 </div>
                             </div>
-                            <div class="col-3 text-start">
-                                <label for="District">District:</label>
-                                <select formControlName="district" class="form-control" #distric id='districId'
-                                    [ngClass]="{ 'is-invalid': submitted && donorPlasmaForm.get('district').errors }">
-                                    <option disabled>Select District</option>
+                            <div class="col-6 text-start">
+                                <label for="city">city:</label>
+                                <select formControlName="city" class="form-control" #distric id='city'
+                                    [ngClass]="{ 'is-invalid': submitted && donorPlasmaForm.get('city').errors }">
+                                    <option disabled>Select city</option>
                                     <!-- <option>Select District</option> -->
                                     <option *ngFor="let district of listOfDistrict" [value]="district.district_id">
                                         {{district.district_name}}</option>
                                 </select>
-                                <div *ngIf="submitted && donorPlasmaForm.get('district').errors"
+                                <div *ngIf="submitted && donorPlasmaForm.get('city').errors"
                                     class="invalid-feedback">
-                                    <div *ngIf="donorPlasmaForm.get('district').errors.required">District is required.
+                                    <div *ngIf="donorPlasmaForm.get('city').errors.required">city is required.
                                     </div>
                                 </div>
                             </div>
@@ -938,52 +944,79 @@
                     </div>
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-4 text-left dropdown-mobile">
-                                <input class="form-control" formControlName="pinCode" type="text" placeholder="pincode">
-                                <div *ngIf="submitted && donorPlasmaForm.get('pinCode').errors"
+                            <div class="col-md-12">
+                                <label for="donortype">Donor Type:</label>
+                                <select formControlName="donortype" class="form-control" #distric id='donortype'
+                                    [ngClass]="{ 'is-invalid': submitted && donorPlasmaForm.get('donortype').errors }">
+                                    <option disabled>Select Donor Type</option>
+                                    <!-- <option>Select District</option> -->
+                                    <option *ngFor="let district of listOfDistrict" [value]="district.district_id">
+                                        {{district.district_name}}</option>
+                                </select>
+                                <div *ngIf="submitted && donorPlasmaForm.get('donortype').errors"
                                     class="invalid-feedback">
-                                    <div *ngIf="donorPlasmaForm.get('pinCode').errors.required">pincode is required.
+                                    <div *ngIf="donorPlasmaForm.get('donortype').errors.required">Donor Type is required.
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="">My Blood Group</label>
-                        <button (click)="setFormValue('A+', 'bloodGroup', 'donorPlasmaForm')"> A+ </button>
-                        <button (click)="setFormValue('A-', 'bloodGroup', 'donorPlasmaForm')"> A- </button>
-                        <button (click)="setFormValue('B+', 'bloodGroup', 'donorPlasmaForm')"> B+ </button>
-                        <button (click)="setFormValue('B-', 'bloodGroup', 'donorPlasmaForm')"> B- </button>
-                        <button (click)="setFormValue('O+', 'bloodGroup', 'donorPlasmaForm')"> O+ </button>
-                        <button (click)="setFormValue('O-', 'bloodGroup', 'donorPlasmaForm')"> O- </button>
-                        <button (click)="setFormValue('AB+', 'bloodGroup', 'donorPlasmaForm')"> AB+ </button>
-                        <button (click)="setFormValue('AB-', 'bloodGroup', 'donorPlasmaForm')"> AB- </button>
-                        <button (click)="setFormValue('Other', 'bloodGroup', 'donorPlasmaForm')"> Other </button>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="donortype">Pin Code:</label>
+                                <input class="form-control" formControlName="pincode" type="text" placeholder="pincode"
+                                [ngClass]="{ 'is-invalid': submitted && donorPlasmaForm.get('pincode').errors }">
+                                <div *ngIf="submitted && donorPlasmaForm.get('pincode').errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="donorPlasmaForm.get('pincode').errors.required">pincode is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="myAge">My Age(18-60 years only)</label>
-                        <select formControlName="myAge" class="form-control" #distric id='districId'
-                            [ngClass]="{ 'is-invalid': submitted && donorPlasmaForm.get('myAge').errors }">
+                        <label for="bloodgroup">My Blood Group</label>
+                        <div class="d-flex flex-wrap">
+                            <button class="bg-light form-control mr-2 mb-2 w__17" (click)="setFormValue('A+', 'bloodgroup', 'donorPlasmaForm')"> A+ </button>
+                            <button class="bg-light form-control mr-2 mb-2 w__17" (click)="setFormValue('A-', 'bloodgroup', 'donorPlasmaForm')"> A- </button>
+                            <button class="bg-light form-control mr-2 mb-2 w__17" (click)="setFormValue('B+', 'bloodgroup', 'donorPlasmaForm')"> B+ </button>
+                            <button class="bg-light form-control mr-2 mb-2 w__17" (click)="setFormValue('B-', 'bloodgroup', 'donorPlasmaForm')"> B- </button>
+                            <button class="bg-light form-control mr-2 mb-2 w__17" (click)="setFormValue('O+', 'bloodgroup', 'donorPlasmaForm')"> O+ </button>
+                            <button class="bg-light form-control mr-2 mb-2 w__17" (click)="setFormValue('O-', 'bloodgroup', 'donorPlasmaForm')"> O- </button>
+                            <button class="bg-light form-control mr-2 mb-2 w__17" (click)="setFormValue('AB+', 'bloodgroup', 'donorPlasmaForm')"> AB+ </button>
+                            <button class="bg-light form-control mr-2 mb-2 w__17" (click)="setFormValue('AB-', 'bloodgroup', 'donorPlasmaForm')"> AB- </button>
+                            <button class="bg-light form-control mr-2 mb-2 w__17" (click)="setFormValue('Other', 'bloodgroup', 'donorPlasmaForm')"> Other </button>
+                          </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">My Age(18-60 years only)</label>
+                        <select formControlName="age" class="form-control" #distric id='districId'
+                            [ngClass]="{ 'is-invalid': submitted && donorPlasmaForm.get('age').errors }">
                             <option disabled>Select myAge</option>
                             <!-- <option>Select myAge</option> -->
                             <option *ngFor="let myAge of listOfmyAge" [value]="myAge.myAge_id">
                                 {{myAge.myAge_name}}</option>
                         </select>
-                        <div *ngIf="submitted && donorPlasmaForm.get('myAge').errors" class="invalid-feedback">
-                            <div *ngIf="donorPlasmaForm.get('myAge').errors.required">myAge is required.
+                        <div *ngIf="submitted && donorPlasmaForm.get('age').errors" class="invalid-feedback">
+                            <div *ngIf="donorPlasmaForm.get('age').errors.required">my Age is required.
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="">Date of Positive Covid Test</label>
-                        <textarea type="date" name="dateOfTest" class="form-control"
-                            formControlName="dateOfTest"></textarea>
+                        <label for="posdate">Date of Positive Covid Test:</label>
+                        <input type="date" name="posdate" class="form-control"
+                            formControlName="posdate" [ngClass]="{ 'is-invalid': submitted && donorPlasmaForm.get('posdate').errors }"/>
+                            <div *ngIf="submitted && donorPlasmaForm.get('posdate').errors" class="invalid-feedback">
+                                <div *ngIf="donorPlasmaForm.get('posdate').errors.required">posdate is required.
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>
             <div class="d-flex justify-content-between">
                 <button type="button" class="btn btn-primary col-sm-5" (click)="submitNewPlasma()">Done</button>
-                <button type="button" class="btn col-sm-5 ml-2 border" (click)="modalRef.hide()">Cancel</button>
+                <button type="button" class="btn col-sm-5 ml-2 border" (click)="modalRef.hide(); donorPlasmaForm.reset();">Cancel</button>
             </div>
         </form>
     </div>
@@ -1081,7 +1114,7 @@
 <ng-template #newReportPlasmaTemplate>
     <div class="modal-header">
         <h4 class="modal-title pull-left">New Report - Plasma</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide(); newReportPlasmaForm.reset();">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -1092,13 +1125,13 @@
                     <div class="form-group">
                         <label for="">My Name</label>
                         <input type="text" class="form-control" formControlName="name">
-                        <span *ngIf="newReportPlasmaForm.controls.name.errors?.required" class="text-danger"> Name is
+                        <span *ngIf="submitted && newReportPlasmaForm.controls.name.errors?.required" class="text-danger"> Name is
                             required</span>
                     </div>
                     <div class="form-group">
                         <label for="">My Mobile Number</label>
                         <input type="text" class="form-control" formControlName="mobileNo">
-                        <span *ngIf="newReportPlasmaForm.controls.mobileNo.errors?.required" class="text-danger"> Mobile
+                        <span *ngIf="submitted && newReportPlasmaForm.controls.mobileNo.errors?.required" class="text-danger"> Mobile
                             number is
                             required</span>
                     </div>
@@ -1213,7 +1246,7 @@
             </div>
             <div class="d-flex justify-content-between">
                 <button type="button" class="btn btn-primary col-sm-5" (click)="submitnewReportPlasma()">Done</button>
-                <button type="button" class="btn col-sm-5 ml-2 border" (click)="modalRef.hide()">Cancel</button>
+                <button type="button" class="btn col-sm-5 ml-2 border" (click)="modalRef.hide(); newReportPlasmaForm.reset();">Cancel</button>
             </div>
         </form>
     </div>

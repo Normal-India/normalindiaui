@@ -26,7 +26,8 @@ export const HOSPITAL = {
     GethospitaldataUrl: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/gethospitaldata',
     GethospitalbyidUrl: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/gethospitalbyid',
     addReport: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/addreport',
-    updatereport: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/updatereport'
+    updatereport: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/updatereport', 
+    updateinfo: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/updateinfo', 
     // '../../../assets/Data/ts.json'
 }
 
@@ -39,4 +40,8 @@ export const COMPONENTS = {
     getComponentdata: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/getcomponentdata',
     fecthdata: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/fetchdata',
     fetchdatabypin: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/fetchdatabypin'
+}
+
+export const DONOR = {
+    adddonor: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/donoraction/adddonor',
 }

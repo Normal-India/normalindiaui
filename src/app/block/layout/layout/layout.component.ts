@@ -4,7 +4,7 @@ import { HttpMethod } from './../../../core/enums/http-handlers';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { COMPONENTS } from '../../../core/enums/urls';
 
-import { HOSPITAL } from '../../../core/enums/urls';
+import { HOSPITAL, DONOR } from '../../../core/enums/urls';
 import { Router } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -98,14 +98,16 @@ export class LayoutComponent implements OnInit {
 
   newDonorPlasmaForm() {
     this.donorPlasmaForm = this.fb.group({
+      id: [0, [Validators.required]], //
       name: ['', [Validators.required]],
-      mobileNo: ['', [Validators.required]],
+      phonenumber: ['', [Validators.required]], //
       state: ['', [Validators.required]],
-      district: ['', [Validators.required]],
-      pinCode: ['', [Validators.required]],
-      bloodGroup: ['', [Validators.required]],
-      myAge: ['', [Validators.required]],
-      dateOfTest: ['', [Validators.required]],
+      city: ['', [Validators.required]], //
+      donortype: ['', [Validators.required]], //
+      pincode: ['', [Validators.required]], //
+      bloodgroup: ['', [Validators.required]], //
+      age: [''], //
+      posdate: ['', [Validators.required]]
     });
   }
 
@@ -116,7 +118,7 @@ export class LayoutComponent implements OnInit {
       state: ['', [Validators.required]],
       district: ['', [Validators.required]],
       pinCode: ['', [Validators.required]],
-      bloodGroup: ['', [Validators.required]],
+      bloodGroup: ['', [Validators.required]]
     });
   }
 
@@ -139,7 +141,7 @@ export class LayoutComponent implements OnInit {
       abPlus: ['', [Validators.required]],
       abPlusCount: ['', [Validators.required]],
       abMinus: ['', [Validators.required]],
-      abMinusCount: ['', [Validators.required]],
+      abMinusCount: ['', [Validators.required]]
     });
   }
 
@@ -151,7 +153,7 @@ export class LayoutComponent implements OnInit {
       state: ['', [Validators.required]],
       district: ['', [Validators.required]],
       pinCode: ['', [Validators.required]],
-      selectAvailablity: ['', [Validators.required]],
+      selectAvailablity: ['', [Validators.required]]
     });
   }
 
@@ -224,8 +226,6 @@ export class LayoutComponent implements OnInit {
     if (this.form.invalid && (this.selectedMode != 'Plasma' && this.form.get('district').value)) {
       return;
     }
-
-
     if (this.selectedMode != 'Plasma') {
       const params = new HttpParams()
         .set("state", this.listOfStates.find(res => res.state_id == +this.form.get('state').value).state_name)
@@ -292,7 +292,67 @@ export class LayoutComponent implements OnInit {
       }
     }
     this.selectedHospital = hospital;
+    this.submitted = false;
     this.modalRef = this.modalService.show(template, {  backdrop: 'static', keyboard: false, class: 'modal-dialog-width' });
+  }
+
+  openPlasmaReport(template: TemplateRef<any>, data) {
+    this.newReportPlasma();
+    if (data.resources[0].subtypes.length) {
+      for (let h = 0; h < data.resources[0].subtypes.length; h++) {
+        if (data.resources[0].subtypes[h].type === 'A+Ve') {
+          this.newReportPlasmaForm.patchValue({
+            aPlus: data.resources[0].subtypes[h].available ? true : false,
+            aPlusCount: data.resources[0].subtypes[h].current
+          })
+        } else if (data.resources[0].subtypes[h].type === 'B+Ve') {
+          this.newReportPlasmaForm.patchValue({
+            bPlus: data.resources[0].subtypes[h].available ? true : false,
+            bPlusCount: data.resources[0].subtypes[h].current
+          })
+        } else if (data.resources[0].subtypes[h].type === 'A-Ve') {
+          this.newReportPlasmaForm.patchValue({
+            aMinus: data.resources[0].subtypes[h].available ? true : false,
+            aMinusCount: data.resources[0].subtypes[h].current
+          })
+        } else if (data.resources[0].subtypes[h].type === 'B-Ve') {
+          this.newReportPlasmaForm.patchValue({
+            bMinus: data.resources[0].subtypes[h].available ? true : false,
+            bMinusCount: data.resources[0].subtypes[h].current
+          })
+        } else if (data.resources[0].subtypes[h].type === 'O-Ve') {
+          this.newReportPlasmaForm.patchValue({
+            oMinus: data.resources[0].subtypes[h].available ? true : false,
+            oMinusCount: data.resources[0].subtypes[h].current
+          })
+        } else if (data.resources[0].subtypes[h].type === 'O+Ve') {
+          this.newReportPlasmaForm.patchValue({
+            oPlus: data.resources[0].subtypes[h].available ? true : false,
+            oPlusCount: data.resources[0].subtypes[h].current
+          })
+        } else if (data.resources[0].subtypes[h].type === 'AB-Ve') {
+          this.newReportPlasmaForm.patchValue({
+            abMinus: data.resources[0].subtypes[h].available ? true : false,
+            abMinusCount: data.resources[0].subtypes[h].current
+          })
+        } else if (data.resources[0].subtypes[h].type === 'AB+Ve') {
+          this.newReportPlasmaForm.patchValue({
+            abPlus: data.resources[0].subtypes[h].available ? true : false,
+            abPlusCount: data.resources[0].subtypes[h].current
+          })
+        }
+      }
+    }
+    this.submitted = false;
+    this.selectedHospital = data;
+    this.modalRef = this.modalService.show(template, {  backdrop: 'static', keyboard: false, class: 'modal-dialog-width' });
+
+  }
+
+  openDonorPlasma(template) {
+    this.submitted = false;
+    this.modalRef = this.modalService.show(template, {  backdrop: 'static', keyboard: false, class: 'modal-dialog-width' });
+
   }
 
 
@@ -323,6 +383,11 @@ export class LayoutComponent implements OnInit {
       //   this.selectedHospital.resources[0].subtypes[h].current = this.reportForm.get('vaccineCount').value;
       // }
     }
+
+    this.reportUpdate();
+  }
+
+  reportUpdate() {
     this.commonService.commonApiCall(
       `${HOSPITAL.updatereport}/${this.selectedHospital.hospital.hospital_id}`,
       HttpMethod.PUT,
@@ -338,7 +403,6 @@ export class LayoutComponent implements OnInit {
         }
       }
     );
-
   }
 
   setBedType(type) {
@@ -371,6 +435,27 @@ export class LayoutComponent implements OnInit {
   }
 
   submitNewPlasma() {
+    this.submitted = true;
+    if (this.donorPlasmaForm.invalid) {
+      return;
+    }
+    this.commonService.commonApiCall(
+      DONOR.adddonor,
+      HttpMethod.POST,
+      this.donorPlasmaForm.value, (res, statusFlag) => {
+        this.spinner.hide();
+        if (statusFlag) {
+          // if (this.pinForm.get('pinCode').value) {
+          //   this.fetchdatabypin();
+          // } else {
+          //   this.fecthdata();
+          // }
+          this.donorPlasmaForm.reset();
+          this.modalRef.hide();
+        }
+      }
+    );
+
 
   }
 
@@ -379,11 +464,70 @@ export class LayoutComponent implements OnInit {
   }
 
   submitnewReportPlasma() {
+    this.submitted = true;
+    if (this.newReportPlasmaForm.invalid) {
+      return;
+    }
 
+    this.selectedHospital.comments = null
+    //    this.selectedHospital.comments = this.reportForm.get('comment').value;
+    this.selectedHospital.name = this.newReportPlasmaForm.get('name').value;
+    this.selectedHospital.phonenumber = this.newReportPlasmaForm.get('mobileNo').value;
+    if (this.selectedHospital.resources[0].subtypes.length) {
+      for (let h = 0; h < this.selectedHospital.resources[0].subtypes.length; h++) {
+        if (this.selectedHospital.resources[0].subtypes[h].type === 'A+Ve') {
+          this.selectedHospital.resources[0].subtypes[h].available = this.newReportPlasmaForm.get('aPlus').value;
+          this.selectedHospital.resources[0].subtypes[h].current = this.newReportPlasmaForm.get('aPlusCount').value;
+        } else if (this.selectedHospital.resources[0].subtypes[h].type === 'B+Ve') {
+          this.selectedHospital.resources[0].subtypes[h].available = this.newReportPlasmaForm.get('bPlus').value;
+          this.selectedHospital.resources[0].subtypes[h].current = this.newReportPlasmaForm.get('bPlusCount').value;
+        } else if (this.selectedHospital.resources[0].subtypes[h].type === 'A-Ve') {
+          this.selectedHospital.resources[0].subtypes[h].available = this.newReportPlasmaForm.get('aMinus').value;
+          this.selectedHospital.resources[0].subtypes[h].current = this.newReportPlasmaForm.get('aMinusCount').value;
+        } else if (this.selectedHospital.resources[0].subtypes[h].type === 'B-Ve') {
+          this.selectedHospital.resources[0].subtypes[h].available = this.newReportPlasmaForm.get('bMinus').value;
+          this.selectedHospital.resources[0].subtypes[h].current = this.newReportPlasmaForm.get('bMinusCount').value;
+        } else if (this.selectedHospital.resources[0].subtypes[h].type === 'O-Ve') {
+          this.selectedHospital.resources[0].subtypes[h].available = this.newReportPlasmaForm.get('oMinus').value;
+          this.selectedHospital.resources[0].subtypes[h].current = this.newReportPlasmaForm.get('oMinusCount').value;
+        } else if (this.selectedHospital.resources[0].subtypes[h].type === 'O+Ve') {
+          this.selectedHospital.resources[0].subtypes[h].available = this.newReportPlasmaForm.get('oPlus').value;
+          this.selectedHospital.resources[0].subtypes[h].current = this.newReportPlasmaForm.get('oPlusCount').value;
+        } else if (this.selectedHospital.resources[0].subtypes[h].type === 'AB-Ve') {     
+          this.selectedHospital.resources[0].subtypes[h].available = this.newReportPlasmaForm.get('abMinus').value;
+          this.selectedHospital.resources[0].subtypes[h].current = this.newReportPlasmaForm.get('abMinusCount').value;
+        } else if (this.selectedHospital.resources[0].subtypes[h].type === 'AB+Ve') {        
+          this.selectedHospital.resources[0].subtypes[h].available = this.newReportPlasmaForm.get('abPlus').value;
+          this.selectedHospital.resources[0].subtypes[h].current = this.newReportPlasmaForm.get('abPlusCount').value;
+        }
+      }
+    }
+
+    this.reportUpdate();
   }
 
   notifyMyPlasmaSubmit() {
 
+  }
+
+  updateinfo(obj, flag) {
+    flag == 'up' ? obj.upvote = 1 : obj.downvote = 1;
+    this.commonService.commonApiCall(
+      HOSPITAL.updateinfo,
+      HttpMethod.PUT,
+      [obj], (res, statusFlag) => {
+        this.spinner.hide();
+        if (statusFlag) {
+          if (this.pinForm.get('pinCode').value) {
+            this.fetchdatabypin();
+          } else {
+            this.fecthdata();
+          }
+          this.donorPlasmaForm.reset();
+          this.modalRef.hide();
+        }
+      }
+    );
   }
 
 }
