@@ -33,12 +33,14 @@ export class LayoutComponent implements OnInit {
   vaccineReportForm: FormGroup;
   donorPlasmaForm: FormGroup;
   notifyPlasmaForm: FormGroup;
+  notifyBedForm: FormGroup;
   newReportPlasmaForm: FormGroup;
   notifyVaccineForm: FormGroup;
   selectedHospital: any;
 
   filterList = [];
-
+  listOfDonor = ['donor']
+  listOfmyAge = ['18','19','20']
 
   constructor(private commonService: CommonService,
     private spinner: NgxSpinnerService,
@@ -61,6 +63,7 @@ export class LayoutComponent implements OnInit {
     this.vaccineRepForm();
     this.newDonorPlasmaForm();
     this.notifyMyPlasmaForm();
+    this.notifyMyBedForm();
     this.newReportPlasma();
     this.notifyVaccine();
     this.getComponentdata();
@@ -116,16 +119,27 @@ export class LayoutComponent implements OnInit {
       name: ['', [Validators.required]],
       mobileNo: ['', [Validators.required]],
       state: ['', [Validators.required]],
-      district: ['', [Validators.required]],
+      // district: ['', [Validators.required]],
       pinCode: ['', [Validators.required]],
       bloodGroup: ['', [Validators.required]]
+    });
+  }
+
+  notifyMyBedForm() {
+    this.notifyBedForm = this.fb.group({
+      name: ['', [Validators.required]],
+      mobileNo: ['', [Validators.required,Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      state: ['', [Validators.required]],
+      district: ['', [Validators.required]],
+      pinCode: ['', [Validators.required]],
+      selectdeb: ['', [Validators.required]]
     });
   }
 
   newReportPlasma() {
     this.newReportPlasmaForm = this.fb.group({
       name: ['', [Validators.required]],
-      mobileNo: ['', [Validators.required]],
+      mobileNo: ['', [Validators.required,Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       aPlus: ['', [Validators.required]],
       aPlusCount: ['', [Validators.required]],
       aMinus: ['', [Validators.required]],
@@ -149,7 +163,7 @@ export class LayoutComponent implements OnInit {
   notifyVaccine() {
     this.notifyVaccineForm = this.fb.group({
       name: ['', [Validators.required]],
-      mobileNo: ['', [Validators.required]],
+      mobileNo: ['', [Validators.required,Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       state: ['', [Validators.required]],
       district: ['', [Validators.required]],
       pinCode: ['', [Validators.required]],
@@ -355,6 +369,11 @@ export class LayoutComponent implements OnInit {
 
   }
 
+  openNotifyPlasma(template) {
+    this.submitted = false;
+    this.modalRef = this.modalService.show(template, {  backdrop: 'static', keyboard: false, class: 'modal-dialog-width' });
+  }
+
 
   submitReport() {
     this.submitted = true;
@@ -444,12 +463,14 @@ export class LayoutComponent implements OnInit {
       HttpMethod.POST,
       this.donorPlasmaForm.value, (res, statusFlag) => {
         this.spinner.hide();
-        if (statusFlag) {
-          // if (this.pinForm.get('pinCode').value) {
-          //   this.fetchdatabypin();
-          // } else {
-          //   this.fecthdata();
-          // }
+        if (statusFlag) { 
+          this.form.patchValue({
+            state: this.donorPlasmaForm.get('state').value
+          })
+            this.pinForm.patchValue({
+            pinCode: this.donorPlasmaForm.get('pincode').value
+          })  
+          this.fecthdata();
           this.donorPlasmaForm.reset();
           this.modalRef.hide();
         }
@@ -509,13 +530,17 @@ export class LayoutComponent implements OnInit {
   notifyMyPlasmaSubmit() {
 
   }
+  notifyMyBedSubmit(){
+
+  }
 
   updateinfo(obj, flag) {
-    flag == 'up' ? obj.upvote = 1 : obj.downvote = 1;
+    const newObj = JSON.parse(JSON.stringify(obj));
+    flag == 'up' ? newObj['upvote'] = 1 : newObj['downvote'] = 1;
     this.commonService.commonApiCall(
       HOSPITAL.updateinfo,
       HttpMethod.PUT,
-      [obj], (res, statusFlag) => {
+      [newObj], (res, statusFlag) => {
         this.spinner.hide();
         if (statusFlag) {
           if (this.pinForm.get('pinCode').value) {
