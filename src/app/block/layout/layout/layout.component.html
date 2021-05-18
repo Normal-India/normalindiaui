@@ -140,7 +140,7 @@
                                                             </div>
                                                             <div class="card-footer bg-white">
                                                                 <div class="align-self-center text-right">
-                                                                    <a class="btn btn-primary p-2 py-1 mr-1"
+                                                                    <a class="btn btn-primary p-2 py-1 mr-1 text-white"
                                                                         (click)="openModal(reportTemplate, bed)">Report
                                                                         Updates</a>
                                                                     <a class="btn btn-outline-primary p-2 py-1">Notify
@@ -752,7 +752,7 @@
 <div class="footer">
     <footer id="sticky-footer" class="py-2 bg-dark text-white-50">
         <div class="container text-center">
-            <small>Copyright &copy; Your Website</small>
+            <small>Copyright &copy; Truvisory Solutions Pvt. Ltd</small>
         </div>
     </footer>
 </div>
@@ -795,8 +795,14 @@
                             </ul>
                         </div>
                         <div>
-                            <input class="form-control" type="text" name="regularBedCount"
-                                formControlName="regularBedCount">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Regular Bed Count</span>
+                                </div>
+                                <input type="number" class="form-control" placeholder="00" name="regularBedCount"
+                                    formControlName="regularBedCount" aria-label="RegularBedCount" 
+                                    aria-describedby="basic-addon1">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -811,10 +817,17 @@
                             </ul>
                         </div>
                         <div>
-                            <input class="form-control" type="text" name="icuBedCount" formControlName="icuBedCount">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">ICU Bed Count</span>
+                                </div>
+                                <input type="number" class="form-control" placeholder="00" name="icuBedCount"
+                                    formControlName="icuBedCount" aria-label="ICUBedCount" 
+                                    aria-describedby="basic-addon1">
+                            </div>
                         </div>
                     </div>
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                         <label for="">Oxygen Bed</label>
                         <div class="tab-slider--nav">
                             <ul class="tab-slider--tabs">
@@ -827,10 +840,16 @@
                             </ul>
                         </div>
                         <div>
-                            <input class="form-control" type="text" name="oxygenBedCount"
-                                formControlName="oxygenBedCount">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Oxygen Bed Count</span>
+                                </div>
+                                <input type="number" class="form-control" placeholder="00" name="regularBedCount"
+                                    formControlName="oxygenBedCount" aria-label="OxygenBedCount" 
+                                    aria-describedby="basic-addon1">
+                            </div>
                         </div>
-                    </div> -->
+                    </div>
                     <!-- <div class="form-group">
                         <label for="">Vaccine</label>
                         <div class="tab-slider--nav">
@@ -1321,7 +1340,7 @@
                             required</span>
                     </div>
                     <div class="form-group">
-                        <label for="">Blood Group Availablity</label>
+                        <label for=""> A+ Blood Group Availablity</label>
                         <div class="tab-slider--nav">
                             <ul class="tab-slider--tabs">
                                 <li class="tab-slider--trigger" [class.active]="newReportPlasmaForm.get('aPlus').value"
@@ -1331,11 +1350,17 @@
                                     [class.inactive]="!newReportPlasmaForm.get('aPlus').value" rel="notavaliable"
                                     (click)="setFormValue(false, 'aPlus', 'newReportPlasmaForm')">Not Avaliable</li>
                             </ul>
-                            <strong class="m-4"> A+ </strong>
                         </div>
                         <div class="mb-3">
-                            <input class="form-control" type="text" name="aPlusCount" formControlName="aPlusCount">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon1">A+ Count</span>
+                                </div>
+                                <input type="number" class="form-control" placeholder="00" name="aPlusCount" 
+                                    formControlName="aPlusCount" aria-label="apluscount" aria-describedby="bloodtypecount">
+                            </div>
                         </div>
+                        <label for=""> A- Blood Group Availablity</label>
                         <div class="tab-slider--nav">
                             <ul class="tab-slider--tabs">
                                 <li class="tab-slider--trigger" [class.active]="newReportPlasmaForm.get('aMinus').value"
@@ -1345,11 +1370,17 @@
                                     [class.inactive]="!newReportPlasmaForm.get('aMinus').value" rel="notavaliable"
                                     (click)="setFormValue(false, 'aMinus', 'newReportPlasmaForm')">Not Avaliable</li>
                             </ul>
-                            <strong class="m-4"> A- </strong>
                         </div>
                         <div class="mb-3">
-                            <input class="form-control" type="text" name="aMinusCount" formControlName="aMinusCount">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon1">A- Count</span>
+                                </div>
+                                <input type="number" class="form-control" placeholder="00" name="aMinusCount" 
+                                    formControlName="aMinusCount" aria-label="aMinuscount" aria-describedby="bloodtypecount">
+                            </div>
                         </div>
+                        <label for=""> B+ Blood Group Availablity</label>
                         <div class="tab-slider--nav">
                             <ul class="tab-slider--tabs">
                                 <li class="tab-slider--trigger" [class.active]="newReportPlasmaForm.get('bPlus').value"
@@ -1359,11 +1390,17 @@
                                     [class.inactive]="!newReportPlasmaForm.get('bPlus').value" rel="notavaliable"
                                     (click)="setFormValue(false, 'bPlus', 'newReportPlasmaForm')">Not Avaliable</li>
                             </ul>
-                            <strong class="m-4"> B+ </strong>
                         </div>
                         <div class="mb-3">
-                            <input class="form-control" type="text" name="bPlusCount" formControlName="bPlusCount">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon1">B+ Count</span>
+                                </div>
+                                <input type="number" class="form-control" placeholder="00" name="bPlusCount" 
+                                    formControlName="bPlusCount" aria-label="bPluscount" aria-describedby="bloodtypecount">
+                            </div>
                         </div>
+                        <label for=""> B- Blood Group Availablity</label>
                         <div class="tab-slider--nav">
                             <ul class="tab-slider--tabs">
                                 <li class="tab-slider--trigger" [class.active]="newReportPlasmaForm.get('bMinus').value"
@@ -1373,11 +1410,17 @@
                                     [class.inactive]="!newReportPlasmaForm.get('bMinus').value" rel="notavaliable"
                                     (click)="setFormValue(false, 'bMinus', 'newReportPlasmaForm')">Not Avaliable</li>
                             </ul>
-                            <strong class="m-4"> B- </strong>
                         </div>
                         <div class="mb-3">
-                            <input class="form-control" type="text" name="bMinusCount" formControlName="bMinusCount">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon1">B- Count</span>
+                                </div>
+                                <input type="number" class="form-control" placeholder="00" name="aMinusCount" 
+                                    formControlName="bMinusCount" aria-label="bMinuscount" aria-describedby="bloodtypecount">
+                            </div>
                         </div>
+                        <label for=""> O+ Blood Group Availablity</label>
                         <div class="tab-slider--nav">
                             <ul class="tab-slider--tabs">
                                 <li class="tab-slider--trigger" [class.active]="newReportPlasmaForm.get('oPlus').value"
@@ -1387,11 +1430,17 @@
                                     [class.inactive]="!newReportPlasmaForm.get('oPlus').value" rel="notavaliable"
                                     (click)="setFormValue(false, 'oPlus', 'newReportPlasmaForm')">Not Avaliable</li>
                             </ul>
-                            <strong class="m-4"> O+ </strong>
                         </div>
                         <div class="mb-3">
-                            <input class="form-control" type="text" name="oPlusCount" formControlName="oPlusCount">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon1">O+ Count</span>
+                                </div>
+                                <input type="number" class="form-control" placeholder="00" name="oPlusCount" 
+                                    formControlName="oPlusCount" aria-label="oPluscount" aria-describedby="bloodtypecount">
+                            </div>
                         </div>
+                        <label for=""> O- Blood Group Availablity</label>
                         <div class="tab-slider--nav">
                             <ul class="tab-slider--tabs">
                                 <li class="tab-slider--trigger" [class.active]="newReportPlasmaForm.get('oMinus').value"
@@ -1401,11 +1450,17 @@
                                     [class.inactive]="!newReportPlasmaForm.get('oMinus').value" rel="notavaliable"
                                     (click)="setFormValue(false, 'oMinus', 'newReportPlasmaForm')">Not Avaliable</li>
                             </ul>
-                            <strong class="m-4"> O- </strong>
                         </div>
                         <div class="mb-3">
-                            <input class="form-control" type="text" name="oMinusCount" formControlName="oMinusCount">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon1">O- Count</span>
+                                </div>
+                                <input type="number" class="form-control" placeholder="00" name="oMinusCount" 
+                                    formControlName="oMinusCount" aria-label="oMinuscount" aria-describedby="bloodtypecount">
+                            </div>
                         </div>
+                        <label for=""> AB+ Blood Group Availablity</label>
                         <div class="tab-slider--nav">
                             <ul class="tab-slider--tabs">
                                 <li class="tab-slider--trigger" [class.active]="newReportPlasmaForm.get('abPlus').value"
@@ -1415,11 +1470,17 @@
                                     [class.inactive]="!newReportPlasmaForm.get('abPlus').value" rel="notavaliable"
                                     (click)="setFormValue(false, 'abPlus', 'newReportPlasmaForm')">Not Avaliable</li>
                             </ul>
-                            <strong class="m-4"> AB+ </strong>
                         </div>
                         <div class="mb-3">
-                            <input class="form-control" type="text" name="abPlusCount" formControlName="abPlusCount">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon1">AB+ Count</span>
+                                </div>
+                                <input type="number" class="form-control" placeholder="00" name="abPlusCount" 
+                                    formControlName="abPlusCount" aria-label="abPluscount" aria-describedby="bloodtypecount">
+                            </div>
                         </div>
+                        <label for=""> AB- Blood Group Availablity</label>
                         <div class="tab-slider--nav">
                             <ul class="tab-slider--tabs">
                                 <li class="tab-slider--trigger"
@@ -1429,10 +1490,15 @@
                                     [class.inactive]="!newReportPlasmaForm.get('abMinus').value" rel="notavaliable"
                                     (click)="setFormValue(false, 'abMinus', 'newReportPlasmaForm')">Not Avaliable</li>
                             </ul>
-                            <strong class="m-4"> AB- </strong>
                         </div>
                         <div class="mb-3">
-                            <input class="form-control" type="text" name="abMinusCount" formControlName="abMinusCount">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon1">AB- Count</span>
+                                </div>
+                                <input type="number" class="form-control" placeholder="00" name="abMinusCount" 
+                                    formControlName="abMinusCount" aria-label="abMinuscount" aria-describedby="bloodtypecount">
+                            </div>
                         </div>
                     </div>
                 </div>
