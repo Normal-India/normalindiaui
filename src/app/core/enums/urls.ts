@@ -45,3 +45,8 @@ export const COMPONENTS = {
 export const DONOR = {
     adddonor: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/donoraction/adddonor',
 }
+
+export const VACCINE = {
+    getAvailabilityByDistrict: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/vaccine/getAvailabilityByDistrict',
+    getAvailabilityByPin: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/vaccine/getAvailabilityByPin'
+}

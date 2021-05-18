@@ -4,11 +4,12 @@ import { HttpMethod } from './../../../core/enums/http-handlers';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { COMPONENTS } from '../../../core/enums/urls';
 
-import { HOSPITAL, DONOR } from '../../../core/enums/urls';
+import { HOSPITAL, DONOR, VACCINE } from '../../../core/enums/urls';
 import { Router } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-layout',
@@ -40,7 +41,7 @@ export class LayoutComponent implements OnInit {
 
   filterList = [];
   listOfDonor = ['donor']
-  listOfmyAge = ['18','19','20']
+  listOfmyAge = ['18', '19', '20']
 
   constructor(private commonService: CommonService,
     private spinner: NgxSpinnerService,
@@ -53,10 +54,12 @@ export class LayoutComponent implements OnInit {
   ngOnInit(): void {
     this.form = new FormGroup({
       state: new FormControl('', Validators.required),
-      district: new FormControl('')
+      district: new FormControl(''),
+      date: new FormControl(formatDate(new Date(), 'yyyy-MM-dd', 'en'))
     });
     this.pinForm = new FormGroup({
       pinCode: new FormControl('', Validators.required),
+      date: new FormControl(formatDate(new Date(), 'yyyy-MM-dd', 'en')),
     });
 
     this.createReportForm();
@@ -128,7 +131,7 @@ export class LayoutComponent implements OnInit {
   notifyMyBedForm() {
     this.notifyBedForm = this.fb.group({
       name: ['', [Validators.required]],
-      mobileNo: ['', [Validators.required,Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      mobileNo: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       state: ['', [Validators.required]],
       district: ['', [Validators.required]],
       pinCode: ['', [Validators.required]],
@@ -139,7 +142,7 @@ export class LayoutComponent implements OnInit {
   newReportPlasma() {
     this.newReportPlasmaForm = this.fb.group({
       name: ['', [Validators.required]],
-      mobileNo: ['', [Validators.required,Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      mobileNo: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       aPlus: ['', [Validators.required]],
       aPlusCount: ['', [Validators.required]],
       aMinus: ['', [Validators.required]],
@@ -163,7 +166,7 @@ export class LayoutComponent implements OnInit {
   notifyVaccine() {
     this.notifyVaccineForm = this.fb.group({
       name: ['', [Validators.required]],
-      mobileNo: ['', [Validators.required,Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      mobileNo: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       state: ['', [Validators.required]],
       district: ['', [Validators.required]],
       pinCode: ['', [Validators.required]],
@@ -177,11 +180,25 @@ export class LayoutComponent implements OnInit {
     })
   }
 
+  setActive(child) {
+    if(this.selectedMode == 'Vaccine') {
+      return this.selectedChildMode.includes(child) ? true : false;
+    } else {
+      return this.selectedChildMode == child ? true : false;
+    }
+  }
+
 
   setTab() {
     this.submitted = false;
     this.form.reset();
     this.pinForm.reset();
+    this.form.patchValue({
+      date: formatDate(new Date(), 'yyyy-MM-dd', 'en')
+    })
+    this.pinForm.patchValue({
+      date: formatDate(new Date(), 'yyyy-MM-dd', 'en')
+    })
     this.filterList = [];
     this.selectedHospital = null;
   }
@@ -237,10 +254,18 @@ export class LayoutComponent implements OnInit {
 
   fecthdata() {
     this.submitted = true;
-    if (this.form.invalid && (this.selectedMode != 'Plasma' && this.form.get('district').value)) {
+    if ((this.form.invalid && (this.selectedMode != 'Plasma' && this.form.get('district').value)) ||
+      (this.form.invalid && (this.selectedMode == 'Vaccine' && this.form.get('date').value))) {
       return;
     }
-    if (this.selectedMode != 'Plasma') {
+    if (this.selectedMode == 'Vaccine') {
+      const params = new HttpParams()
+        .set("type", this.selectedMode)
+        .set("subtype", this.selectedChildMode)
+        .set("district", this.listOfDistrict.find(res => res.district_id == +this.form.get('district').value).district_name)
+        .set("date", this.form.get('date').value)
+      this.commonCode(VACCINE.getAvailabilityByDistrict + '?' + params);
+    } else if (this.selectedMode != 'Plasma') {
       const params = new HttpParams()
         .set("state", this.listOfStates.find(res => res.state_id == +this.form.get('state').value).state_name)
         .set("type", this.selectedMode)
@@ -271,14 +296,25 @@ export class LayoutComponent implements OnInit {
 
   fetchdatabypin() {
     this.submitted = true;
-    if (this.pinForm.invalid) {
+    if (this.pinForm.invalid && (this.selectedMode == 'Vaccine' && this.pinForm.get('date').value)) {
       return;
     }
-    const params = new HttpParams()
-      .set("pincode", this.pinForm.get('pinCode').value)
-      .set("type", this.selectedMode)
-      .set("subtype", this.selectedChildMode)
-    this.commonCode(COMPONENTS.fetchdatabypin + '?' + params);
+    if (this.selectedMode == 'Vaccine') {
+      const params = new HttpParams()
+        .set("type", this.selectedMode)
+        .set("subtype", this.selectedChildMode)
+        .set("pincode", this.pinForm.get('pinCode').value)
+        .set("date", this.pinForm.get('date').value)
+      this.commonCode(VACCINE.getAvailabilityByPin + '?' + params);
+    } else {
+      const params = new HttpParams()
+        .set("pincode", this.pinForm.get('pinCode').value)
+        .set("type", this.selectedMode)
+        .set("subtype", this.selectedChildMode)
+      this.commonCode(COMPONENTS.fetchdatabypin + '?' + params);
+    }
+
+
   }
 
   openModal(template: TemplateRef<any>, hospital) {
@@ -289,11 +325,11 @@ export class LayoutComponent implements OnInit {
           this.reportForm.patchValue({
             regularBed: hospital.resources[0].subtypes[h].available ? true : false
           })
-        // } 
-        // else if (hospital.resources[0].subtypes[h].type === 'Oxygen') {
-        //   this.reportForm.patchValue({
-        //     oxygenBed: hospital.resources[0].subtypes[h].available ? true : false
-        //   })
+          // } 
+          // else if (hospital.resources[0].subtypes[h].type === 'Oxygen') {
+          //   this.reportForm.patchValue({
+          //     oxygenBed: hospital.resources[0].subtypes[h].available ? true : false
+          //   })
         } else if (hospital.resources[0].subtypes[h].type === 'ICU') {
           this.reportForm.patchValue({
             icuBed: hospital.resources[0].subtypes[h].available ? true : false
@@ -307,7 +343,7 @@ export class LayoutComponent implements OnInit {
     }
     this.selectedHospital = hospital;
     this.submitted = false;
-    this.modalRef = this.modalService.show(template, {  backdrop: 'static', keyboard: false, class: 'modal-dialog-width' });
+    this.modalRef = this.modalService.show(template, { backdrop: 'static', keyboard: false, class: 'modal-dialog-width' });
   }
 
   openPlasmaReport(template: TemplateRef<any>, data) {
@@ -359,19 +395,19 @@ export class LayoutComponent implements OnInit {
     }
     this.submitted = false;
     this.selectedHospital = data;
-    this.modalRef = this.modalService.show(template, {  backdrop: 'static', keyboard: false, class: 'modal-dialog-width' });
+    this.modalRef = this.modalService.show(template, { backdrop: 'static', keyboard: false, class: 'modal-dialog-width' });
 
   }
 
   openDonorPlasma(template) {
     this.submitted = false;
-    this.modalRef = this.modalService.show(template, {  backdrop: 'static', keyboard: false, class: 'modal-dialog-width' });
+    this.modalRef = this.modalService.show(template, { backdrop: 'static', keyboard: false, class: 'modal-dialog-width' });
 
   }
 
   openNotifyPlasma(template) {
     this.submitted = false;
-    this.modalRef = this.modalService.show(template, {  backdrop: 'static', keyboard: false, class: 'modal-dialog-width' });
+    this.modalRef = this.modalService.show(template, { backdrop: 'static', keyboard: false, class: 'modal-dialog-width' });
   }
 
 
@@ -436,17 +472,27 @@ export class LayoutComponent implements OnInit {
   }
 
   childList(child) {
-      this.filterList = [];
-      this.selectedMode = child;
-      this.childLists = [];
-      this.childLists = this.listOfComponents.find(res => res.componentname === child).componentvalues;
-      if (this.childLists.length) {
-        this.selectedChildMode = this.childLists[0];
-      }
+    this.filterList = [];
+    this.selectedMode = child;
+    this.childLists = [];
+    this.childLists = this.listOfComponents.find(res => res.componentname === child).componentvalues;
+    if (this.childLists.length) {
+      this.selectedChildMode = this.childLists[0];
+    }
   }
 
   selectedChild(data) {
-    this.selectedChildMode = data;
+    if (this.selectedMode == 'Vaccine') {
+      if (data == 'All') {
+        this.selectedChildMode = 'All';
+      } else {
+        let list = this.selectedChildMode.split(',');
+        list = list.filter(res => res != 'All');
+        this.selectedChildMode = !list.some(resp => resp == data) ? data + ',' + list.join() : list.join();
+      }
+    } else {
+      this.selectedChildMode = data;
+    }
   }
 
   submitVaccineReport() {
@@ -463,13 +509,13 @@ export class LayoutComponent implements OnInit {
       HttpMethod.POST,
       this.donorPlasmaForm.value, (res, statusFlag) => {
         this.spinner.hide();
-        if (statusFlag) { 
+        if (statusFlag) {
           this.form.patchValue({
             state: this.donorPlasmaForm.get('state').value
           })
-            this.pinForm.patchValue({
+          this.pinForm.patchValue({
             pinCode: this.donorPlasmaForm.get('pincode').value
-          })  
+          })
           this.fecthdata();
           this.donorPlasmaForm.reset();
           this.modalRef.hide();
@@ -514,10 +560,10 @@ export class LayoutComponent implements OnInit {
         } else if (this.selectedHospital.resources[0].subtypes[h].type === 'O+Ve') {
           this.selectedHospital.resources[0].subtypes[h].available = this.newReportPlasmaForm.get('oPlus').value;
           this.selectedHospital.resources[0].subtypes[h].current = this.newReportPlasmaForm.get('oPlusCount').value;
-        } else if (this.selectedHospital.resources[0].subtypes[h].type === 'AB-Ve') {     
+        } else if (this.selectedHospital.resources[0].subtypes[h].type === 'AB-Ve') {
           this.selectedHospital.resources[0].subtypes[h].available = this.newReportPlasmaForm.get('abMinus').value;
           this.selectedHospital.resources[0].subtypes[h].current = this.newReportPlasmaForm.get('abMinusCount').value;
-        } else if (this.selectedHospital.resources[0].subtypes[h].type === 'AB+Ve') {        
+        } else if (this.selectedHospital.resources[0].subtypes[h].type === 'AB+Ve') {
           this.selectedHospital.resources[0].subtypes[h].available = this.newReportPlasmaForm.get('abPlus').value;
           this.selectedHospital.resources[0].subtypes[h].current = this.newReportPlasmaForm.get('abPlusCount').value;
         }
@@ -530,7 +576,7 @@ export class LayoutComponent implements OnInit {
   notifyMyPlasmaSubmit() {
 
   }
-  notifyMyBedSubmit(){
+  notifyMyBedSubmit() {
 
   }
 
