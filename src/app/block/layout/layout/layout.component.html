@@ -184,13 +184,20 @@
                                                                                     class="d-block">103</span></span>
                                                                         </div> -->
                                                                     </div>
-                                                                    <div class="col-md-3 align-self-center"
+                                                                    <div *ngFor="let sub of bed.resources[0].subtypes" class="bed-details col-auto mt-3 pl-0">
+                                                                        <span *ngIf="sub.type">
+                                                                            <span class="options"
+                                                                                [ngClass]="sub.current ? 'aval' : 'not-aval'"><strong>{{sub.type}}</strong>
+                                                                                {{ sub.current}}</span>
+                                                                        </span>
+                                                                    </div>
+                                                                    <!-- <div class="col-md-3 align-self-center"
                                                                         *ngFor="let sub of bed.resources[0].subtypes">
                                                                         <div class="bed-details" *ngIf="sub.type">
                                                                             <span class="options"
                                                                                 [ngClass]="sub.current ? 'aval' : 'not-aval'"><strong>{{sub.type}}</strong>
                                                                                 {{ sub.current}}</span>
-                                                                        </div>
+                                                                        </div> -->
                                                                         <!-- <div
                                                                             class="comments d-flex mt-1 ml-4 align-self-center">
                                                                             <span class="like mr-1"
@@ -204,15 +211,15 @@
                                                                                     class="d-block">{{ sub.downvote ?
                                                                                     sub.downvote : '0' }}</span></span>
                                                                         </div> -->
-                                                                    </div>
+                                                                    <!-- </div> -->
                                                                 </div>
                                                             </div>
                                                             <div class="card-footer bg-white">
                                                                 <div class="align-self-center text-right">
-                                                                    <a class="btn btn-primary p-2 py-1 mr-1"
+                                                                    <a class="btn btn-primary p-2 py-1 mr-1 text-white"
                                                                         (click)="openPlasmaReport(newReportPlasmaTemplate, bed)">Report</a>
-                                                                    <a
-                                                                        class="btn btn-outline-primary p-2 py-1 mr-1">Restructions</a>
+                                                                    <!-- <a
+                                                                        class="btn btn-outline-primary p-2 py-1 mr-1">Restructions</a> -->
                                                                     <a class="btn btn-outline-primary p-2 py-1 "
                                                                         (click)="openNotifyPlasma(notifyPlasmaTemplate, bed)">Notify
                                                                         Me</a>
