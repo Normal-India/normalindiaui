@@ -42,6 +42,7 @@ export class LayoutComponent implements OnInit {
   filterList = [];
   listOfDonor = ['donor']
   listOfmyAge = ['18', '19', '20']
+  phoneNumber = "^((\\+91-?)|0)?[0-9]{10}$";
 
   constructor(private commonService: CommonService,
     private spinner: NgxSpinnerService,
@@ -76,7 +77,7 @@ export class LayoutComponent implements OnInit {
   createReportForm() {
     this.reportForm = this.fb.group({
       name: ['', [Validators.required]],
-      phonenumber: ['', [Validators.required]],
+      phonenumber: ['', [Validators.required, Validators.pattern(this.phoneNumber)]],
       regularBed: [false, [Validators.required]],
       icuBed: [false, [Validators.required]],
       //oxygenBed: [false, [Validators.required]],
@@ -92,7 +93,7 @@ export class LayoutComponent implements OnInit {
   vaccineRepForm() {
     this.vaccineReportForm = this.fb.group({
       name: ['', [Validators.required]],
-      mobileNo: ['', [Validators.required]],
+      mobileNo: ['', [Validators.required, Validators.pattern(this.phoneNumber)]],
       vaccineAvailablity: [false, [Validators.required]],
       vaccineAvailablityCount: [false, [Validators.required]],
       forthyFivePlus: [false, [Validators.required]],
@@ -106,7 +107,7 @@ export class LayoutComponent implements OnInit {
     this.donorPlasmaForm = this.fb.group({
       id: [0, [Validators.required]], //
       name: ['', [Validators.required]],
-      phonenumber: ['', [Validators.required]], //
+      phonenumber: ['', [Validators.required, Validators.pattern(this.phoneNumber)]], //
       state: ['', [Validators.required]],
       city: ['', [Validators.required]], //
       donortype: ['', [Validators.required]], //
@@ -120,7 +121,7 @@ export class LayoutComponent implements OnInit {
   notifyMyPlasmaForm() {
     this.notifyPlasmaForm = this.fb.group({
       name: ['', [Validators.required]],
-      mobileNo: ['', [Validators.required]],
+      mobileNo: ['', [Validators.required, Validators.pattern(this.phoneNumber)]],
       state: ['', [Validators.required]],
       // district: ['', [Validators.required]],
       pinCode: ['', [Validators.required]],
@@ -131,7 +132,7 @@ export class LayoutComponent implements OnInit {
   notifyMyBedForm() {
     this.notifyBedForm = this.fb.group({
       name: ['', [Validators.required]],
-      mobileNo: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      mobileNo: ['', [Validators.required, Validators.pattern(this.phoneNumber)]],
       state: ['', [Validators.required]],
       district: ['', [Validators.required]],
       pinCode: ['', [Validators.required]],
@@ -142,7 +143,7 @@ export class LayoutComponent implements OnInit {
   newReportPlasma() {
     this.newReportPlasmaForm = this.fb.group({
       name: ['', [Validators.required]],
-      mobileNo: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      mobileNo: ['', [Validators.required,Validators.pattern(this.phoneNumber)]],
       aPlus: ['', [Validators.required]],
       aPlusCount: ['', [Validators.required]],
       aMinus: ['', [Validators.required]],
@@ -166,7 +167,7 @@ export class LayoutComponent implements OnInit {
   notifyVaccine() {
     this.notifyVaccineForm = this.fb.group({
       name: ['', [Validators.required]],
-      mobileNo: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      mobileNo: ['', [Validators.required, Validators.pattern(this.phoneNumber)]],
       state: ['', [Validators.required]],
       district: ['', [Validators.required]],
       pinCode: ['', [Validators.required]],
@@ -488,7 +489,12 @@ export class LayoutComponent implements OnInit {
       } else {
         let list = this.selectedChildMode.split(',');
         list = list.filter(res => res != 'All');
-        this.selectedChildMode = !list.some(resp => resp == data) ? data + ',' + list.join() : list.join();
+        if(list.some(resp => resp == data)) {
+          const str = list.filter(res => res != data);
+          this.selectedChildMode = str.join();
+        } else {
+          this.selectedChildMode = list.length ? data + ',' + list.join() : data
+        }
       }
     } else {
       this.selectedChildMode = data;

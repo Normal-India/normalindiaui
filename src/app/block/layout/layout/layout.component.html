@@ -186,9 +186,9 @@
                                                                     </div>
                                                                     <div class="col-md-3 align-self-center"
                                                                         *ngFor="let sub of bed.resources[0].subtypes">
-                                                                        <div class="bed-details">
-                                                                            <span class="options aval"
-                                                                                [ngClass]="sub.current > 0 ? 'aval' : 'not-aval'"><strong>{{sub.type}}</strong>
+                                                                        <div class="bed-details" *ngIf="sub.type">
+                                                                            <span class="options"
+                                                                                [ngClass]="sub.current ? 'aval' : 'not-aval'"><strong>{{sub.type}}</strong>
                                                                                 {{ sub.current}}</span>
                                                                         </div>
                                                                         <!-- <div
@@ -579,9 +579,9 @@
                                                                     </div>
                                                                     <div class="col-md-3 align-self-center"
                                                                         *ngFor="let sub of bed.resources[0].subtypes">
-                                                                        <div class="bed-details">
-                                                                            <span class="options aval"
-                                                                                [ngClass]="sub.current > 0 ? 'aval' : 'not-aval'"><strong>{{sub.type}}</strong>
+                                                                        <div class="bed-details" *ngIf="sub.type">
+                                                                            <span class="options"
+                                                                                [ngClass]="sub.current ? 'aval' : 'not-aval'"><strong>{{sub.type}}</strong>
                                                                                 {{ sub.current}}</span>
                                                                         </div>
                                                                         <!-- <div class="comments d-flex mt-1 ml-4 align-self-center">
