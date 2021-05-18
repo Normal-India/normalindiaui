@@ -1,8 +1,11 @@
 <div id="wrapper">
     <div id="page-content-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
             <div class="container-fluid">
-                <a class="navbar-brand">Normal India</a>
+                <a class="navbar-brand text-primary fw-bold">
+                    <img src="../../../../assets/Images/logo-circle.svg" width="40" height="40" class="d-inline-block align-top" alt="">
+                    <span class="ml-2 align-middle">Normal India</span>
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span
                         class="navbar-toggler-icon"></span></button>
@@ -64,7 +67,7 @@
                                     <div class="row">
                                         <div class="col-md-4 text-left">
                                             <label for="pinCode" class="mb-1">Pin Code</label>
-                                            <input class="form-control" formControlName="pinCode" type="text">
+                                            <input class="form-control mb-2" formControlName="pinCode" type="text">
                                             <div *ngIf="submitted && pinForm.get('pinCode').errors"
                                                 class="invalid-feedback">
                                                 <div *ngIf="pinForm.get('pinCode').errors.required">Pincode is required.
@@ -80,13 +83,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm searchtn col-auto d-flex align-items-end">
+                                        <div class="col-sm searchtn col-auto d-flex align-items-end mb-2">
                                             <button class="btn btn-primary" (click)="fetchdatabypin()">Search</button>
                                         </div>
-                                        <div *ngIf="selectedMode == 'Plasma'" class="d-flex justify-content-end col">
+                                        <span *ngIf="selectedMode == 'Plasma'" class="d-flex justify-content-end col">
                                             <button class="btn btn-primary" type="submit"
                                                 (click)="openDonorPlasma(donorPlasmaTemplate)">Add Donor</button>
-                                        </div>
+                                        </span>
                                     </div>
                                 </form>
                                 <div class="row">
@@ -757,7 +760,7 @@
     </div>
 </div>
 <div class="footer">
-    <footer id="sticky-footer" class="py-2 bg-dark text-white-50">
+    <footer id="sticky-footer" class="py-2 bg-light text-dark-50">
         <div class="container text-center">
             <small>Copyright &copy; Truvisory Solutions Pvt. Ltd</small>
         </div>
@@ -1003,7 +1006,7 @@
                                 </div>
                             </div>
                             <div class="col-6 text-start">
-                                <label for="city">city:</label>
+                                <label for="city">City:</label>
                                 <input class="form-control" formControlName="city" type="text" placeholder="city"
                                     [ngClass]="{ 'is-invalid': submitted && donorPlasmaForm.get('city').errors }">
                                 <div *ngIf="submitted && donorPlasmaForm.get('city').errors" class="invalid-feedback">
