@@ -1,7 +1,7 @@
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonService } from '../../../core/service/common.service';
 import { HttpMethod } from './../../../core/enums/http-handlers';
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { COMPONENTS } from '../../../core/enums/urls';
 
 import { HOSPITAL, DONOR, VACCINE } from '../../../core/enums/urls';
@@ -10,6 +10,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
+import { AngularFireMessaging } from '@angular/fire/messaging';
+import { listChanges } from '@angular/fire/database';
 
 @Component({
   selector: 'app-layout',
@@ -17,6 +19,11 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
+
+  @ViewChild('notifyPlasmaTemplate') notifyPlasmaTemplate;
+  @ViewChild('notifyBedTemplate') notifyBedTemplate;
+  @ViewChild('notifyVaccineTemplate') notifyVaccineTemplate;
+
 
   params: HttpParams;
   listOfComponents = [];
@@ -43,14 +50,27 @@ export class LayoutComponent implements OnInit {
   listOfDonor = ['donor']
   listOfmyAge = ['18', '19', '20']
   phoneNumber = "^((\\+91-?)|0)?[0-9]{10}$";
+  message: any;
+  token: any;
 
   constructor(private commonService: CommonService,
     private spinner: NgxSpinnerService,
     private http: HttpClient,
     private router: Router,
     private fb: FormBuilder,
+    private angularFireMessaging: AngularFireMessaging,
     private modalService: BsModalService
-  ) { }
+  ) {
+    this.angularFireMessaging.requestToken.subscribe(
+      (token) => {
+        if (token) {
+          this.token = {
+            token: token
+          }
+        }
+      }
+    )
+  }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -63,13 +83,18 @@ export class LayoutComponent implements OnInit {
       date: new FormControl(formatDate(new Date(), 'yyyy-MM-dd', 'en')),
     });
 
+    this.commonService.requestPermission();
+    this.commonService.receiveMessage;
+    this.message = this.commonService.currentMessage;
+
+
+    this.notifyMyPlasmaForm();
+    this.notifyMyBedForm();
+    this.notifyVaccine();
     this.createReportForm();
     this.vaccineRepForm();
     this.newDonorPlasmaForm();
-    this.notifyMyPlasmaForm();
-    this.notifyMyBedForm();
     this.newReportPlasma();
-    this.notifyVaccine();
     this.getComponentdata();
     this.getStates();
   }
@@ -80,11 +105,11 @@ export class LayoutComponent implements OnInit {
       phonenumber: ['', [Validators.required, Validators.pattern(this.phoneNumber)]],
       regularBed: [false, [Validators.required]],
       icuBed: [false, [Validators.required]],
-      //oxygenBed: [false, [Validators.required]],
+      oxygenBed: [false, [Validators.required]],
       // vaccine: [false, [Validators.required]],
       regularBedCount: ['', [Validators.required]],
       icuBedCount: ['', [Validators.required]],
-      //oxygenBedCount: ['', [Validators.required]],
+      oxygenBedCount: ['', [Validators.required]],
       // vaccineCount: ['', [Validators.required]],
       comment: ['']
     });
@@ -121,29 +146,43 @@ export class LayoutComponent implements OnInit {
   notifyMyPlasmaForm() {
     this.notifyPlasmaForm = this.fb.group({
       name: ['', [Validators.required]],
-      mobileNo: ['', [Validators.required, Validators.pattern(this.phoneNumber)]],
+      phonenumber: ['', [Validators.required, Validators.pattern(this.phoneNumber)]],
       state: ['', [Validators.required]],
-      // district: ['', [Validators.required]],
-      pinCode: ['', [Validators.required]],
-      bloodGroup: ['', [Validators.required]]
+      city: ['', [Validators.required]],
+      pincode: ['', [Validators.required]],
+      token: [null, [Validators.required]],
+      values: [[], [Validators.required]]
     });
   }
 
   notifyMyBedForm() {
     this.notifyBedForm = this.fb.group({
       name: ['', [Validators.required]],
-      mobileNo: ['', [Validators.required, Validators.pattern(this.phoneNumber)]],
+      phonenumber: ['', [Validators.required, Validators.pattern(this.phoneNumber)]],
       state: ['', [Validators.required]],
-      district: ['', [Validators.required]],
-      pinCode: ['', [Validators.required]],
-      selectdeb: ['', [Validators.required]]
+      city: ['', [Validators.required]],
+      pincode: ['', [Validators.required]],
+      token: [null, [Validators.required]],
+      values: [[], [Validators.required]]
+    });
+  }
+
+  notifyVaccine() {
+    this.notifyVaccineForm = this.fb.group({
+      name: ['', [Validators.required]],
+      phonenumber: ['', [Validators.required, Validators.pattern(this.phoneNumber)]],
+      state: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      pincode: ['', [Validators.required]],
+      token: [null, [Validators.required]],
+      values: [[], [Validators.required]]
     });
   }
 
   newReportPlasma() {
     this.newReportPlasmaForm = this.fb.group({
       name: ['', [Validators.required]],
-      mobileNo: ['', [Validators.required,Validators.pattern(this.phoneNumber)]],
+      mobileNo: ['', [Validators.required, Validators.pattern(this.phoneNumber)]],
       aPlus: ['', [Validators.required]],
       aPlusCount: ['', [Validators.required]],
       aMinus: ['', [Validators.required]],
@@ -164,25 +203,31 @@ export class LayoutComponent implements OnInit {
   }
 
 
-  notifyVaccine() {
-    this.notifyVaccineForm = this.fb.group({
-      name: ['', [Validators.required]],
-      mobileNo: ['', [Validators.required, Validators.pattern(this.phoneNumber)]],
-      state: ['', [Validators.required]],
-      district: ['', [Validators.required]],
-      pinCode: ['', [Validators.required]],
-      selectAvailablity: ['', [Validators.required]]
-    });
-  }
-
   setFormValue(value, key, form) {
     this[form].patchValue({
       [key]: value
     })
   }
 
+
+  setNotifyFormValue(value, key, form) {
+    let values = this[form].get(key).value;
+    if (values.some(res => res == value)) {
+      values = values.filter(resp => resp != value);
+    } else {
+      values.push(value)
+    }
+    this[form].patchValue({
+      [key]: values
+    })
+  }
+
+  setNotifyClass(list, value) {
+    return list.some(res => res.includes(value))
+  }
+
   setActive(child) {
-    if(this.selectedMode == 'Vaccine') {
+    if (this.selectedMode == 'Vaccine') {
       return this.selectedChildMode.includes(child) ? true : false;
     } else {
       return this.selectedChildMode == child ? true : false;
@@ -261,11 +306,12 @@ export class LayoutComponent implements OnInit {
     }
     if (this.selectedMode == 'Vaccine') {
       const params = new HttpParams()
-        .set("type", this.selectedMode)
-        .set("subtype", this.selectedChildMode)
-        .set("district", this.listOfDistrict.find(res => res.district_id == +this.form.get('district').value).district_name)
-        .set("date", this.form.get('date').value)
-      this.commonCode(VACCINE.getAvailabilityByDistrict + '?' + params);
+        .set("districtId", this.form.get('district').value)
+        .set("date", formatDate(this.form.get('date').value, 'dd-MM-yyyy', 'en'))
+        .set("feetype", this.setValues(['Paid', 'Free']))
+        .set("vaccinetype", this.setValues(['Covaxin', 'Covishield']))
+        .set("agelimit", this.setValues(['45+', '18-44']))
+      this.commonCode(VACCINE.getAvailabilityByDistrict + '?' + params, 'centers');
     } else if (this.selectedMode != 'Plasma') {
       const params = new HttpParams()
         .set("state", this.listOfStates.find(res => res.state_id == +this.form.get('state').value).state_name)
@@ -282,14 +328,14 @@ export class LayoutComponent implements OnInit {
     }
   }
 
-  commonCode(url) {
+  commonCode(url, key?) {
     this.commonService.commonApiCall(
       url,
       HttpMethod.GET,
       null, (res, statusFlag) => {
         this.spinner.hide();
         if (statusFlag) {
-          this.filterList = res;
+          this.filterList = key ? res[key] : res;
         }
       }
     );
@@ -302,11 +348,12 @@ export class LayoutComponent implements OnInit {
     }
     if (this.selectedMode == 'Vaccine') {
       const params = new HttpParams()
-        .set("type", this.selectedMode)
-        .set("subtype", this.selectedChildMode)
         .set("pincode", this.pinForm.get('pinCode').value)
-        .set("date", this.pinForm.get('date').value)
-      this.commonCode(VACCINE.getAvailabilityByPin + '?' + params);
+        .set("date", formatDate(this.pinForm.get('date').value, 'dd-MM-yyyy', 'en'))
+        .set("feetype", this.setValues(['Paid', 'Free']))
+        .set("vaccinetype", this.setValues(['Covaxin', 'Covishield']))
+        .set("agelimit", this.setValues(['45+', '18-44']))
+      this.commonCode(VACCINE.getAvailabilityByPin + '?' + params, 'centers');
     } else {
       const params = new HttpParams()
         .set("pincode", this.pinForm.get('pinCode').value)
@@ -318,6 +365,12 @@ export class LayoutComponent implements OnInit {
 
   }
 
+  setValues(list) {
+    let str = [];
+    list.forEach(el => this.selectedChildMode.includes(el) ? str.push(el) : null);
+    return str.join(',');
+  }
+
   openModal(template: TemplateRef<any>, hospital) {
     this.createReportForm();
     if (hospital.resources[0].subtypes.length) {
@@ -326,11 +379,10 @@ export class LayoutComponent implements OnInit {
           this.reportForm.patchValue({
             regularBed: hospital.resources[0].subtypes[h].available ? true : false
           })
-          // } 
-          // else if (hospital.resources[0].subtypes[h].type === 'Oxygen') {
-          //   this.reportForm.patchValue({
-          //     oxygenBed: hospital.resources[0].subtypes[h].available ? true : false
-          //   })
+        } else if (hospital.resources[0].subtypes[h].type === 'Oxygen') {
+          this.reportForm.patchValue({
+            oxygenBed: hospital.resources[0].subtypes[h].available ? true : false
+          })
         } else if (hospital.resources[0].subtypes[h].type === 'ICU') {
           this.reportForm.patchValue({
             icuBed: hospital.resources[0].subtypes[h].available ? true : false
@@ -411,6 +463,17 @@ export class LayoutComponent implements OnInit {
     this.modalRef = this.modalService.show(template, { backdrop: 'static', keyboard: false, class: 'modal-dialog-width' });
   }
 
+  openNotifyMe() {
+    this.submitted = false;
+    if (this.selectedMode == 'Bed') {
+      this.modalRef = this.modalService.show(this.notifyBedTemplate, { backdrop: 'static', keyboard: false, class: 'modal-dialog-width' });
+    } else if (this.selectedMode == 'Vaccine') {
+      this.modalRef = this.modalService.show(this.notifyVaccineTemplate, { backdrop: 'static', keyboard: false, class: 'modal-dialog-width' });
+    } else if (this.selectedMode == 'Plasma') {
+      this.modalRef = this.modalService.show(this.notifyPlasmaTemplate, { backdrop: 'static', keyboard: false, class: 'modal-dialog-width' });
+    }
+  }
+
 
   submitReport() {
     this.submitted = true;
@@ -426,10 +489,10 @@ export class LayoutComponent implements OnInit {
         this.selectedHospital.resources[0].subtypes[h].available = this.reportForm.get('regularBed').value;
         this.selectedHospital.resources[0].subtypes[h].current = this.reportForm.get('regularBedCount').value;
       }
-      // else if (this.selectedHospital.resources[0].subtypes[h].type === 'Oxygen') {
-      //   this.selectedHospital.resources[0].subtypes[h].available = this.reportForm.get('oxygenBed').value;
-      //   this.selectedHospital.resources[0].subtypes[h].current = this.reportForm.get('oxygenBedCount').value;
-      // } 
+      else if (this.selectedHospital.resources[0].subtypes[h].type === 'Oxygen') {
+        this.selectedHospital.resources[0].subtypes[h].available = this.reportForm.get('oxygenBed').value;
+        this.selectedHospital.resources[0].subtypes[h].current = this.reportForm.get('oxygenBedCount').value;
+      }
       else if (this.selectedHospital.resources[0].subtypes[h].type === 'ICU') {
         this.selectedHospital.resources[0].subtypes[h].available = this.reportForm.get('icuBed').value;
         this.selectedHospital.resources[0].subtypes[h].current = this.reportForm.get('icuBedCount').value;
@@ -467,7 +530,7 @@ export class LayoutComponent implements OnInit {
         return 'Regular Bed';
       case 'ICU':
         return 'ICU Bed';
-      case 'Oxigen':
+      case 'Oxygen':
         return 'Oxigen Bed';
     }
   }
@@ -489,7 +552,7 @@ export class LayoutComponent implements OnInit {
       } else {
         let list = this.selectedChildMode.split(',');
         list = list.filter(res => res != 'All');
-        if(list.some(resp => resp == data)) {
+        if (list.some(resp => resp == data)) {
           const str = list.filter(res => res != data);
           this.selectedChildMode = str.join();
         } else {
@@ -532,9 +595,6 @@ export class LayoutComponent implements OnInit {
 
   }
 
-  notifyMySubmit() {
-
-  }
 
   submitnewReportPlasma() {
     this.submitted = true;
@@ -579,11 +639,53 @@ export class LayoutComponent implements OnInit {
     this.reportUpdate();
   }
 
-  notifyMyPlasmaSubmit() {
-
-  }
-  notifyMyBedSubmit() {
-
+  notifySubmit() {
+    this.submitted = true
+    let value;
+    if (this.selectedMode == 'Bed') {
+      this.notifyBedForm.patchValue({
+        token: this.token,
+        state: this.listOfStates.find(res => res.state_id == +this.notifyBedForm.get('state').value).state_name,
+        city: this.listOfDistrict.find(res => res.district_id == +this.notifyBedForm.get('city').value).district_name
+      })
+      if (this.notifyBedForm.invalid) {
+        return;
+      }
+      value = this.notifyBedForm.value
+    } else if (this.selectedMode == 'Vaccine') {
+      this.notifyVaccineForm.patchValue({
+        state: this.listOfStates.find(res => res.state_id == +this.notifyVaccineForm.get('state').value).state_name,
+        city: this.listOfDistrict.find(res => res.district_id == +this.notifyVaccineForm.get('city').value).district_name,
+        token: this.token
+      })
+      if (this.notifyVaccineForm.invalid) {
+        return;
+      }
+      value = this.notifyVaccineForm.value
+    } else if (this.selectedMode == 'Plasma') {
+      this.notifyPlasmaForm.patchValue({
+        state: this.listOfStates.find(res => res.state_id == +this.notifyPlasmaForm.get('state').value).state_name,
+        city: this.listOfDistrict.find(res => res.district_id == +this.notifyPlasmaForm.get('city').value).district_name,
+        token: this.token
+      })
+      if (this.notifyPlasmaForm.invalid) {
+        return;
+      }
+      value = this.notifyPlasmaForm.value
+    }
+    this.commonService.commonApiCall(
+      COMPONENTS.notify,
+      HttpMethod.POST,
+      value, (res, statusFlag) => {
+        this.spinner.hide();
+        if (statusFlag) {
+          this.notifyBedForm.reset();
+          this.notifyVaccineForm.reset();
+          this.notifyPlasmaForm.reset();
+          this.modalRef.hide();
+        }
+      }
+    );
   }
 
   updateinfo(obj, flag) {

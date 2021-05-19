@@ -5,16 +5,49 @@ import { ApiService } from './api.service';
 import { Injectable } from '@angular/core';
 import { AppService } from './app.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { AngularFireMessaging } from '@angular/fire/messaging';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
 
+
+  currentMessage = new BehaviorSubject(null);
+
   constructor(private apiService: ApiService,
     private appService: AppService,
     private alertService: AlertService,
-    private spinner: NgxSpinnerService) { }
+    private spinner: NgxSpinnerService,
+    private angularFireMessaging: AngularFireMessaging) {
+    this.angularFireMessaging.messages.subscribe(
+      (_message: AngularFireMessaging) => {
+        _message.onMessage = _message.onMessage.bind(_message);
+        _message.onTokenRefresh = _message.onTokenRefresh.bind(_message);
+      }
+    )
+  }
+
+  requestPermission() {
+    this.angularFireMessaging.requestToken.subscribe(
+      (token) => {
+        return token
+        console.log(token);
+      }
+    )
+  }
+
+  receiveMessage() {
+    this.angularFireMessaging.messages.subscribe(
+      (payload) => {
+        console.log("Message Received - ", payload);
+        this.currentMessage.next(payload);
+      }
+    )
+  }
+
+
 
   apiHandler(methodType, url, requestObj) {
     switch (methodType) {
@@ -62,6 +95,8 @@ export class CommonService {
     );
   }
 
+
+
   private getMessages(res: any, type, methodType) {
     if (methodType == HttpMethod.GET && type == AlertInfo.SUCCESS) {
       return;
@@ -73,4 +108,6 @@ export class CommonService {
       this.alertService.showMessage(type, res.endUserMessage);
     }
   }
+
+
 }

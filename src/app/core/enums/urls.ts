@@ -39,7 +39,8 @@ export const SLOTS = {
 export const COMPONENTS = {
     getComponentdata: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/getcomponentdata',
     fecthdata: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/fetchdata',
-    fetchdatabypin: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/fetchdatabypin'
+    fetchdatabypin: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/fetchdatabypin',
+    notify: 'http://ninotificationservice-env.eba-j7q5natv.us-east-2.elasticbeanstalk.com/notify',
 }
 
 export const DONOR = {
@@ -47,6 +48,6 @@ export const DONOR = {
 }
 
 export const VACCINE = {
-    getAvailabilityByDistrict: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/vaccine/getAvailabilityByDistrict',
-    getAvailabilityByPin: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/vaccine/getAvailabilityByPin'
+    getAvailabilityByDistrict: 'http://normalindia-env.eba-mmedpu7m.ap-south-1.elasticbeanstalk.com/vaccine/getAvailabilityByDistrict',
+    getAvailabilityByPin: 'http://normalindia-env.eba-mmedpu7m.ap-south-1.elasticbeanstalk.com/vaccine/getAvailabilityByPin'
 }
