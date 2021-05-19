@@ -16,10 +16,16 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
+import { LegalComponent } from './block/legal/legal.component';
+import { SupporterComponent } from './block/supporter/supporter.component';
+import { VolunterComponent } from './block/volunter/volunter.component';
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutComponent
+    LayoutComponent,
+    LegalComponent,
+    SupporterComponent,
+    VolunterComponent
   ],
   imports: [
     BrowserModule,
