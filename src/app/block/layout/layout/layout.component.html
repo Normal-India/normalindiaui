@@ -17,13 +17,13 @@
         </nav>
         <div id="content" class="p-2 p-md-2">
             <div class="container-fluid">
-                <div class="p-4 pb-0">
+                <div class="pt-4 pb-0">
                     <h1 class="h4 fw-bold">Make India Normal Together</h1>
-                    <p>While your loved ones are suffering with Carona (COVID) and fighting for life, it is a really
+                    <p class="mb-0">While your loved ones are suffering with Carona (COVID) and fighting for life, it is a really
                         painful and heart breaking experience to go in search of bed, plasma, or oxygen. Right
                         information at the right time can help save a life. So let us work together as one family to
                         bring India back to normal by sharing information the right way.</p>
-                    <h5 class="fw-bold">YOU Can Help Save Lives</h5>
+                    <!-- <h5 class="fw-bold">YOU Can Help Save Lives</h5>
                     <ul>
                         <li><span class="fw-bold">Report</span> - Do you have latest information about availability
                             of beds, plasma, vaccine, etc.? You can report in real-time to keep everyone informed</li>
@@ -35,8 +35,44 @@
                             Because together we all can save more lives</li>
                         <li><span class="fw-bold">Get Notified</span> - Are you looking for beds, plasma,
                             vaccine, or oxygen? Use 'Notify Me' to stay informed</li>
-                    </ul>
+                    </ul> -->
                 </div>
+
+                <!-- Intro Cards Start -->
+                <div class="row mb-3">
+                    <div class="col-md-4 col-sm-12">
+                        <div class="card mt-3 bg-orange-light border-0 shadown-sm">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">
+                                    <span><i class="fa fa-search mr-2"></i></span>Search and Find</h5>
+                                <p class="card-text">Some quick example text to build on the card 
+                                    title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="card mt-3 border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">
+                                    <span><i class="fa fa-check-square mr-2"></i></span>Report Availability</h5>
+                                <p class="card-text">Do you have latest information about availability of beds, 
+                                    plasma, vaccine, etc.? You can report in real-time to keep everyone informed</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="card mt-3 bg-success-light border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">
+                                    <span><i class="fa fa-comment mr-2"></i></span>Get Availability Notifications</h5>
+                                <p class="card-text">Use 'Notify Me' to stay informed about the availability of 
+                                    beds, vaccine, oxygen etc.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Intro Cards End -->
+                
                 <!-- Jumbotron Header-->
                 <header class="jumbotron my-1">
                     <a *ngFor="let list of listOfComponents" (click)="childList(list.componentname)"
@@ -88,7 +124,7 @@
                                         </div>
                                         <span *ngIf="selectedMode == 'Plasma'" class="d-flex justify-content-end col">
                                             <button class="btn btn-primary" type="submit"
-                                                (click)="openDonorPlasma(donorPlasmaTemplate)">Add Donor</button>
+                                                (click)="openDonorPlasma(donorPlasmaTemplate)">Become A Donor</button>
                                         </span>
                                     </div>
                                 </form>
@@ -491,7 +527,7 @@
                                         </div>
                                         <div *ngIf="selectedMode == 'Plasma'" class="col d-flex justify-content-end">
                                             <button class="btn btn-primary" type="submit"
-                                                (click)="openDonorPlasma(donorPlasmaTemplate)">Add Donor</button>
+                                                (click)="openDonorPlasma(donorPlasmaTemplate)">Become A Donor</button>
                                         </div>
                                     </div>
                                 </form>

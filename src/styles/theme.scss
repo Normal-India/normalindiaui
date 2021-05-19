@@ -5,6 +5,22 @@ a {
     text-decoration: none !important;
 }
 
+.bg-info-light {
+    background-color: #83E1F4 !important;
+}
+
+.bg-orange-light {
+    background-color: #FCC996 !important;
+}
+
+.bg-success-light {
+    background-color: #86C080 !important;
+}
+
+.bg-warning-light {
+    background-color: #FFE69C !important;
+}
+
 /**** Override Bootstrap Variables ****/
 $font-family-sans-serif: Source Sans Pro, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 $font-size-base: 0.875rem;
