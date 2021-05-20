@@ -7,7 +7,6 @@
                 painful and heart breaking experience to go in search of bed, plasma, or oxygen. Right
                 information at the right time can help save a life. So let us work together as one family to
                 bring India back to normal by sharing information the right way.</p>
-            <p>{{ message | async | json }}</p>
             <!-- <h5 class="fw-bold">YOU Can Help Save Lives</h5>
             <ul>
                 <li><span class="fw-bold">Report</span> - Do you have latest information about availability
@@ -306,8 +305,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col align-self-center text-right">
-                                                                <a class="btn btn-primary p-2 py-1 ">Notify
-                                                                    Availablity</a>
+                                                                <a class="btn btn-primary p-2 py-1 " (click)="goToLink()">Book Now</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -751,8 +749,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col align-self-center text-right">
-                                                                <a class="btn btn-primary p-2 py-1 ">Notify
-                                                                    Availablity</a>
+                                                                <a class="btn btn-primary p-2 py-1 " (click)="goToLink()">Book Now</a>
                                                             </div>
                                                         </div>
                                                     </div>

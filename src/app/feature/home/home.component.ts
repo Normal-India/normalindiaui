@@ -709,5 +709,8 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  goToLink() {
+    window.open('https://selfregistration.cowin.gov.in/', "_blank");
+  }
 
 }
