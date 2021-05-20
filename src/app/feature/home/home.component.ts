@@ -526,7 +526,7 @@ export class HomeComponent implements OnInit {
       case 'ICU':
         return 'ICU Bed';
       case 'Oxygen':
-        return 'Oxigen Bed';
+        return 'Oxygen Bed';
     }
   }
 
