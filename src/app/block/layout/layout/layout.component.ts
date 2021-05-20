@@ -11,7 +11,6 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { AngularFireMessaging } from '@angular/fire/messaging';
-import { listChanges } from '@angular/fire/database';
 
 @Component({
   selector: 'app-layout',
@@ -573,6 +572,11 @@ export class LayoutComponent implements OnInit {
     if (this.donorPlasmaForm.invalid) {
       return;
     }
+
+    this.donorPlasmaForm.patchValue({
+      state: this.listOfStates.find(res => res.state_id == +this.donorPlasmaForm.get('state').value).state_name,
+      city: this.listOfDistrict.find(res => res.district_id == +this.donorPlasmaForm.get('city').value).district_name,
+    })
     this.commonService.commonApiCall(
       DONOR.adddonor,
       HttpMethod.POST,

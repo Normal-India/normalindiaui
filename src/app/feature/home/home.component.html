@@ -1,151 +1,901 @@
-<!-- <div class="button-box">
-    <div id="btn"></div>
-    <button type="button" class="toggle-btn">Pin code</button>
-    <button type="button" class="toggle-btn"> State </button>
-</div> -->
+<div id="content" class="p-2 p-md-2">
+    <div class="container-fluid">
+        <div class="pt-4 pb-0">
+            <h1 class="h4 fw-bold">Make India Normal Together</h1>
+            <p class="mb-0">While your loved ones are suffering with Corona (COVID) and fighting for life, it is
+                a really
+                painful and heart breaking experience to go in search of bed, plasma, or oxygen. Right
+                information at the right time can help save a life. So let us work together as one family to
+                bring India back to normal by sharing information the right way.</p>
+            <p>{{ message | async | json }}</p>
+            <!-- <h5 class="fw-bold">YOU Can Help Save Lives</h5>
+            <ul>
+                <li><span class="fw-bold">Report</span> - Do you have latest information about availability
+                    of beds, plasma, vaccine, etc.? You can report in real-time to keep everyone informed</li>
+                <li><span class="fw-bold">Support</span> - If you find a report to be helpful or not
+                    let the world know by clicking <i class="fa fa-thumbs-up text-primary"></i> or
+                    <i class="fa fa-thumbs-down text-primary"></i>
+                </li>
+                <li><span class="fw-bold">Share</span> - You can inspire others to join you in this effort.
+                    Because together we all can save more lives</li>
+                <li><span class="fw-bold">Get Notified</span> - Are you looking for beds, plasma,
+                    vaccine, or oxygen? Use 'Notify Me' to stay informed</li>
+            </ul> -->
+        </div>
 
-<div class="row">
-    <div class="col">
-        <p>Intro Text</p>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-10  col-md-10 col-sm-12 mx-auto">
-        <tabset>
-            <tab heading="Search By PIN" id="tab1" (selectTab)="onSelect($event)">
-                <form [formGroup]="pinForm" (ngSubmit)="searchByPin()">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label for="Pincode">Pincode:</label>
-                            <input class="form-control" formControlName="pinCode" #pinCodeEl type="text"
-                                placeholder="Enter Pincode"
-                                [ngClass]="{ 'is-invalid': submitted && form.get('state').errors }">
-                            <div *ngIf="submitted && pinForm.get('pinCode').errors" class="invalid-feedback">
-                                <div *ngIf="pinForm.get('pinCode').errors.required">State is required.</div>
-                            </div>
-                        </div>
-                        <div class="col-sm searchtn">
-                            <button class="btn btn-primary" type="submit">Search</button>
-                        </div>
-                        <div>
-                        </div>
+        <!-- Intro Cards Start -->
+        <div class="row mb-3">
+            <div class="col-md-4 col-sm-12">
+                <div class="card mt-3 bg-orange-light border-0 shadown-sm">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">
+                            <span><i class="fa fa-search mr-2"></i></span>Search and Find
+                        </h5>
+                        <p class="card-text">Easily find availability of beds, plasma, vaccine, etc reported by
+                            others like you</p>
                     </div>
-                </form>
-            </tab>
-            <tab heading="Search By District" id="tab2" (selectTab)="onSelect($event)">
-                <div class="card-body">
-                    <form [formGroup]="form" (ngSubmit)="search()">
-                        <div class="row">
-                            <div class="col-sm">
-                                <label for="State">State:</label>
-                                <select formControlName="state" #stateEl class="form-control" id='state'
-                                    [ngClass]="{ 'is-invalid': submitted && form.get('state').errors }"
-                                    (change)="getDistrictByState($event.target.value)">
-                                    <option disabled>Select State</option>
-                                    <option *ngFor="let stateVal of listOfStates" [value]="stateVal.state_id">
-                                        {{stateVal.state_name}}
-                                    </option>
-                                </select>
-                                <div *ngIf="submitted && form.get('state').errors" class="invalid-feedback">
-                                    <div *ngIf="form.get('state').errors.required">State is required.</div>
-                                </div>
-                            </div>
-                            <div class="col-sm">
-                                <label for="District">District:</label>
-                                <select formControlName="district" class="form-control" #distric id='districId'
-                                    [ngClass]="{ 'is-invalid': submitted && form.get('district').errors }">
-                                    <option disabled>Select District</option>
-                                    <!-- <option>Select District</option> -->
-                                    <option *ngFor="let district of listOfDistrict" [value]="district.district_id">
-                                        {{district.district_name}}</option>
-                                </select>
-                                <div *ngIf="submitted && form.get('district').errors" class="invalid-feedback">
-                                    <div *ngIf="form.get('district').errors.required">District is required.</div>
-                                </div>
-                            </div>
-                            <div class="col-sm searchtn">
-                                <button class="btn btn-primary" type="submit">Search</button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
-            </tab>
-        </tabset>
-        <div>
-            <div fxLayout="column" *ngIf="listOfHospitals.length">
-                <div class="item hospital-list mt-2 p-1">
-                    <div *ngFor="let hospital of listOfHospitals">
-                        <div class="card border-0 shadow-sm mb-3 p-3">
-                            <div class="card-header bg-white border-0 pt-3">
-                                <h4 class="card-title align-items-start flex-column" 
-                                    (click)="checkHospitalDetails(hospital.hospital_id)">
-                                    <span class="card-label fw-bolder text-dark fs-4 text-capitalize">{{hospital.hospital_name}}</span>
-                                </h4>
-                            </div>
-                            <div class="card-body pt-3 mt-n3">
-                                <address class="mb-1">
-                                    <i class="fa fa-location-arrow text-muted mr-1"></i>
-                                    <a href="http://maps.google.com/?q={{hospital.area}}, {{hospital.district}}"
-                                        class="text-gray-800 text-hover-primary fs-6" target="_blank">
-                                        {{hospital.area}}, {{hospital.district}}</a>
-                                </address>
-                                <i class="fa fa-phone text-muted mr-1"></i>
-                                <a href="tel:{{hospital.hospital_phone}}">{{hospital.hospital_phone}}</a>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="card mt-3 border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">
+                            <span><i class="fa fa-check-square mr-2"></i></span>Report Availability
+                        </h5>
+                        <p class="card-text">Do you have latest information about availability of beds,
+                            plasma, vaccine, etc.? You can report in real-time to keep everyone informed</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="card mt-3 bg-success-light border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">
+                            <span><i class="fa fa-comment mr-2"></i></span>Get Availability Notifications
+                        </h5>
+                        <p class="card-text">Use 'Notify Me' to stay informed about the availability of
+                            beds, vaccine, oxygen etc.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Intro Cards End -->
 
-                                <ng-container
-                                    *ngIf="hospital?.org?.report?.information && hospital?.org?.report?.information.length">
-                                    <div class="available-beds mt-2"
-                                        *ngFor="let info of hospital?.org?.report?.information">
-                                        <i class="fa fa-bed text-muted mr-1" aria-hidden="true"></i> 
-                                        <span class="text-capitalize fw-bold fs-14">{{info.type}}</span>
-                                        <span class="d-block">
-                                            <span *ngIf="info.available" class="badge badge-success">Available</span>
-                                            <span class="badge badge-danger" *ngIf="!info.available">
-                                                Not Available</span>
-                                            <span class="hours"><small class="fs-12"> reported {{info.createdOn|date}}</small></span>
-                                        </span>
+        <!-- Jumbotron Header-->
+        <header class="jumbotron my-1">
+            <a *ngFor="let list of listOfComponents" (click)="childList(list.componentname)"
+                [ngClass]="{ 'active': list.componentname == selectedMode }"
+                class="btn btn-primary filter-btn btn-lg">{{
+                list.componentname }}
+            </a>
+            <!-- active -->
+        </header>
+        <header class="jumbotron my-1 mb-4">
+            <a *ngFor="let child of childLists" (click)="selectedChild(child)"
+                [ngClass]="{ 'active': setActive(child) }" class="btn btn-primary filter-btn btn-lg">
+                {{ child }}
+            </a>
+            <!-- active -->
+        </header>
+        <!-- Page Features-->
+        <div class="row text-center">
+            <div class="col-12">
+                <ul class="nav nav-tabs">
+                    <li class="active" (click)="setTab()"><a class="active" data-toggle="tab" href="#menu1">By
+                            Pin</a></li>
+                    <li (click)="setTab()"><a data-toggle="tab" href="#menu2">By District</a></li>
+                </ul>
+                <div class="tab-content p-2 py-3">
+                    <div id="menu1" class="tab-pane fade in show active">
+                        <form [formGroup]="pinForm">
+                            <div class="row">
+                                <div class="col-md-4 text-left">
+                                    <label for="pinCode" class="mb-1">Pin Code</label>
+                                    <input class="form-control mb-2" formControlName="pinCode" type="text">
+                                    <div *ngIf="submitted && pinForm.get('pinCode').errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="pinForm.get('pinCode').errors.required">Pincode is required.
+                                        </div>
                                     </div>
-                                </ng-container>
+                                </div>
+                                <div class="col-md-4 text-left" *ngIf="selectedMode == 'Vaccine'">
+                                    <label for="Date" class="mb-1">Date</label>
+                                    <input class="form-control" formControlName="date" type="date">
+                                    <div *ngIf="submitted && pinForm.get('date').errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="pinForm.get('date').errors.required">Date is required.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm searchtn col-auto d-flex align-items-end mb-2">
+                                    <button class="btn btn-primary" (click)="fetchdatabypin()">Search</button>
+                                </div>
+                                <span class="d-flex justify-content-end col">
+                                    <button *ngIf="selectedMode == 'Plasma'" class="btn btn-primary mr-2"
+                                        (click)="openDonorPlasma(donorPlasmaTemplate)">Become A Donor</button>
+                                    <button class="btn btn-primary" (click)="openNotifyMe()">Notify Me</button>
+                                </span>
+                            </div>
+                        </form>
+                        <div class="row">
+                            <div class="col-12 ">
+                                <div class="pt-3 search-results">
+                                    <h5 class="text-left fw-bold">Search Results</h5>
+                                    <div class="row">
+                                        <div class="col-lg-12 mb-4">
+                                            <!-- card for all start -->
+                                            <ng-container *ngIf="selectedMode == 'Bed'">
+                                                <div class="card shadow-sm mt-2" *ngFor="let bed of filterList">
+                                                    <div class="card-body text-left">
+                                                        <h5 class="card-title text-left hospital-name">{{
+                                                            bed.hospital.hospital_name }}</h5>
+                                                        <p class="card-text text-left mb-1"><i
+                                                                class="fa fa-phone"></i> {{
+                                                            bed.hospital.hospital_phone }}</p>
+                                                        <p class="card-text text-left  mb-1"><i
+                                                                class="fa fa-location"></i> {{
+                                                            bed.hospital.hospital_address }}</p>
+                                                        <p class="card-text text-left  mb-1"><i
+                                                                class="fa fa-date"></i>
+                                                            Updated 3 hours ago</p>
+                                                        <div class="row available-details ">
+                                                            <div class="col-md-3 d-flex"
+                                                                *ngFor="let sub of bed.resources[0].subtypes">
+                                                                <div class="bed-details">
+                                                                    <span class="d-block"><i
+                                                                            class="fa fa-bed mr-2"></i> {{
+                                                                        setBedType(sub.type) }} </span>
+                                                                    <span
+                                                                        [ngClass]="sub.available ? 'available' : 'not-available'">
+                                                                        {{ sub.available ? 'Available' :
+                                                                        'Not-Available' }} </span>
+                                                                </div>
+                                                                <div
+                                                                    class="comments d-flex mt-1 ml-4 align-self-center">
+                                                                    <span class="like mr-1"
+                                                                        (click)="updateinfo(sub, 'up')"><i
+                                                                            class="fa fa-thumbs-up"></i> <span
+                                                                            class="d-block">{{ sub.upvote ?
+                                                                            sub.upvote : '0' }}</span></span>
+                                                                    <span class="like"
+                                                                        (click)="updateinfo(sub, 'down')"><i
+                                                                            class="fa fa-thumbs-down"></i> <span
+                                                                            class="d-block">{{ sub.downvote ?
+                                                                            sub.downvote : '0' }}</span></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer bg-white">
+                                                        <div class="align-self-center text-right">
+                                                            <a class="btn btn-primary p-2 py-1 mr-1 text-white"
+                                                                (click)="openModal(reportTemplate, bed)">Report
+                                                                Updates</a>
+                                                            <a class="btn btn-outline-primary p-2 py-1">Notify
+                                                                Me</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                            <ng-container *ngIf="selectedMode == 'Plasma'">
+                                                <div class="card shadow-sm mt-2" *ngFor="let bed of filterList">
+                                                    <div class="card-body text-left">
+                                                        <h5 class="card-title text-left hospital-name">{{
+                                                            bed.hospital.hospital_name }}</h5>
+                                                        <p class="card-text text-left mb-1"><i
+                                                                class="fa fa-phone"></i> {{
+                                                            bed.hospital.hospital_phone }}</p>
+                                                        <p class="card-text text-left  mb-1"><i
+                                                                class="fa fa-location"></i> {{
+                                                            bed.hospital.hospital_address }}</p>
+                                                        <p class="card-text text-left  mb-1"><i
+                                                                class="fa fa-date"></i>
+                                                            Updated 3 hours ago</p>
+                                                        <div class="row available-details ">
+                                                            <div class="col-md-3 d-flex">
+                                                                <div class="bed-details">
+                                                                    <span class="d-block"><i
+                                                                            class="fa fa-bed mr-2"></i>
+                                                                        Plasma</span>
+                                                                    <span
+                                                                        [ngClass]="setPlasma(bed.resources[0].subtypes) == 'Available' ? 'available' : 'not-available'">{{
+                                                                        setPlasma(bed.resources[0].subtypes
+                                                                        ) }}</span>
+                                                                </div>
+                                                                <!-- <div
+                                                                    class="comments d-flex mt-1 ml-4 align-self-center">
+                                                                    <span class="like mr-1"><i
+                                                                            class="fa fa-thumbs-up"></i> <span
+                                                                            class="d-block">103</span></span>
+                                                                    <span class="like"><i
+                                                                            class="fa fa-thumbs-down"></i> <span
+                                                                            class="d-block">103</span></span>
+                                                                </div> -->
+                                                            </div>
+                                                            <div *ngFor="let sub of bed.resources[0].subtypes"
+                                                                class="bed-details col-auto mt-3 pl-0">
+                                                                <span *ngIf="sub.type">
+                                                                    <span class="options"
+                                                                        [ngClass]="sub.current ? 'aval' : 'not-aval'"><strong>{{sub.type}}</strong>
+                                                                        {{ sub.current}}</span>
+                                                                </span>
+                                                            </div>
+                                                            <!-- <div class="col-md-3 align-self-center"
+                                                                *ngFor="let sub of bed.resources[0].subtypes">
+                                                                <div class="bed-details" *ngIf="sub.type">
+                                                                    <span class="options"
+                                                                        [ngClass]="sub.current ? 'aval' : 'not-aval'"><strong>{{sub.type}}</strong>
+                                                                        {{ sub.current}}</span>
+                                                                </div> -->
+                                                            <!-- <div
+                                                                    class="comments d-flex mt-1 ml-4 align-self-center">
+                                                                    <span class="like mr-1"
+                                                                        (click)="updateinfo(sub, 'up')"><i
+                                                                            class="fa fa-thumbs-up"></i> <span
+                                                                            class="d-block">{{ sub.upvote ?
+                                                                            sub.upvote : '0' }}</span></span>
+                                                                    <span class="like"
+                                                                        (click)="updateinfo(sub, 'down')"><i
+                                                                            class="fa fa-thumbs-down"></i> <span
+                                                                            class="d-block">{{ sub.downvote ?
+                                                                            sub.downvote : '0' }}</span></span>
+                                                                </div> -->
+                                                            <!-- </div> -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer bg-white">
+                                                        <div class="align-self-center text-right">
+                                                            <a class="btn btn-primary p-2 py-1 mr-1 text-white"
+                                                                (click)="openPlasmaReport(newReportPlasmaTemplate, bed)">Report</a>
+                                                            <!-- <a
+                                                                class="btn btn-outline-primary p-2 py-1 mr-1">Restructions</a> -->
+                                                            <a class="btn btn-outline-primary p-2 py-1 ">Notify
+                                                                Me</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="selectedMode == 'Vaccine'">
+                                                <div class="card shadow-sm mt-2" *ngFor="let bed of filterList">
+                                                    <div class="card-body text-left">
+                                                        <h5 class="card-title text-left hospital-name">{{
+                                                            bed.name }}</h5>
+                                                        <!-- <p class="card-text text-left mb-1"><i
+                                                                class="fa fa-phone"></i> {{
+                                                                    bed.hospital.hospital_phone }}</p> -->
+                                                        <p class="card-text text-left  mb-1"><i
+                                                                class="fa fa-location"></i> {{
+                                                            bed.address }}</p>
+                                                        <p class="card-text text-left  mb-1"><i
+                                                                class="fa fa-date"></i>
+                                                            Updated 3 hours ago</p>
+                                                        <div class="row available-details ">
+                                                            <div class="col-md-2">
+                                                                <div class="bed-details">
+                                                                    <span class="d-block"><i
+                                                                            class="fa fa-bed mr-2"></i>
+                                                                        Vaccine</span>
+                                                                    <!-- <span
+                                                                        class="not-available">Not-Available</span> -->
+                                                                    <span
+                                                                        [ngClass]="bed.slots.length ? 'available' : 'not-available'">{{
+                                                                        bed.slots.length ? 'Available' : 'Not
+                                                                        Available' }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 align-self-center">
+                                                                <div class="bed-details">
+                                                                    <span class="options"
+                                                                        [ngClass]="bed.minAgeLimit == '45' ? 'aval' : ''">
+                                                                        45+</span>
+                                                                    <span class="options"
+                                                                        [ngClass]="bed.minAgeLimit == '18' ? 'aval' : ''">
+                                                                        18-44</span>
+                                                                    <span class="options"
+                                                                        [ngClass]="bed.vaccine == 'COVAXIN' ? 'aval' : ''">
+                                                                        Covaxin</span>
+                                                                    <span class="options"
+                                                                        [ngClass]="bed.vaccine == 'COVISHIELD' ? 'aval' : ''">
+                                                                        Covishield</span>
+                                                                    <span class="options"
+                                                                        [ngClass]="bed.feeType == 'Paid' ? 'aval' : ''">
+                                                                        Paid</span>
+                                                                    <span class="options"
+                                                                        [ngClass]="bed.feeType == 'Free' ? 'aval' : ''">
+                                                                        Free</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col align-self-center text-right">
+                                                                <a class="btn btn-primary p-2 py-1 ">Notify
+                                                                    Availablity</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+
+                                            <!-- card for all vaccine -->
+                                            <!-- <div class="card border-0 shadow-sm mt-2">
+                                                <div class="card-body text-left">
+                                                    <h5 class="card-title text-left hospital-name">Adilabad
+                                                        Neuro Super Speciality Hospital</h5>
+                                                    <p class="card-text text-left mb-1"><i
+                                                            class="fa fa-phone"></i> +91 9032628839</p>
+                                                    <p class="card-text text-left  mb-1"><i
+                                                            class="fa fa-location"></i> 123 street name,
+                                                        Address line, city, TS, 530002 - India</p>
+                                                    <p class="card-text text-left  mb-1"><i
+                                                            class="fa fa-clock"></i>
+                                                        Updated 3 hours ago</p>
+                                                    <div class="row available-details ">
+                                                        <div class="col-auto">
+                                                            <div class="bed-details">
+                                                                <span class="d-block"><i
+                                                                        class="fa fa-bed mr-2"></i>
+                                                                    Vaccine</span>
+                                                                <span class="not-available">Not-Available</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-auto align-self-end">
+                                                            <div class="bed-details bed-details-mobile">
+                                                                <span class="options not-aval"> 0</span>
+                                                                <span class="options"> 45+</span>
+                                                                <span class="options"> Covxin</span>
+                                                                <span class="options"> Paid</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col align-self-center text-right">
+                                                            <a class="btn btn-primary p-2 py-1 "
+                                                                >Notify Availablity</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <!-- card for vaccine end -->
+                                            <!-- card for all vaccine available -->
+                                            <!-- <div class="card border-0 shadow-sm mt-2">
+                                                <div class="card-body text-left">
+                                                    <h5 class="card-title text-left hospital-name">Adilabad
+                                                        Neuro Super Speciality Hospital</h5>
+                                                    <p class="card-text text-left mb-1"><i
+                                                            class="fa fa-phone"></i> +91 9032628839</p>
+                                                    <p class="card-text text-left  mb-1"><i
+                                                            class="fa fa-location"></i> 123 street name,
+                                                        Address line, city, TS, 530002 - India</p>
+                                                    <p class="card-text text-left  mb-1"><i
+                                                            class="fa fa-date"></i>
+                                                        Updated 3 hours ago</p>
+                                                    <div class="row available-details ">
+                                                        <div class="col-auto">
+                                                            <div class="bed-details">
+                                                                <span class="d-block"><i
+                                                                        class="fa fa-bed mr-2"></i>
+                                                                    Vaccine</span>
+                                                                <span class="available">Available</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-auto align-self-end">
+                                                            <div class="bed-details bed-details-mobile">
+                                                                <span class="options aval"> 60</span>
+                                                                <span class="options"> 45+</span>
+                                                                <span class="options"> Covxin</span>
+                                                                <span class="options"> Paid</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col align-self-center text-right">
+                                                            <a class="btn btn-primary p-2 py-1 " >Book
+                                                                Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <!-- card for vaccine available end -->
+                                            <!-- card for all Plasma -->
+                                            <!-- <div class="card border-0 shadow-sm mt-2">
+                                                <div class="card-body text-left">
+                                                    <h5 class="card-title text-left hospital-name">Adilabad
+                                                        Neuro Super Speciality Hospital</h5>
+                                                    <p class="card-text text-left mb-1"><i
+                                                            class="fa fa-phone"></i> +91 9032628839</p>
+                                                    <p class="card-text text-left  mb-1"><i
+                                                            class="fa fa-location"></i> 123 street name,
+                                                        Address line, city, TS, 530002 - India</p>
+                                                    <p class="card-text text-left  mb-1"><i
+                                                            class="fa fa-date"></i>
+                                                        Updated 3 hours ago</p>
+                                                    <div class="row available-details ">
+                                                        <div class="col-auto d-flex">
+                                                            <div class="bed-details">
+                                                                <span class="d-block"><i
+                                                                        class="fa fa-bed mr-2"></i>
+                                                                    Plasma</span>
+                                                                <span class="available">Available</span>
+                                                            </div>
+                                                            <div
+                                                                class="comments d-flex mt-1 ml-4 align-self-center">
+                                                                <span class="like mr-1"><i
+                                                                        class="fa fa-thumbs-up"></i> <span
+                                                                        class="d-block">103</span></span>
+                                                                <span class="like"><i
+                                                                        class="fa fa-thumbs-down"></i> <span
+                                                                        class="d-block">103</span></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-auto align-self-end">
+                                                            <div class="bed-details bed-details-mobile">
+                                                                <span class="options aval"><strong>B+</strong>
+                                                                    160</span>
+                                                                <span class="options not-aval"> AB+ 0</span>
+                                                                <span class="options aval"> A+ 100</span>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="col align-self-center text-right mobile-buttons">
+                                                            <a class="btn btn-primary p-2 py-1 mr-1"
+                                                                >Report</a>
+                                                            <a class="btn btn-outline-primary p-2 py-1 mr-1"
+                                                                >Restrictions</a>
+                                                            <a class="btn btn-outline-primary p-2 py-1 "
+                                                                >Notify Me</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <!-- card for Plasma end -->
+                                            <!-- card for all Plasma -->
+                                            <!-- <div class="card border-0 shadow-sm mt-2">
+                                                <div class="card-body text-left">
+                                                    <h5 class="card-title text-left hospital-name">Adilabad
+                                                        Neuro Super Speciality Hospital</h5>
+                                                    <p class="card-text text-left mb-1"><i
+                                                            class="fa fa-phone"></i> +91 9032628839</p>
+                                                    <p class="card-text text-left  mb-1"><i
+                                                            class="fa fa-location"></i> 123 street name,
+                                                        Address line, city, TS, 530002 - India</p>
+                                                    <p class="card-text text-left  mb-1"><i
+                                                            class="fa fa-date"></i>
+                                                        Updated 3 hours ago</p>
+                                                    <div class="row available-details mt-2">
+                                                        <div class="col-auto d-flex hospital-like">
+                                                            <div class="bed-details">
+                                                                <span class="d-block"><i
+                                                                        class="fa fa-bed mr-2"></i> Regular
+                                                                    Ber</span>
+                                                                <span class="available">Available</span>
+                                                            </div>
+                                                            <div
+                                                                class="comments d-flex mt-1 ml-4 align-self-center">
+                                                                <span class="like mr-1"><i
+                                                                        class="fa fa-thumbs-up"></i> <span
+                                                                        class="d-block">103</span></span>
+                                                                <span class="like"><i
+                                                                        class="fa fa-thumbs-down"></i> <span
+                                                                        class="d-block">103</span></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-auto d-flex hospital-like">
+                                                            <div class="bed-details">
+                                                                <span class="d-block"><i
+                                                                        class="fa fa-bed mr-2"></i> ICU
+                                                                    Bed</span>
+                                                                <span class="not-available">Not-Available</span>
+                                                            </div>
+                                                            <div
+                                                                class="comments d-flex mt-1 ml-4 align-self-center">
+                                                                <span class="like mr-1"><i
+                                                                        class="fa fa-thumbs-up"></i> <span
+                                                                        class="d-block">103</span></span>
+                                                                <span class="like"><i
+                                                                        class="fa fa-thumbs-down"></i> <span
+                                                                        class="d-block">103</span></span>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="col-auto d-flex bed-details-mobile hospital-like">
+                                                            <div class="bed-details">
+                                                                <span class="d-block"><i
+                                                                        class="fa fa-bed mr-2"></i> Oxigen
+                                                                    Bed</span>
+                                                                <span class="available">Available</span>
+                                                            </div>
+                                                            <div
+                                                                class="comments d-flex mt-1 ml-4 align-self-center">
+                                                                <span class="like mr-1"><i
+                                                                        class="fa fa-thumbs-up"></i> <span
+                                                                        class="d-block">103</span></span>
+                                                                <span class="like"><i
+                                                                        class="fa fa-thumbs-down"></i> <span
+                                                                        class="d-block">103</span></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col align-self-center text-right">
+                                                            <a class="btn btn-primary p-2 py-1 mr-1"
+                                                                >Report</a>
+                                                            <a class="btn btn-outline-primary p-2 py-1 "
+                                                                >Notify Me</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <!-- card for Plasma end -->
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div id="menu2" class="tab-pane fade">
+                        <form [formGroup]="form">
+                            <div class="form-row">
+                                <div class="col-lg-3 col-md-3 col-sm-12 text-start mb-2">
+                                    <label for="State" class="mb-1">State</label>
+                                    <select formControlName="state" #stateEl class="form-control custom-select"
+                                        id='state'
+                                        [ngClass]="{ 'is-invalid': submitted && form.get('state').errors }"
+                                        (change)="getDistrictByState($event.target.value)">
 
-                    <!-- <div class="card  border-0 shadow-sm mt-2" *ngFor="let hospital of listOfHospitals">
-                        <div class="row">
-                            <div class="col-md-3 align-self-center pr-0">
-                                <div class="hospital-img">
-                                    <img class="card-img-top" src="../../../assets/Images/hospital.jpg" alt="Card image cap"
-                                        (click)="checkHospitalDetails(hospital.hospital_id)">
+                                        <option *ngFor="let stateVal of listOfStates"
+                                            [value]="stateVal.state_id">
+                                            {{stateVal.state_name}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="submitted && form.get('state').errors" class="invalid-feedback">
+                                        <div *ngIf="form.get('state').errors.required">State is required.</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 text-start mb-2"
+                                    *ngIf="selectedMode != 'Plasma'">
+                                    <label for="District" class="mb-1">District</label>
+                                    <select formControlName="district" class="form-control custom-select"
+                                        #distric id='districId'
+                                        [ngClass]="{ 'is-invalid': submitted && form.get('district').errors }">
+                                        <option hidden></option>
+                                        <option *ngFor="let district of listOfDistrict"
+                                            [value]="district.district_id">
+                                            {{district.district_name}}</option>
+                                    </select>
+                                    <div *ngIf="submitted && form.get('district').errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="form.get('district').errors.required">District is required.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-left" *ngIf="selectedMode == 'Vaccine'">
+                                    <label for="Date" class="mb-1">Date</label>
+                                    <input class="form-control" formControlName="date" type="date">
+                                    <div *ngIf="submitted && pinForm.get('date').errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="pinForm.get('date').errors.required">Date is required.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto searchtn align-items-end d-flex mb-2">
+                                    <button class="btn btn-primary" (click)="fecthdata()">Search</button>
+                                </div>
+                                <div class="col d-flex justify-content-end">
+                                    <button *ngIf="selectedMode == 'Plasma'" class="btn btn-primary mr-2"
+                                        type="submit" (click)="openDonorPlasma(donorPlasmaTemplate)">Become A
+                                        Donor</button>
+                                    <button class="btn btn-primary" (click)="openNotifyMe()">Notify Me</button>
                                 </div>
                             </div>
-                            <div class="col-md-9 pl-0">
-                                <div class="hospital-details">
-                                    <h5 class="card-title mt-1" (click)="checkHospitalDetails(hospital.hospital_id)">
-                                        {{hospital.hospital_name}} <span class="hospital-contact"> Contact :
-                                            {{hospital.hospital_phone}}</span></h5>
-                                    <p class="card-text mb-1">{{hospital.area}}, {{hospital.district}}</p>
-                                    <ng-container
-                                        *ngIf="hospital?.org?.report?.information && hospital?.org?.report?.information.length">
-                                        <div class="available-beds ml-2"
-                                            *ngFor="let info of hospital?.org?.report?.information">
-                                            <i class="fa fa-heartbeat" aria-hidden="true"></i> {{info.type}}
-                                            <span class="d-block font-10">
-                                                <span class="avail-text" *ngIf="info.available">Available</span>
-                                                <span class="not-avail-text" *ngIf="!info.available">Not Available</span>
-                                                reported
-                                                <span class="hours">{{info.createdOn|date}}</span>
-                                            </span>
+                        </form>
+                        <div class="row">
+                            <div class="col-12 ">
+                                <div class="pt-3 search-results">
+                                    <h5 class="text-left fw-bold">Search Results</h5>
+                                    <div class="row">
+                                        <div class="col-lg-12 mb-4">
+                                            <ng-container *ngIf="selectedMode == 'Bed'">
+                                                <div class="card shadow-sm mt-2" *ngFor="let bed of filterList">
+                                                    <div class="card-body text-left">
+                                                        <h5 class="card-title text-left hospital-name">{{
+                                                            bed.hospital.hospital_name }}</h5>
+                                                        <p class="card-text text-left mb-1"><i
+                                                                class="fa fa-phone"></i> {{
+                                                            bed.hospital.hospital_phone }}</p>
+                                                        <p class="card-text text-left  mb-1"><i
+                                                                class="fa fa-location"></i> {{
+                                                            bed.hospital.hospital_address }}</p>
+                                                        <p class="card-text text-left  mb-1"><i
+                                                                class="fa fa-date"></i>
+                                                            Updated 3 hours ago</p>
+                                                        <div class="row available-details ">
+                                                            <div class="col-md-3 d-flex"
+                                                                *ngFor="let sub of bed.resources[0].subtypes">
+                                                                <div class="bed-details">
+                                                                    <span class="d-block"><i
+                                                                            class="fa fa-bed mr-2"></i> {{
+                                                                        setBedType(sub.type) }} </span>
+                                                                    <span
+                                                                        [ngClass]="sub.available ? 'available' : 'not-available'">
+                                                                        {{ sub.available ? 'Available' :
+                                                                        'Not-Available' }} </span>
+                                                                </div>
+                                                                <div
+                                                                    class="comments d-flex mt-1 ml-4 align-self-center">
+                                                                    <span class="like mr-1"
+                                                                        (click)="updateinfo(sub, 'up')"><i
+                                                                            class="fa fa-thumbs-up"></i> <span
+                                                                            class="d-block">{{ sub.upvote ?
+                                                                            sub.upvote : '0' }}</span></span>
+                                                                    <span class="like"
+                                                                        (click)="updateinfo(sub, 'down')"><i
+                                                                            class="fa fa-thumbs-down"></i> <span
+                                                                            class="d-block">{{ sub.downvote ?
+                                                                            sub.downvote : '0' }}</span></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col align-self-center text-right">
+                                                                <a class="btn btn-primary p-2 py-1 mr-1"
+                                                                    (click)="openModal(reportTemplate, bed)">Report
+                                                                    Updates</a>
+                                                                <a class="btn btn-outline-primary p-2 py-1 ">Notify
+                                                                    Me</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                            <ng-container *ngIf="selectedMode == 'Plasma'">
+                                                <div class="card shadow-sm mt-2" *ngFor="let bed of filterList">
+                                                    <div class="card-body text-left">
+                                                        <h5 class="card-title text-left hospital-name">{{
+                                                            bed.hospital.hospital_name }}</h5>
+                                                        <p class="card-text text-left mb-1"><i
+                                                                class="fa fa-phone"></i> {{
+                                                            bed.hospital.hospital_phone }}</p>
+                                                        <p class="card-text text-left  mb-1"><i
+                                                                class="fa fa-location"></i> {{
+                                                            bed.hospital.hospital_address }}</p>
+                                                        <p class="card-text text-left  mb-1"><i
+                                                                class="fa fa-date"></i>
+                                                            Updated 3 hours ago</p>
+                                                        <div class="row available-details ">
+                                                            <div class="col-md-3 d-flex">
+                                                                <div class="bed-details">
+                                                                    <span class="d-block"><i
+                                                                            class="fa fa-bed mr-2"></i>
+                                                                        Plasma</span>
+                                                                    <span
+                                                                        [ngClass]="setPlasma(bed.resources[0].subtypes) == 'Available' ? 'available' : 'not-available'">{{
+                                                                        setPlasma(bed.resources[0].subtypes
+                                                                        ) }}</span>
+                                                                </div>
+                                                                <!-- <div
+                                                                    class="comments d-flex mt-1 ml-4 align-self-center">
+                                                                    <span class="like mr-1"><i
+                                                                            class="fa fa-thumbs-up"></i> <span
+                                                                            class="d-block">103</span></span>
+                                                                    <span class="like"><i
+                                                                            class="fa fa-thumbs-down"></i> <span
+                                                                            class="d-block">103</span></span>
+                                                                </div> -->
+                                                            </div>
+                                                            <div class="col-md-3 align-self-center"
+                                                                *ngFor="let sub of bed.resources[0].subtypes">
+                                                                <div class="bed-details" *ngIf="sub.type">
+                                                                    <span class="options"
+                                                                        [ngClass]="sub.current ? 'aval' : 'not-aval'"><strong>{{sub.type}}</strong>
+                                                                        {{ sub.current}}</span>
+                                                                </div>
+                                                                <!-- <div class="comments d-flex mt-1 ml-4 align-self-center">
+                                                                    <span class="like mr-1" (click)="updateinfo(sub, 'up')"><i
+                                                                            class="fa fa-thumbs-up"></i> <span
+                                                                            class="d-block">{{ sub.upvote ? sub.upvote : '0' }}</span></span>
+                                                                    <span class="like" (click)="updateinfo(sub, 'down')"><i
+                                                                            class="fa fa-thumbs-down"></i> <span
+                                                                            class="d-block">{{ sub.downvote ? sub.downvote : '0' }}</span></span>
+                                                                </div> -->
+                                                            </div>
+                                                            <div class="col align-self-center text-right">
+                                                                <a class="btn btn-primary p-2 py-1 mr-1"
+                                                                    (click)="openPlasmaReport(newReportPlasmaTemplate, bed)">Report</a>
+                                                                <a
+                                                                    class="btn btn-outline-primary p-2 py-1 mr-1">Restructions</a>
+                                                                <a class="btn btn-outline-primary p-2 py-1 ">Notify
+                                                                    Me</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="selectedMode == 'Vaccine'">
+                                                <div class="card shadow-sm mt-2" *ngFor="let bed of filterList">
+                                                    <div class="card-body text-left">
+                                                        <h5 class="card-title text-left hospital-name">{{
+                                                            bed.name }}</h5>
+                                                        <!-- <p class="card-text text-left mb-1"><i
+                                                                class="fa fa-phone"></i> {{
+                                                                    bed.hospital.hospital_phone }}</p> -->
+                                                        <p class="card-text text-left  mb-1"><i
+                                                                class="fa fa-location"></i> {{
+                                                            bed.address }}</p>
+                                                        <p class="card-text text-left  mb-1"><i
+                                                                class="fa fa-date"></i>
+                                                            Updated 3 hours ago</p>
+                                                        <div class="row available-details ">
+                                                            <div class="col-md-2">
+                                                                <div class="bed-details">
+                                                                    <span class="d-block"><i
+                                                                            class="fa fa-bed mr-2"></i>
+                                                                        Vaccine</span>
+                                                                    <!-- <span
+                                                                        class="not-available">Not-Available</span> -->
+                                                                    <span
+                                                                        [ngClass]="bed.slots.length ? 'available' : 'not-available'">{{
+                                                                        bed.slots.length ? 'Available' : 'Not
+                                                                        Available' }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 align-self-center">
+                                                                <div class="bed-details">
+                                                                    <span class="options"
+                                                                        [ngClass]="bed.minAgeLimit == '45' ? 'aval' : ''">
+                                                                        45+</span>
+                                                                    <span class="options"
+                                                                        [ngClass]="bed.minAgeLimit == '18' ? 'aval' : ''">
+                                                                        18-44</span>
+                                                                    <span class="options"
+                                                                        [ngClass]="bed.vaccine == 'COVAXIN' ? 'aval' : ''">
+                                                                        Covaxin</span>
+                                                                    <span class="options"
+                                                                        [ngClass]="bed.vaccine == 'COVISHIELD' ? 'aval' : ''">
+                                                                        Covishield</span>
+                                                                    <span class="options"
+                                                                        [ngClass]="bed.feeType == 'Paid' ? 'aval' : ''">
+                                                                        Paid</span>
+                                                                    <span class="options"
+                                                                        [ngClass]="bed.feeType == 'Free' ? 'aval' : ''">
+                                                                        Free</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col align-self-center text-right">
+                                                                <a class="btn btn-primary p-2 py-1 ">Notify
+                                                                    Availablity</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                            <!-- card for all start -->
+                                            <!-- <div class="card shadow-sm">
+                                                <div class="card-body text-left">
+                                                    <h5 class="card-title text-left hospital-name">Adilabad
+                                                        Neuro Super Speciality Hospital</h5>
+                                                    <p class="card-text text-left mb-1"><i
+                                                            class="fa fa-phone"></i> +91 9032628839</p>
+                                                    <p class="card-text text-left  mb-1"><i
+                                                            class="fa fa-location"></i> 123 street name,
+                                                        Address line, city, TS, 530002 - India</p>
+                                                    <p class="card-text text-left  mb-1"><i
+                                                            class="fa fa-date"></i>
+                                                        Updated 3 hours ago</p>
+                                                    <div class="row available-details ">
+                                                        <div class="col-md-2">
+                                                            <div class="bed-details">
+                                                                <span class="d-block"><i
+                                                                        class="fa fa-bed mr-2"></i> Regular
+                                                                    Bed</span>
+                                                                <span class="available">Available</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="bed-details">
+                                                                <span class="d-block"><i
+                                                                        class="fa fa-bed mr-2"></i> ICU
+                                                                    Bed</span>
+                                                                <span class="not-available">Not-Available</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="bed-details">
+                                                                <span class="d-block"><i
+                                                                        class="fa fa-bed mr-2"></i> Oxygen
+                                                                    Bed</span>
+                                                                <span class="available">Available</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="bed-details">
+                                                                <span class="d-block"><i
+                                                                        class="fa fa-bed mr-2"></i>
+                                                                    Vaccine</span>
+                                                                <span class="no-data">No-Data</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <!-- card for all end -->
+                                            <!-- card for all vaccine -->
+                                            <!-- <div class="card shadow-sm mt-2">
+                                                <div class="card-body text-left">
+                                                    <h5 class="card-title text-left hospital-name">Adilabad
+                                                        Neuro Super Speciality Hospital</h5>
+                                                    <p class="card-text text-left mb-1"><i
+                                                            class="fa fa-phone"></i> +91 9032628839</p>
+                                                    <p class="card-text text-left  mb-1"><i
+                                                            class="fa fa-location"></i> 123 street name,
+                                                        Address line, city, TS, 530002 - India</p>
+                                                    <p class="card-text text-left  mb-1"><i
+                                                            class="fa fa-date"></i>
+                                                        Updated 3 hours ago</p>
+                                                    <div class="row available-details ">
+                                                        <div class="col-md-2">
+                                                            <div class="bed-details">
+                                                                <span class="d-block"><i
+                                                                        class="fa fa-bed mr-2"></i>
+                                                                    Vaccine</span>
+                                                                <span class="not-available">Not-Available</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3 align-self-center">
+                                                            <div class="bed-details">
+                                                                <span class="options not-aval"> 0</span>
+                                                                <span class="options"> 45+</span>
+                                                                <span class="options"> Covxin</span>
+                                                                <span class="options"> Paid</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col align-self-center text-right">
+                                                            <a class="btn btn-primary p-2 py-1 "
+                                                                >Notify Availablity</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <!-- card for vaccine end -->
+                                            <!-- card for all vaccine available -->
+                                            <!-- <div class="card shadow-sm mt-2">
+                                                <div class="card-body text-left">
+                                                    <h5 class="card-title text-left hospital-name">Adilabad
+                                                        Neuro Super Speciality Hospital</h5>
+                                                    <p class="card-text text-left mb-1"><i
+                                                            class="fa fa-phone"></i> +91 9032628839</p>
+                                                    <p class="card-text text-left  mb-1"><i
+                                                            class="fa fa-location"></i> 123 street name,
+                                                        Address line, city, TS, 530002 - India</p>
+                                                    <p class="card-text text-left  mb-1"><i
+                                                            class="fa fa-date"></i>
+                                                        Updated 3 hours ago</p>
+                                                    <div class="row available-details ">
+                                                        <div class="col-md-2">
+                                                            <div class="bed-details">
+                                                                <span class="d-block"><i
+                                                                        class="fa fa-bed mr-2"></i>
+                                                                    Vaccine</span>
+                                                                <span class="available">Available</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3 align-self-center">
+                                                            <div class="bed-details">
+                                                                <span class="options aval"> 60</span>
+                                                                <span class="options"> 45+</span>
+                                                                <span class="options"> Covxin</span>
+                                                                <span class="options"> Paid</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col align-self-center text-right">
+                                                            <a class="btn btn-primary p-2 py-1 " >Book
+                                                                Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <!-- card for vaccine available end -->
+                                            <!-- card for all Plasma -->
+                                            <!-- card for Plasma end -->
+                                            <!-- card for all Plasma -->
+                                            <!-- card for Plasma end -->
                                         </div>
-                                    </ng-container>
-                                    <div class="text-right">
-                                        <a class="btn btn-primary text-white"
-                                            (click)="checkHospitalDetails(hospital.hospital_id)">Check Info</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>

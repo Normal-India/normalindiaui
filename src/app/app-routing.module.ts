@@ -8,17 +8,25 @@ import { LayoutComponent } from './block/layout/layout/layout.component';
 const routes: Routes = [
 
   {
-    path: '', component: LayoutComponent
+    path: '', component: LayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./feature/home/home.module').then((m) => m.HomeModule),
+      },
+      {
+        path: 'legal', component: LegalComponent
+      },
+      {
+        path: 'supporter', component: SupporterComponent
+      },
+      {
+        path: 'volunteer', component: SupporterComponent
+      }
+    ]
   },
-  {
-    path: 'legal', component: LegalComponent
-  },
-  {
-    path: 'supporter', component: SupporterComponent
-  },
-  {
-    path: 'volunteer', component: SupporterComponent
-  },
+  
 ];
 
 @NgModule({
