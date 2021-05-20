@@ -1,4 +1,4 @@
-<div id="content" class="p-2 p-md-2">
+<div id="content" class="p-2 p-md-2 mt-5">
     <div class="container-fluid">
         <div class="pt-4 pb-0">
             <h1 class="h4 fw-bold">Make India Normal Together</h1>
@@ -110,7 +110,7 @@
                                 <div class="col-sm searchtn col-auto d-flex align-items-end mb-2">
                                     <button class="btn btn-primary" (click)="fetchdatabypin()">Search</button>
                                 </div>
-                                <span class="d-flex justify-content-end col">
+                                <span class="col text-right align-self-center mt-3">
                                     <button *ngIf="selectedMode == 'Plasma'" class="btn btn-primary mr-2"
                                         (click)="openDonorPlasma(donorPlasmaTemplate)">Become A Donor</button>
                                     <button class="btn btn-primary" (click)="openNotifyMe()">Notify Me</button>
@@ -135,7 +135,7 @@
                                                         <p class="card-text text-left  mb-1"><i
                                                                 class="fa fa-location"></i> {{
                                                             bed.hospital.hospital_address }}</p>
-                                                        <p class="card-text text-left  mb-1"><i
+                                                        <p class="card-text text-left text-warning mb-1"><i
                                                                 class="fa fa-date"></i>
                                                             Updated 3 hours ago</p>
                                                         <div class="row available-details ">
@@ -188,7 +188,7 @@
                                                         <p class="card-text text-left  mb-1"><i
                                                                 class="fa fa-location"></i> {{
                                                             bed.hospital.hospital_address }}</p>
-                                                        <p class="card-text text-left  mb-1"><i
+                                                        <p class="card-text text-left text-warning mb-1"><i
                                                                 class="fa fa-date"></i>
                                                             Updated 3 hours ago</p>
                                                         <div class="row available-details ">
@@ -267,7 +267,7 @@
                                                         <p class="card-text text-left  mb-1"><i
                                                                 class="fa fa-location"></i> {{
                                                             bed.address }}</p>
-                                                        <p class="card-text text-left  mb-1"><i
+                                                        <p class="card-text text-left text-warning mb-1"><i
                                                                 class="fa fa-date"></i>
                                                             Updated 3 hours ago</p>
                                                         <div class="row available-details ">
@@ -280,8 +280,7 @@
                                                                         class="not-available">Not-Available</span> -->
                                                                     <span
                                                                         [ngClass]="bed.slots.length ? 'available' : 'not-available'">{{
-                                                                        bed.slots.length ? 'Available' : 'Not
-                                                                        Available' }}</span>
+                                                                        bed.slots.length ? 'Available' : 'Not Available' }}</span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 align-self-center">
@@ -573,7 +572,7 @@
                                 <div class="col-auto searchtn align-items-end d-flex mb-2">
                                     <button class="btn btn-primary" (click)="fecthdata()">Search</button>
                                 </div>
-                                <div class="col d-flex justify-content-end">
+                                <div class="col text-right align-self-center mt-3">
                                     <button *ngIf="selectedMode == 'Plasma'" class="btn btn-primary mr-2"
                                         type="submit" (click)="openDonorPlasma(donorPlasmaTemplate)">Become A
                                         Donor</button>
@@ -598,7 +597,7 @@
                                                         <p class="card-text text-left  mb-1"><i
                                                                 class="fa fa-location"></i> {{
                                                             bed.hospital.hospital_address }}</p>
-                                                        <p class="card-text text-left  mb-1"><i
+                                                        <p class="card-text text-left text-warning mb-1"><i
                                                                 class="fa fa-date"></i>
                                                             Updated 3 hours ago</p>
                                                         <div class="row available-details ">
@@ -628,7 +627,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col align-self-center text-right">
-                                                                <a class="btn btn-primary p-2 py-1 mr-1"
+                                                                <a class="btn btn-primary text-white p-2 py-1 mr-1"
                                                                     (click)="openModal(reportTemplate, bed)">Report
                                                                     Updates</a>
                                                                 <a class="btn btn-outline-primary p-2 py-1 ">Notify
@@ -649,7 +648,7 @@
                                                         <p class="card-text text-left  mb-1"><i
                                                                 class="fa fa-location"></i> {{
                                                             bed.hospital.hospital_address }}</p>
-                                                        <p class="card-text text-left  mb-1"><i
+                                                        <p class="card-text text-left text-warning mb-1"><i
                                                                 class="fa fa-date"></i>
                                                             Updated 3 hours ago</p>
                                                         <div class="row available-details ">
@@ -713,7 +712,7 @@
                                                         <p class="card-text text-left  mb-1"><i
                                                                 class="fa fa-location"></i> {{
                                                             bed.address }}</p>
-                                                        <p class="card-text text-left  mb-1"><i
+                                                        <p class="card-text text-left text-warning mb-1"><i
                                                                 class="fa fa-date"></i>
                                                             Updated 3 hours ago</p>
                                                         <div class="row available-details ">
@@ -726,8 +725,7 @@
                                                                         class="not-available">Not-Available</span> -->
                                                                     <span
                                                                         [ngClass]="bed.slots.length ? 'available' : 'not-available'">{{
-                                                                        bed.slots.length ? 'Available' : 'Not
-                                                                        Available' }}</span>
+                                                                        bed.slots.length ? 'Available' : 'Not Available' }}</span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 align-self-center">
@@ -901,3 +899,889 @@
         </div>
     </div>
 </div>
+
+<ng-template #reportTemplate>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">New Report</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="reportForm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="">My Name</label>
+                        <input type="text" class="form-control" formControlName="name">
+                        <span *ngIf="submitted && reportForm.controls.name.errors?.required" class="text-danger"> Name
+                            is
+                            required</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">My Mobile Number</label>
+                        <input type="text" class="form-control" formControlName="phonenumber">
+                        <span *ngIf="submitted && reportForm.controls.phonenumber.errors?.required" class="text-danger">
+                            Mobile
+                            number is
+                            required</span>
+                    </div>
+                    <div class="form-group">
+                        <div class="tab-slider--nav">
+                        <label for="">Regular Bed</label>
+                            <ul class="tab-slider--tabs">
+                                <li class="tab-slider--trigger" [class.active]="reportForm.get('regularBed').value"
+                                    rel="avaliable" (click)="setFormValue(true, 'regularBed', 'reportForm')">Avaliable
+                                </li>
+                                <li class="tab-slider--trigger" [class.inactive]="!reportForm.get('regularBed').value"
+                                    rel="notavaliable" (click)="setFormValue(false, 'regularBed', 'reportForm')">Not
+                                    Avaliable</li>
+                            </ul>
+                        </div>
+                        <div class="d-flex pl-2">
+                            <div class="input-group mb-3 count">
+                                <label for="">Count</label>
+                                <!-- <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Regular Bed Count</span>
+                                </div> -->
+                                <input type="number" class="form-control w-100" placeholder="00" name="regularBedCount"
+                                    formControlName="regularBedCount" aria-label="RegularBedCount"
+                                    aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="tab-slider--nav">
+                        <label for="">ICU Bed</label>
+                            <ul class="tab-slider--tabs">
+                                <li class="tab-slider--trigger" [class.active]="reportForm.get('icuBed').value"
+                                    rel="avaliable" (click)="setFormValue(true, 'icuBed', 'reportForm')">Avaliable</li>
+                                <li class="tab-slider--trigger" [class.inactive]="!reportForm.get('icuBed').value"
+                                    rel="notavaliable" (click)="setFormValue(false, 'icuBed', 'reportForm')">Not
+                                    Avaliable</li>
+                            </ul>
+                        </div>
+                        <div class="d-flex pl-2">
+                            <div class="input-group mb-3 count">
+                                <label for="">Count</label>
+                                <!-- <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">ICU Bed Count</span>
+                                </div> -->
+                                <input type="number" class="form-control w-100" placeholder="00" name="icuBedCount"
+                                    formControlName="icuBedCount" aria-label="ICUBedCount"
+                                    aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="tab-slider--nav">
+                        <label for="">Oxygen Bed</label>
+                            <ul class="tab-slider--tabs">
+                                <li class="tab-slider--trigger" [class.active]="reportForm.get('oxygenBed').value"
+                                    rel="avaliable" (click)="setFormValue(true, 'oxygenBed', 'reportForm')">Avaliable
+                                </li>
+                                <li class="tab-slider--trigger" [class.inactive]="!reportForm.get('oxygenBed').value"
+                                    rel="notavaliable" (click)="setFormValue(false, 'oxygenBed', 'reportForm')">Not
+                                    Avaliable</li>
+                            </ul>
+                        </div>
+                        <div class="d-flex pl-2">
+                            <div class="input-group mb-3 count">
+                                <label for="">Count</label>
+                                <!-- <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Oxygen Bed Count</span>
+                                </div> -->
+                                <input type="number" class="form-control w-100" placeholder="00" name="regularBedCount"
+                                    formControlName="oxygenBedCount" aria-label="OxygenBedCount"
+                                    aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="">Vaccine</label>
+                        <div class="tab-slider--nav">
+                            <ul class="tab-slider--tabs">
+                                <li class="tab-slider--trigger" [class.active]="reportForm.get('vaccine').value"
+                                    rel="avaliable" (click)="setFormValue(true, 'vaccine', 'reportForm')">Avaliable</li>
+                                <li class="tab-slider--trigger" [class.inactive]="!reportForm.get('vaccine').value"
+                                    rel="notavaliable" (click)="setFormValue(false, 'vaccine', 'reportForm')">Not
+                                    Avaliable</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <input class="form-control" type="text" name="vaccineCount" formControlName="vaccineCount">
+                        </div>
+                    </div> -->
+                    <!-- <div class="form-group">
+                        <label for="">Comment</label>
+                        <textarea type="text" name="comment" class="form-control" formControlName="comment"></textarea>
+                    </div> -->
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-primary col-sm-5" (click)="submitReport()">Done</button>
+                <button type="button" class="btn col-sm-5 ml-2 border" (click)="modalRef.hide()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+<ng-template #vaccineReportTemplate>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">New Report - Vaccine</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="vaccineReportForm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="">My Name</label>
+                        <input type="text" class="form-control" formControlName="name">
+                        <span *ngIf="vaccineReportForm.controls.name.errors?.required" class="text-danger"> Name is
+                            required</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">My Mobile Number</label>
+                        <input type="text" class="form-control" formControlName="mobileNo">
+                        <span *ngIf="vaccineReportForm.controls.mobileNo.errors?.required" class="text-danger"> Mobile
+                            number is
+                            required</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Availablity</label>
+                        <div class="tab-slider--nav">
+                            <ul class="tab-slider--tabs">
+                                <li class="tab-slider--trigger"
+                                    [class.active]="vaccineReportForm.get('vaccineAvailablity').value" rel="avaliable"
+                                    (click)="setFormValue(true, 'vaccineAvailablity', 'vaccineReportForm')">Avaliable
+                                </li>
+                                <li class="tab-slider--trigger"
+                                    [class.inactive]="!vaccineReportForm.get('vaccineAvailablity').value"
+                                    rel="notavaliable"
+                                    (click)="setFormValue(false, 'vaccineAvailablity', 'vaccineReportForm')">Not
+                                    Avaliable</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <input class="form-control" type="text" name="vaccineAvailablityCount"
+                                formControlName="vaccineAvailablityCount">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Age</label>
+                        <button (click)="setFormValue(false, 'forthyFivePlus', 'vaccineReportForm')"> 18 - 44 </button>
+                        <button (click)="setFormValue(true, 'forthyFivePlus', 'vaccineReportForm')"> 45+ </button>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Vaccine Type</label>
+                        <button (click)="setFormValue('covishield', 'vaccineType', 'vaccineReportForm')"> Covishield
+                        </button>
+                        <button (click)="setFormValue('covaxin', 'vaccineType', 'vaccineReportForm')"> Covaxin </button>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Price</label>
+                        <button (click)="setFormValue('paid', 'price', 'vaccineReportForm')"> Paid </button>
+                        <button (click)="setFormValue('free', 'price', 'vaccineReportForm')"> Free </button>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Comment</label>
+                        <textarea type="text" name="comment" class="form-control" formControlName="comment"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-primary col-sm-5" (click)="submitVaccineReport()">Done</button>
+                <button type="button" class="btn col-sm-5 ml-2 border" (click)="modalRef.hide()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+<ng-template #donorPlasmaTemplate>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">New Donor - Plasma</h4>
+        <button type="button" class="close pull-right" aria-label="Close"
+            (click)="modalRef.hide(); donorPlasmaForm.reset();">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="donorPlasmaForm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="">My Name</label>
+                        <input type="text" class="form-control" formControlName="name"
+                            [ngClass]="{ 'is-invalid': submitted && donorPlasmaForm.get('name').errors }">
+                        <span *ngIf="submitted && donorPlasmaForm.controls.name.errors?.required" class="text-danger">
+                            Name is
+                            required</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">My Mobile Number</label>
+                        <input type="text" class="form-control" formControlName="phonenumber"
+                            [ngClass]="{ 'is-invalid': submitted && donorPlasmaForm.get('phonenumber').errors }">
+                        <span *ngIf="submitted && donorPlasmaForm.controls.phonenumber.errors?.required"
+                            class="text-danger"> Mobile
+                            number is
+                            required</span>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6 text-start">
+                                <label for="State">State:</label>
+                                <select formControlName="state" #stateEl class="form-control" id='state'
+                                    [ngClass]="{ 'is-invalid': submitted && donorPlasmaForm.get('state').errors }">
+                                    <option disabled>Select State</option>
+                                    <option *ngFor="let stateVal of listOfStates" [value]="stateVal.state_id">
+                                        {{stateVal.state_name}}
+                                    </option>
+                                </select>
+                                <div *ngIf="submitted && donorPlasmaForm.get('state').errors" class="invalid-feedback">
+                                    <div *ngIf="donorPlasmaForm.get('state').errors.required">State is required.</div>
+                                </div>
+                            </div>
+                            <div class="col-6 text-start">
+                                <label for="city">City:</label>
+                                <select formControlName="city" class="form-control custom-select" #distric
+                                id='districId' [ngClass]="{ 'is-invalid': submitted && donorPlasmaForm.get('city').errors }">
+                                <option hidden></option>
+                                <option *ngFor="let district of listOfDistrict" [value]="district.district_id">
+                                    {{district.district_name}}</option>
+                            </select> 
+                            <div *ngIf="submitted && donorPlasmaForm.get('city').errors" class="invalid-feedback">
+                                    <div *ngIf="donorPlasmaForm.get('city').errors.required">city is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="donortype">Donor Type:</label>
+                                <select formControlName="donortype" class="form-control" #distric id='donortype'
+                                    [ngClass]="{ 'is-invalid': submitted && donorPlasmaForm.get('donortype').errors }">
+                                    <option disabled>Select Donor Type</option>
+                                    <!-- <option>Select District</option> -->
+                                    <option *ngFor="let donor of listOfDonor" [value]="donor">
+                                        {{donor}}</option>
+                                </select>
+                                <div *ngIf="submitted && donorPlasmaForm.get('donortype').errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="donorPlasmaForm.get('donortype').errors.required">Donor Type is
+                                        required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="donortype">Pin Code:</label>
+                                <input class="form-control" formControlName="pincode" type="text" placeholder="pincode"
+                                    [ngClass]="{ 'is-invalid': submitted && donorPlasmaForm.get('pincode').errors }">
+                                <div *ngIf="submitted && donorPlasmaForm.get('pincode').errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="donorPlasmaForm.get('pincode').errors.required">pincode is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="values">My Blood Group</label>
+                        <div class="d-flex flex-wrap">
+                            <button class="form-control mr-2 mb-2 w__17"
+                                [ngClass]="donorPlasmaForm.get('bloodgroup').value == 'A+' ? 'bg-primary' : 'bg-light' "
+                                (click)="setFormValue('A+', 'bloodgroup', 'donorPlasmaForm')"> A+ </button>
+                            <button class="form-control mr-2 mb-2 w__17"
+                                [ngClass]="donorPlasmaForm.get('bloodgroup').value == 'A-' ? 'bg-primary' : 'bg-light' "
+                                (click)="setFormValue('A-', 'bloodgroup', 'donorPlasmaForm')"> A- </button>
+                            <button class="form-control mr-2 mb-2 w__17"
+                                [ngClass]="donorPlasmaForm.get('bloodgroup').value == 'B+' ? 'bg-primary' : 'bg-light' "
+                                (click)="setFormValue('B+', 'bloodgroup', 'donorPlasmaForm')"> B+ </button>
+                            <button class="form-control mr-2 mb-2 w__17"
+                                [ngClass]="donorPlasmaForm.get('bloodgroup').value == 'B-' ? 'bg-primary' : 'bg-light' "
+                                (click)="setFormValue('B-', 'bloodgroup', 'donorPlasmaForm')"> B- </button>
+                            <button class="form-control mr-2 mb-2 w__17"
+                                [ngClass]="donorPlasmaForm.get('bloodgroup').value == 'O+' ? 'bg-primary' : 'bg-light' "
+                                (click)="setFormValue('O+', 'bloodgroup', 'donorPlasmaForm')"> O+ </button>
+                            <button class="form-control mr-2 mb-2 w__17"
+                                [ngClass]="donorPlasmaForm.get('bloodgroup').value == 'O-' ? 'bg-primary' : 'bg-light' "
+                                (click)="setFormValue('O-', 'bloodgroup', 'donorPlasmaForm')"> O- </button>
+                            <button class="form-control mr-2 mb-2 w__17"
+                                [ngClass]="donorPlasmaForm.get('bloodgroup').value == 'AB+' ? 'bg-primary' : 'bg-light' "
+                                (click)="setFormValue('AB+', 'bloodgroup', 'donorPlasmaForm')"> AB+ </button>
+                            <button class="form-control mr-2 mb-2 w__17"
+                                [ngClass]="donorPlasmaForm.get('bloodgroup').value == 'AB-' ? 'bg-primary' : 'bg-light' "
+                                (click)="setFormValue('AB-', 'bloodgroup', 'donorPlasmaForm')"> AB- </button>
+                            <button class="form-control mr-2 mb-2 w__17"
+                                [ngClass]="donorPlasmaForm.get('bloodgroup').value == 'Other' ? 'bg-primary' : 'bg-light' "
+                                (click)="setFormValue('Other', 'bloodgroup', 'donorPlasmaForm')"> Other </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">My Age(18-60 years only)</label>
+                        <select formControlName="age" class="form-control" #distric id='districId'
+                            [ngClass]="{ 'is-invalid': submitted && donorPlasmaForm.get('age').errors }">
+                            <option disabled>Select myAge</option>
+                            <!-- <option>Select myAge</option> -->
+                            <option *ngFor="let myAge of listOfmyAge" [value]="myAge">
+                                {{myAge}}</option>
+                        </select>
+                        <div *ngIf="submitted && donorPlasmaForm.get('age').errors" class="invalid-feedback">
+                            <div *ngIf="donorPlasmaForm.get('age').errors.required">my Age is required.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="posdate">Date of Positive Covid Test:</label>
+                        <input type="date" name="posdate" class="form-control" formControlName="posdate"
+                            [ngClass]="{ 'is-invalid': submitted && donorPlasmaForm.get('posdate').errors }" />
+                        <div *ngIf="submitted && donorPlasmaForm.get('posdate').errors" class="invalid-feedback">
+                            <div *ngIf="donorPlasmaForm.get('posdate').errors.required">posdate is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-primary col-sm-5" (click)="submitNewPlasma()">Done</button>
+                <button type="button" class="btn col-sm-5 ml-2 border"
+                    (click)="modalRef.hide(); donorPlasmaForm.reset();">Cancel</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+<ng-template #notifyPlasmaTemplate>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Notify My - Plasma</h4>
+        <button type="button" class="close pull-right" aria-label="Close"
+            (click)="modalRef.hide(); notifyPlasmaForm.reset();">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="notifyPlasmaForm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="">My Name</label>
+                        <input type="text" class="form-control" formControlName="name">
+                        <span *ngIf="submitted && notifyPlasmaForm.controls.name.errors?.required" class="text-danger">
+                            Name is
+                            required</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">My Mobile Number</label>
+                        <input type="text" class="form-control" formControlName="phonenumber">
+                        <span *ngIf="submitted && notifyPlasmaForm.controls.phonenumber.errors?.required"
+                            class="text-danger"> Mobile
+                            number is
+                            required</span>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-12 text-start">
+                                <label for="State">State:</label>
+                                <select formControlName="state" #stateEl class="form-control" id='state'
+                                    [ngClass]="{ 'is-invalid': submitted && notifyPlasmaForm.get('state').errors }"
+                                    (change)="getDistrictByState($event.target.value)">
+                                    <option *ngFor="let stateVal of listOfStates" [value]="stateVal.state_id">
+                                        {{stateVal.state_name}}
+                                    </option>
+                                </select>
+                                <div *ngIf="submitted && notifyPlasmaForm.get('state').errors" class="invalid-feedback">
+                                    <div *ngIf="notifyPlasmaForm.get('state').errors.required">State is required.</div>
+                                </div>
+                            </div>
+                            <div class="col-6 text-start">
+                                <label for="District">City:</label>
+                                <select formControlName="city" class="form-control" #distric id='districId'
+                                    [ngClass]="{ 'is-invalid': submitted && notifyPlasmaForm.get('city').errors }">
+                                    <option hidden></option>
+                                    <option *ngFor="let district of listOfDistrict" [value]="district.district_id">
+                                        {{district.district_name}}</option>
+                                </select>
+                                <div *ngIf="submitted && notifyPlasmaForm.get('city').errors" class="invalid-feedback">
+                                    <div *ngIf="notifyPlasmaForm.get('city').errors.required">District is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input class="form-control" formControlName="pincode" type="text" placeholder="pincode">
+                                <div *ngIf="submitted && notifyPlasmaForm.get('pincode').errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="notifyPlasmaForm.get('pincode').errors.required">pincode is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="values">My Blood Group</label>
+                        <div class="d-flex flex-wrap">
+                            <button class="form-control mr-2 mb-2 w__17"
+                                [ngClass]="setNotifyClass(notifyPlasmaForm.get('values').value,'A+') ? 'bg-primary' : 'bg-light' "
+                                (click)="setNotifyFormValue('A+', 'values', 'notifyPlasmaForm')"> A+ </button>
+                            <button class="form-control mr-2 mb-2 w__17"
+                                [ngClass]="setNotifyClass(notifyPlasmaForm.get('values').value, 'A-') ? 'bg-primary' : 'bg-light' "
+                                (click)="setNotifyFormValue('A-', 'values', 'notifyPlasmaForm')"> A- </button>
+                            <button class="form-control mr-2 mb-2 w__17"
+                                [ngClass]="setNotifyClass(notifyPlasmaForm.get('values').value, 'B+') ? 'bg-primary' : 'bg-light' "
+                                (click)="setNotifyFormValue('B+', 'values', 'notifyPlasmaForm')"> B+ </button>
+                            <button class="form-control mr-2 mb-2 w__17"
+                                [ngClass]="setNotifyClass(notifyPlasmaForm.get('values').value, 'B-') ? 'bg-primary' : 'bg-light' "
+                                (click)="setNotifyFormValue('B-', 'values', 'notifyPlasmaForm')"> B- </button>
+                            <button class="form-control mr-2 mb-2 w__17"
+                                [ngClass]="setNotifyClass(notifyPlasmaForm.get('values').value, 'O+') ? 'bg-primary' : 'bg-light' "
+                                (click)="setNotifyFormValue('O+', 'values', 'notifyPlasmaForm')"> O+ </button>
+                            <button class="form-control mr-2 mb-2 w__17"
+                                [ngClass]="setNotifyClass(notifyPlasmaForm.get('values').value, 'O-') ? 'bg-primary' : 'bg-light' "
+                                (click)="setNotifyFormValue('O-', 'values', 'notifyPlasmaForm')"> O- </button>
+                            <button class="form-control mr-2 mb-2 w__17"
+                                [ngClass]="setNotifyClass(notifyPlasmaForm.get('values').value, 'AB+') ? 'bg-primary' : 'bg-light' "
+                                (click)="setNotifyFormValue('AB+', 'values', 'notifyPlasmaForm')"> AB+ </button>
+                            <button class="form-control mr-2 mb-2 w__17"
+                                [ngClass]="setNotifyClass(notifyPlasmaForm.get('values').value, 'AB-') ? 'bg-primary' : 'bg-light' "
+                                (click)="setNotifyFormValue('AB-', 'values', 'notifyPlasmaForm')"> AB- </button>
+                            <button class="form-control mr-2 mb-2 w__17"
+                                [ngClass]="setNotifyClass(notifyPlasmaForm.get('values').value, 'Other') ? 'bg-primary' : 'bg-light' "
+                                (click)="setNotifyFormValue('Other', 'values', 'notifyPlasmaForm')"> Other </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-primary col-sm-5" (click)="notifySubmit()">Done</button>
+                <button type="button" class="btn col-sm-5 ml-2 border"
+                    (click)="modalRef.hide(); notifyPlasmaForm.reset();">Cancel</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+<ng-template #notifyBedTemplate>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Notify My - Bed</h4>
+        <button type="button" class="close pull-right" aria-label="Close"
+            (click)="modalRef.hide(); notifyBedForm.reset();">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="notifyBedForm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="">My Name</label>
+                        <input type="text" class="form-control" formControlName="name">
+                        <span *ngIf="submitted && notifyBedForm.controls.name.errors?.required" class="text-danger">
+                            Name is
+                            required</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">My Mobile Number</label>
+                        <input type="text" class="form-control" formControlName="phonenumber">
+                        <span *ngIf="submitted && notifyBedForm.controls.phonenumber.errors?.required"
+                            class="text-danger">
+                            Mobile
+                            number is
+                            required</span>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6 text-start">
+                                <label for="State">State:</label>
+                                <select formControlName="state" #stateEl class="form-control" id='state'
+                                    [ngClass]="{ 'is-invalid': submitted && notifyBedForm.get('state').errors }"
+                                    (change)="getDistrictByState($event.target.value)">
+                                    <option disabled>Select State</option>
+                                    <option *ngFor="let stateVal of listOfStates" [value]="stateVal.state_id">
+                                        {{stateVal.state_name}}
+                                    </option>
+                                </select>
+                                <div *ngIf="submitted && notifyBedForm.get('state').errors" class="invalid-feedback">
+                                    <div *ngIf="notifyBedForm.get('state').errors.required">State is required.</div>
+                                </div>
+                            </div>
+                            <div class="col-6 text-start">
+                                <label for="city">City:</label>
+                                <select formControlName="city" class="form-control" #distric id='districId'
+                                    [ngClass]="{ 'is-invalid': submitted && notifyBedForm.get('city').errors }">
+                                    <option hidden></option>
+                                    <option *ngFor="let district of listOfDistrict" [value]="district.district_id">
+                                        {{district.district_name}}</option>
+                                </select>
+                                <div *ngIf="submitted && notifyBedForm.get('city').errors" class="invalid-feedback">
+                                    <div *ngIf="notifyBedForm.get('city').errors.required">City is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input class="form-control" formControlName="pincode" type="text" placeholder="pincode">
+                                <div *ngIf="submitted && notifyBedForm.get('pincode').errors" class="invalid-feedback">
+                                    <div *ngIf="notifyBedForm.get('pincode').errors.required">pincode is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="values">Select Availablity Option(s)</label>
+                        <div class="d-flex flex-wrap">
+                            <button class="form-control mr-2 mb-2 w__32"
+                                [ngClass]="setNotifyClass(notifyBedForm.get('values').value,'ICU Bed') ? 'bg-primary' : 'bg-light' "
+                                (click)="setNotifyFormValue('ICU Bed', 'values', 'notifyBedForm')"> ICU Bed </button>
+                            <button class="form-control mr-2 mb-2 w__32"
+                                [ngClass]="setNotifyClass(notifyBedForm.get('values').value,'Regular Bed') ? 'bg-primary' : 'bg-light' "
+                                (click)="setNotifyFormValue('Regular Bed', 'values', 'notifyBedForm')"> Regular Bed
+                            </button>
+                            <button class="form-control mr-2 mb-2 w__32"
+                                [ngClass]="setNotifyClass(notifyBedForm.get('values').value,'Oxygen Bed') ? 'bg-primary' : 'bg-light' "
+                                (click)="setNotifyFormValue('Oxygen Bed', 'values', 'notifyBedForm')"> Oxygen Bed
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-primary col-sm-5" (click)="notifySubmit()">Done</button>
+                <button type="button" class="btn col-sm-5 ml-2 border"
+                    (click)="modalRef.hide(); notifyBedForm.reset();">Cancel</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+<ng-template #newReportPlasmaTemplate>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">New Report - Plasma</h4>
+        <button type="button" class="close pull-right" aria-label="Close"
+            (click)="modalRef.hide(); newReportPlasmaForm.reset();">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="newReportPlasmaForm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="">My Name</label>
+                        <input type="text" class="form-control" formControlName="name">
+                        <span *ngIf="submitted && newReportPlasmaForm.controls.name.errors?.required"
+                            class="text-danger"> Name is
+                            required</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">My Mobile Number</label>
+                        <input type="text" class="form-control" formControlName="mobileNo">
+                        <span *ngIf="submitted && newReportPlasmaForm.controls.mobileNo.errors?.required"
+                            class="text-danger"> Mobile
+                            number is
+                            required</span>
+                    </div>
+                    <div class="form-group">
+                        <div class="tab-slider--nav">
+                        <label> A+ Blood Group Availablity</label>
+                            <ul class="tab-slider--tabs">
+                                <li class="tab-slider--trigger" [class.active]="newReportPlasmaForm.get('aPlus').value"
+                                    rel="avaliable" (click)="setFormValue(true, 'aPlus', 'newReportPlasmaForm')">
+                                    Avaliable</li>
+                                <li class="tab-slider--trigger"
+                                    [class.inactive]="!newReportPlasmaForm.get('aPlus').value" rel="notavaliable"
+                                    (click)="setFormValue(false, 'aPlus', 'newReportPlasmaForm')">Not Avaliable</li>
+                            </ul>
+                        </div>
+                        <div class="d-flex pl-2 mb-3">
+                            <div class="input-group mb-3 count">
+                                <label for="">Count</label>
+                                <!-- <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">A+ Count</span>
+                                </div> -->
+                                <input type="number" class="form-control w-100" placeholder="00" name="aPlusCount"
+                                    formControlName="aPlusCount" aria-label="apluscount"
+                                    aria-describedby="bloodtypecount">
+                            </div>
+                        </div>
+                        <div class="tab-slider--nav">
+                        <label for=""> A- Blood Group Availablity</label>
+                            <ul class="tab-slider--tabs">
+                                <li class="tab-slider--trigger" [class.active]="newReportPlasmaForm.get('aMinus').value"
+                                    rel="avaliable" (click)="setFormValue(true, 'aMinus', 'newReportPlasmaForm')">
+                                    Avaliable</li>
+                                <li class="tab-slider--trigger"
+                                    [class.inactive]="!newReportPlasmaForm.get('aMinus').value" rel="notavaliable"
+                                    (click)="setFormValue(false, 'aMinus', 'newReportPlasmaForm')">Not Avaliable</li>
+                            </ul>
+                        </div>
+                        <div class="d-flex pl-2 mb-3">
+                            <div class="input-group mb-3 count">
+                                <label for="">Count</label>
+                                <!-- <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">A- Count</span>
+                                </div> -->
+                                <input type="number" class="form-control w-100" placeholder="00" name="aMinusCount"
+                                    formControlName="aMinusCount" aria-label="aMinuscount"
+                                    aria-describedby="bloodtypecount">
+                            </div>
+                        </div>
+                        <div class="tab-slider--nav">
+                        <label for=""> B+ Blood Group Availablity</label>
+                            <ul class="tab-slider--tabs">
+                                <li class="tab-slider--trigger" [class.active]="newReportPlasmaForm.get('bPlus').value"
+                                    rel="avaliable" (click)="setFormValue(true, 'bPlus', 'newReportPlasmaForm')">
+                                    Avaliable</li>
+                                <li class="tab-slider--trigger"
+                                    [class.inactive]="!newReportPlasmaForm.get('bPlus').value" rel="notavaliable"
+                                    (click)="setFormValue(false, 'bPlus', 'newReportPlasmaForm')">Not Avaliable</li>
+                            </ul>
+                        </div>
+                        <div class="d-flex pl-2 mb-3">
+                            <div class="input-group mb-3 count">
+                                <label for="">Count</label>
+                                <!-- <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">B+ Count</span>
+                                </div> -->
+                                <input type="number" class="form-control w-100" placeholder="00" name="bPlusCount"
+                                    formControlName="bPlusCount" aria-label="bPluscount"
+                                    aria-describedby="bloodtypecount">
+                            </div>
+                        </div>
+                        <div class="tab-slider--nav">
+                        <label for=""> B- Blood Group Availablity</label>
+                            <ul class="tab-slider--tabs">
+                                <li class="tab-slider--trigger" [class.active]="newReportPlasmaForm.get('bMinus').value"
+                                    rel="avaliable" (click)="setFormValue(true, 'bMinus', 'newReportPlasmaForm')">
+                                    Avaliable</li>
+                                <li class="tab-slider--trigger"
+                                    [class.inactive]="!newReportPlasmaForm.get('bMinus').value" rel="notavaliable"
+                                    (click)="setFormValue(false, 'bMinus', 'newReportPlasmaForm')">Not Avaliable</li>
+                            </ul>
+                        </div>
+                        <div class="d-flex pl-2 mb-3">
+                            <div class="input-group mb-3 count">
+                                <label for="">Count</label>
+                                <!-- <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">B- Count</span>
+                                </div> -->
+                                <input type="number" class="form-control w-100" placeholder="00" name="aMinusCount"
+                                    formControlName="bMinusCount" aria-label="bMinuscount"
+                                    aria-describedby="bloodtypecount">
+                            </div>
+                        </div>
+                        <div class="tab-slider--nav">
+                        <label for=""> O+ Blood Group Availablity</label>
+                            <ul class="tab-slider--tabs">
+                                <li class="tab-slider--trigger" [class.active]="newReportPlasmaForm.get('oPlus').value"
+                                    rel="avaliable" (click)="setFormValue(true, 'oPlus', 'newReportPlasmaForm')">
+                                    Avaliable</li>
+                                <li class="tab-slider--trigger"
+                                    [class.inactive]="!newReportPlasmaForm.get('oPlus').value" rel="notavaliable"
+                                    (click)="setFormValue(false, 'oPlus', 'newReportPlasmaForm')">Not Avaliable</li>
+                            </ul>
+                        </div>
+                        <div class="d-flex pl-2 mb-3">
+                            <div class="input-group mb-3 count">
+                                <label for="">Count</label>
+                                <!-- <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">O+ Count</span>
+                                </div> -->
+                                <input type="number" class="form-control w-100" placeholder="00" name="oPlusCount"
+                                    formControlName="oPlusCount" aria-label="oPluscount"
+                                    aria-describedby="bloodtypecount">
+                            </div>
+                        </div>
+                        <div class="tab-slider--nav">
+                        <label for=""> O- Blood Group Availablity</label>
+                            <ul class="tab-slider--tabs">
+                                <li class="tab-slider--trigger" [class.active]="newReportPlasmaForm.get('oMinus').value"
+                                    rel="avaliable" (click)="setFormValue(true, 'oMinus', 'newReportPlasmaForm')">
+                                    Avaliable</li>
+                                <li class="tab-slider--trigger"
+                                    [class.inactive]="!newReportPlasmaForm.get('oMinus').value" rel="notavaliable"
+                                    (click)="setFormValue(false, 'oMinus', 'newReportPlasmaForm')">Not Avaliable</li>
+                            </ul>
+                        </div>
+                        <div class="d-flex pl-2 mb-3">
+                            <div class="input-group mb-3 count">
+                                <label for="">Count</label>
+                                <!-- <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">O- Count</span>
+                                </div> -->
+                                <input type="number" class="form-control w-100" placeholder="00" name="oMinusCount"
+                                    formControlName="oMinusCount" aria-label="oMinuscount"
+                                    aria-describedby="bloodtypecount">
+                            </div>
+                        </div>
+                        <div class="tab-slider--nav">
+                        <label for=""> AB+ Blood Group Availablity</label>
+                            <ul class="tab-slider--tabs">
+                                <li class="tab-slider--trigger" [class.active]="newReportPlasmaForm.get('abPlus').value"
+                                    rel="avaliable" (click)="setFormValue(true, 'abPlus', 'newReportPlasmaForm')">
+                                    Avaliable</li>
+                                <li class="tab-slider--trigger"
+                                    [class.inactive]="!newReportPlasmaForm.get('abPlus').value" rel="notavaliable"
+                                    (click)="setFormValue(false, 'abPlus', 'newReportPlasmaForm')">Not Avaliable</li>
+                            </ul>
+                        </div>
+                        <div class="d-flex pl-2 mb-3">
+                            <div class="input-group mb-3 count">
+                                <label for="">Count</label>
+                                <!-- <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">AB+ Count</span>
+                                </div> -->
+                                <input type="number" class="form-control w-100" placeholder="00" name="abPlusCount"
+                                    formControlName="abPlusCount" aria-label="abPluscount"
+                                    aria-describedby="bloodtypecount">
+                            </div>
+                        </div>
+                        <div class="tab-slider--nav">
+                        <label> AB- Blood Group Availablity</label>
+                            <ul class="tab-slider--tabs">
+                                <li class="tab-slider--trigger"
+                                    [class.active]="newReportPlasmaForm.get('abMinus').value" rel="avaliable"
+                                    (click)="setFormValue(true, 'abMinus', 'newReportPlasmaForm')">Avaliable</li>
+                                <li class="tab-slider--trigger"
+                                    [class.inactive]="!newReportPlasmaForm.get('abMinus').value" rel="notavaliable"
+                                    (click)="setFormValue(false, 'abMinus', 'newReportPlasmaForm')">Not Avaliable</li>
+                            </ul>
+                        </div>
+                        <div class="d-flex pl-2 mb-3">
+                            <div class="input-group mb-3 count">
+                                <label for="">Count</label>
+                                <!-- <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">AB- Count</span>
+                                </div> -->
+                                <input type="number" class="form-control w-100" placeholder="00" name="abMinusCount"
+                                    formControlName="abMinusCount" aria-label="abMinuscount"
+                                    aria-describedby="bloodtypecount">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-primary col-sm-5" (click)="submitnewReportPlasma()">Done</button>
+                <button type="button" class="btn col-sm-5 ml-2 border"
+                    (click)="modalRef.hide(); newReportPlasmaForm.reset();">Cancel</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+<ng-template #notifyVaccineTemplate>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Notify My - Plasma</h4>
+        <button type="button" class="close pull-right" aria-label="Close"
+            (click)="modalRef.hide(); notifyVaccineForm.reset();">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="notifyVaccineForm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="">My Name</label>
+                        <input type="text" class="form-control" formControlName="name">
+                        <span *ngIf="submitted && notifyVaccineForm.controls.name.errors?.required" class="text-danger">
+                            Name is
+                            required</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">My Mobile Number</label>
+                        <input type="text" class="form-control" formControlName="phonenumber">
+                        <span *ngIf="submitted && notifyVaccineForm.controls.phonenumber.errors?.required"
+                            class="text-danger"> Mobile
+                            number is
+                            required</span>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6 text-start">
+                                <label for="State">State:</label>
+                                <select formControlName="state" #stateEl class="form-control" id='state'
+                                    [ngClass]="{ 'is-invalid': submitted && notifyVaccineForm.get('state').errors }"
+                                    (change)="getDistrictByState($event.target.value)">
+                                    <option hidden></option>
+                                    <option *ngFor="let stateVal of listOfStates" [value]="stateVal.state_id">
+                                        {{stateVal.state_name}}
+                                    </option>
+                                </select>
+                                <div *ngIf="submitted && notifyVaccineForm.get('state').errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="notifyVaccineForm.get('state').errors.required">State is required.</div>
+                                </div>
+                            </div>
+                            <div class="col-6 text-start">
+                                <label for="city">city:</label>
+                                <select formControlName="city" class="form-control" #distric id='districId'
+                                    [ngClass]="{ 'is-invalid': submitted && notifyVaccineForm.get('city').errors }">
+                                    <option disabled>Select City</option>
+                                    <!-- <option>Select District</option> -->
+                                    <option *ngFor="let district of listOfDistrict" [value]="district.district_id">
+                                        {{district.district_name}}</option>
+                                </select>
+                                <div *ngIf="submitted && notifyVaccineForm.get('city').errors" class="invalid-feedback">
+                                    <div *ngIf="notifyVaccineForm.get('city').errors.required">City is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12 text-left dropdown-mobile">
+                                <input class="form-control" formControlName="pincode" type="text" placeholder="pincode">
+                                <div *ngIf="submitted && notifyVaccineForm.get('pincode').errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="notifyVaccineForm.get('pincode').errors.required">pincode is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="values">My Blood Group</label>
+                        <div class="d-flex flex-wrap">
+                            <button class="form-control mr-2 mb-2 w__25"
+                                [ngClass]="setNotifyClass(notifyVaccineForm.get('values').value, '18') ? 'bg-primary' : 'bg-light' "
+                                (click)="setNotifyFormValue('18', 'values', 'notifyVaccineForm')"> 18-44 </button>
+                            <button class="form-control mr-2 mb-2 w__25"
+                                [ngClass]="setNotifyClass(notifyVaccineForm.get('values').value, '45') ? 'bg-primary' : 'bg-light' "
+                                (click)="setNotifyFormValue('45', 'values', 'notifyVaccineForm')"> 45+ </button>
+                            <button class="form-control mr-2 mb-2 w__25"
+                                [ngClass]="setNotifyClass(notifyVaccineForm.get('values').value, 'Paid') ? 'bg-primary' : 'bg-light' "
+                                (click)="setNotifyFormValue('Paid', 'values', 'notifyVaccineForm')"> Paid </button>
+                            <button class="form-control mr-2 mb-2 w__25"
+                                [ngClass]="setNotifyClass(notifyVaccineForm.get('values').value, 'Free') ? 'bg-primary' : 'bg-light' "
+                                (click)="setNotifyFormValue('Free', 'values', 'notifyVaccineForm')"> Free </button>
+                            <button class="form-control mr-2 mb-2 w__25"
+                                [ngClass]="setNotifyClass(notifyVaccineForm.get('values').value, 'Covishield') ? 'bg-primary' : 'bg-light' "
+                                (click)="setNotifyFormValue('Covishield', 'values', 'notifyVaccineForm')"> Covishield
+                            </button>
+                            <button class="form-control mr-2 mb-2 w__25"
+                                [ngClass]="setNotifyClass(notifyVaccineForm.get('values').value, 'Covaxin') ? 'bg-primary' : 'bg-light' "
+                                (click)="setNotifyFormValue('Covaxin', 'values', 'notifyVaccineForm')"> Covaxin
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-primary col-sm-5" (click)="notifySubmit()">Done</button>
+                <button type="button" class="btn col-sm-5 ml-2 border"
+                    (click)="modalRef.hide(); notifyVaccineForm.reset();">Cancel</button>
+            </div>
+        </form>
+    </div>
+</ng-template>

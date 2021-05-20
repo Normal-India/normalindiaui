@@ -13,7 +13,7 @@
   }
 
   .tab-slider--nav {
-    width: 100%;
+    width: 60%;
     float: left;
     margin-bottom: 20px;
   }
@@ -28,7 +28,7 @@
     border-radius: 35px;
     overflow: hidden;
     background:lightgray;
-    height: 35px;
+    height: 32px;
     -webkit-user-select: none;
        -moz-user-select: none;
         -ms-user-select: none;
@@ -56,7 +56,7 @@
     color: #345F90;
     text-transform: uppercase;
     text-align: center;
-    padding: 11px 20px;
+    padding: 10px 10px;
     position: relative;
     z-index: 2;
     cursor: pointer;
@@ -99,4 +99,15 @@
 
   .w__25 {
     width: 32%;
+  }
+  .count{
+    display: inline-block;
+  }
+  .navbar-fixed-top{
+    top: 0;
+    border-width: 0 0 1px;
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
   }
