@@ -211,7 +211,7 @@ export class HomeComponent implements OnInit {
 
   setNotifyFormValue(value, key, form) {
     let values = this[form].get(key).value;
-    if (values== null) {
+    if (values == null) {
       values = []
     }
     if (values.some(res => res == value)) {
@@ -726,7 +726,13 @@ export class HomeComponent implements OnInit {
 
   updateinfo(obj, flag) {
     const newObj = JSON.parse(JSON.stringify(obj));
-    flag == 'up' ? newObj['upvote'] = 1 : newObj['downvote'] = 1;
+    if (flag == 'up') {
+      newObj['upvote'] = 1;
+      newObj['downvote'] = 0;
+    } else {
+      newObj['upvote'] = 0;
+      newObj['downvote'] = 1;
+    }
     this.commonService.commonApiCall(
       HOSPITAL.updateinfo,
       HttpMethod.PUT,

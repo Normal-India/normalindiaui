@@ -1465,15 +1465,15 @@
                         <label for="values">Select Availablity Option(s)</label>
                         <div class="d-flex flex-wrap">
                             <button class="form-control mr-2 mb-2 w__32"
-                                [ngClass]="setNotifyClass(notifyBedForm.get('values').value,'ICU Bed') ? 'bg-primary' : 'bg-light' "
-                                (click)="setNotifyFormValue('ICU Bed', 'values', 'notifyBedForm')"> ICU Bed </button>
+                                [ngClass]="setNotifyClass(notifyBedForm.get('values').value,'ICU') ? 'bg-primary' : 'bg-light' "
+                                (click)="setNotifyFormValue('ICU', 'values', 'notifyBedForm')"> ICU Bed </button>
                             <button class="form-control mr-2 mb-2 w__32"
-                                [ngClass]="setNotifyClass(notifyBedForm.get('values').value,'Regular Bed') ? 'bg-primary' : 'bg-light' "
-                                (click)="setNotifyFormValue('Regular Bed', 'values', 'notifyBedForm')"> Regular Bed
+                                [ngClass]="setNotifyClass(notifyBedForm.get('values').value,'Normal') ? 'bg-primary' : 'bg-light' "
+                                (click)="setNotifyFormValue('Normal', 'values', 'notifyBedForm')"> Regular Bed
                             </button>
                             <button class="form-control mr-2 mb-2 w__32"
-                                [ngClass]="setNotifyClass(notifyBedForm.get('values').value,'Oxygen Bed') ? 'bg-primary' : 'bg-light' "
-                                (click)="setNotifyFormValue('Oxygen Bed', 'values', 'notifyBedForm')"> Oxygen Bed
+                                [ngClass]="setNotifyClass(notifyBedForm.get('values').value,'Oxygen') ? 'bg-primary' : 'bg-light' "
+                                (click)="setNotifyFormValue('Oxygen', 'values', 'notifyBedForm')"> Oxygen Bed
                             </button>
                         </div>
                     </div>
