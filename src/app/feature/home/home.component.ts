@@ -218,7 +218,9 @@ export class HomeComponent implements OnInit {
   }
 
   setNotifyClass(list, value) {
-    return list.some(res => res.includes(value))
+    if (list) {
+      return list.some(res => res.includes(value))
+    }
   }
 
   setActive(child) {
@@ -372,8 +374,9 @@ export class HomeComponent implements OnInit {
       for (let h = 0; h < hospital.resources[0].subtypes.length; h++) {
         if (hospital.resources[0].subtypes[h].type === 'Normal') {
           this.reportForm.patchValue({
-            regularBed: hospital.resources[0].subtypes[h].available ? true : false
+            regularBed: hospital.resources[0].subtypes[h].available ? true : false,
           })
+          hospital.resources[0].subtypes[h].available ? this.checkAvaibility(this.reportForm.controls['regularBedCount'], true) : this.checkAvaibility(this.reportForm.controls['regularBedCount'], false);
         } else if (hospital.resources[0].subtypes[h].type === 'Oxygen') {
           this.reportForm.patchValue({
             oxygenBed: hospital.resources[0].subtypes[h].available ? true : false
@@ -393,6 +396,14 @@ export class HomeComponent implements OnInit {
     this.submitted = false;
     this.modalRef = this.modalService.show(template, { backdrop: 'static', keyboard: false, class: 'modal-dialog-width' });
   }
+
+
+  checkAvaibility(form, value) {
+    value ? form.enable() : form.disable();
+  }
+
+
+
 
   openPlasmaReport(template: TemplateRef<any>, data) {
     this.newReportPlasma();
@@ -703,7 +714,9 @@ export class HomeComponent implements OnInit {
             this.fecthdata();
           }
           this.donorPlasmaForm.reset();
-          this.modalRef.hide();
+          if (this.modalRef) {
+            this.modalRef.hide();
+          }
         }
       }
     );

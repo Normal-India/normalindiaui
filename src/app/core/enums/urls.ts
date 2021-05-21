@@ -1,6 +1,6 @@
 import { environment } from '../../../environments/environment';
 
-let url = environment.baseUrl + '/api/';
+let url = environment.baseUrl;
 
 export const LOGIN = {
     TOKEN: url + 'Token/login',
@@ -22,12 +22,12 @@ export const CASE = {
 export const HOSPITAL = {
     StateUrl: 'https://cdn-api.co-vin.in/api/v2/admin/location/states',
     DistrictUrl: ' https://cdn-api.co-vin.in/api/v2/admin/location/districts',
-    HospitalByPinCodeUrl: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/gethospitaldatabypin',
-    GethospitaldataUrl: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/gethospitaldata',
-    GethospitalbyidUrl: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/gethospitalbyid',
-    addReport: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/addreport',
-    updatereport: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/updatereport', 
-    updateinfo: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/updateinfo', 
+    HospitalByPinCodeUrl: url + 'gethospitaldatabypin',
+    GethospitaldataUrl: url + 'gethospitaldata',
+    GethospitalbyidUrl: url + 'gethospitalbyid',
+    addReport: url + 'addreport',
+    updatereport: url + 'updatereport',
+    updateinfo: url + 'updateinfo',
     // '../../../assets/Data/ts.json'
 }
 
@@ -37,17 +37,17 @@ export const SLOTS = {
 }
 
 export const COMPONENTS = {
-    getComponentdata: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/getcomponentdata',
-    fecthdata: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/fetchdata',
-    fetchdatabypin: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/fetchdatabypin',
+    getComponentdata: url + 'getcomponentdata',
+    fecthdata: url + 'fetchdata',
+    fetchdatabypin: url + 'fetchdatabypin',
     notify: 'http://ninotificationservice-env.eba-j7q5natv.us-east-2.elasticbeanstalk.com/notify',
 }
 
 export const DONOR = {
-    adddonor: 'http://normalindiaservice-env.eba-sxmcmnni.us-east-2.elasticbeanstalk.com/donoraction/adddonor',
+    adddonor: url + 'donoraction/adddonor',
 }
 
 export const VACCINE = {
-    getAvailabilityByDistrict: 'http://normalindia-env.eba-mmedpu7m.ap-south-1.elasticbeanstalk.com/vaccine/getAvailabilityByDistrict',
-    getAvailabilityByPin: 'http://normalindia-env.eba-mmedpu7m.ap-south-1.elasticbeanstalk.com/vaccine/getAvailabilityByPin'
+    getAvailabilityByDistrict: url + 'vaccine/getAvailabilityByDistrict',
+    getAvailabilityByPin: url + 'vaccine/getAvailabilityByPin'
 }
