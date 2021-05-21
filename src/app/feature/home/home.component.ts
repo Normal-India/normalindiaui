@@ -198,10 +198,14 @@ export class HomeComponent implements OnInit {
   }
 
 
-  setFormValue(value, key, form) {
+  setFormValue(value, key, form, formVal?) {
     this[form].patchValue({
       [key]: value
     })
+    if (!formVal) {
+      return
+    }
+    this[form].value[key] ? this.checkAvaibility(this[form].controls[formVal], true) : this.checkAvaibility(this[form].controls[formVal], false);
   }
 
 
@@ -375,21 +379,29 @@ export class HomeComponent implements OnInit {
         if (hospital.resources[0].subtypes[h].type === 'Normal') {
           this.reportForm.patchValue({
             regularBed: hospital.resources[0].subtypes[h].available ? true : false,
+            regularBedCount: hospital.resources[0].subtypes[h].current
           })
           hospital.resources[0].subtypes[h].available ? this.checkAvaibility(this.reportForm.controls['regularBedCount'], true) : this.checkAvaibility(this.reportForm.controls['regularBedCount'], false);
         } else if (hospital.resources[0].subtypes[h].type === 'Oxygen') {
           this.reportForm.patchValue({
-            oxygenBed: hospital.resources[0].subtypes[h].available ? true : false
+            oxygenBed: hospital.resources[0].subtypes[h].available ? true : false,
+            oxygenBedCount: hospital.resources[0].subtypes[h].current
           })
+          hospital.resources[0].subtypes[h].available ? this.checkAvaibility(this.reportForm.controls['oxygenBedCount'], true) : this.checkAvaibility(this.reportForm.controls['oxygenBedCount'], false);
         } else if (hospital.resources[0].subtypes[h].type === 'ICU') {
           this.reportForm.patchValue({
-            icuBed: hospital.resources[0].subtypes[h].available ? true : false
+            icuBed: hospital.resources[0].subtypes[h].available ? true : false,
+            icuBedCount: hospital.resources[0].subtypes[h].current
           })
-        } else if (hospital.resources[0].subtypes[h].type === 'Vaccine') {
-          this.reportForm.patchValue({
-            vaccine: hospital.resources[0].subtypes[h].available ? true : false
-          })
+          hospital.resources[0].subtypes[h].available ? this.checkAvaibility(this.reportForm.controls['icuBedCount'], true) : this.checkAvaibility(this.reportForm.controls['icuBedCount'], false);
+
         }
+        //  else if (hospital.resources[0].subtypes[h].type === 'Vaccine') {
+        //   this.reportForm.patchValue({
+        //     vaccine: hospital.resources[0].subtypes[h].available ? true : false,
+        //     regularBedCount: hospital.resources[0].subtypes[h].available.current
+        //   })
+        // }
       }
     }
     this.selectedHospital = hospital;
@@ -399,7 +411,12 @@ export class HomeComponent implements OnInit {
 
 
   checkAvaibility(form, value) {
-    value ? form.enable() : form.disable();
+    if (value) {
+      form.enable()
+    } else {
+      form.disable();
+      form.patchValue(null);
+    }
   }
 
 
