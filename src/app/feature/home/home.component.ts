@@ -145,7 +145,7 @@ export class HomeComponent implements OnInit {
       state: ['', [Validators.required]],
       city: ['', [Validators.required]],
       pincode: ['', [Validators.required]],
-      token: [null, [Validators.required]],
+      token: [],
       values: [[], [Validators.required]]
     });
   }
@@ -157,7 +157,7 @@ export class HomeComponent implements OnInit {
       state: ['', [Validators.required]],
       city: ['', [Validators.required]],
       pincode: ['', [Validators.required]],
-      token: [null, [Validators.required]],
+      token: [],
       values: [[], [Validators.required]]
     });
   }
@@ -169,7 +169,7 @@ export class HomeComponent implements OnInit {
       state: ['', [Validators.required]],
       city: ['', [Validators.required]],
       pincode: ['', [Validators.required]],
-      token: [null, [Validators.required]],
+      token: [],
       values: [[], [Validators.required]]
     });
   }
@@ -198,15 +198,22 @@ export class HomeComponent implements OnInit {
   }
 
 
-  setFormValue(value, key, form) {
+  setFormValue(value, key, form, formVal?) {
     this[form].patchValue({
       [key]: value
     })
+    if (!formVal) {
+      return
+    }
+    this[form].value[key] ? this.checkAvaibility(this[form].controls[formVal], true) : this.checkAvaibility(this[form].controls[formVal], false);
   }
 
 
   setNotifyFormValue(value, key, form) {
     let values = this[form].get(key).value;
+    if (values== null) {
+      values = []
+    }
     if (values.some(res => res == value)) {
       values = values.filter(resp => resp != value);
     } else {
@@ -375,21 +382,29 @@ export class HomeComponent implements OnInit {
         if (hospital.resources[0].subtypes[h].type === 'Normal') {
           this.reportForm.patchValue({
             regularBed: hospital.resources[0].subtypes[h].available ? true : false,
+            regularBedCount: hospital.resources[0].subtypes[h].current
           })
           hospital.resources[0].subtypes[h].available ? this.checkAvaibility(this.reportForm.controls['regularBedCount'], true) : this.checkAvaibility(this.reportForm.controls['regularBedCount'], false);
         } else if (hospital.resources[0].subtypes[h].type === 'Oxygen') {
           this.reportForm.patchValue({
-            oxygenBed: hospital.resources[0].subtypes[h].available ? true : false
+            oxygenBed: hospital.resources[0].subtypes[h].available ? true : false,
+            oxygenBedCount: hospital.resources[0].subtypes[h].current
           })
+          hospital.resources[0].subtypes[h].available ? this.checkAvaibility(this.reportForm.controls['oxygenBedCount'], true) : this.checkAvaibility(this.reportForm.controls['oxygenBedCount'], false);
         } else if (hospital.resources[0].subtypes[h].type === 'ICU') {
           this.reportForm.patchValue({
-            icuBed: hospital.resources[0].subtypes[h].available ? true : false
+            icuBed: hospital.resources[0].subtypes[h].available ? true : false,
+            icuBedCount: hospital.resources[0].subtypes[h].current
           })
-        } else if (hospital.resources[0].subtypes[h].type === 'Vaccine') {
-          this.reportForm.patchValue({
-            vaccine: hospital.resources[0].subtypes[h].available ? true : false
-          })
+          hospital.resources[0].subtypes[h].available ? this.checkAvaibility(this.reportForm.controls['icuBedCount'], true) : this.checkAvaibility(this.reportForm.controls['icuBedCount'], false);
+
         }
+        //  else if (hospital.resources[0].subtypes[h].type === 'Vaccine') {
+        //   this.reportForm.patchValue({
+        //     vaccine: hospital.resources[0].subtypes[h].available ? true : false,
+        //     regularBedCount: hospital.resources[0].subtypes[h].available.current
+        //   })
+        // }
       }
     }
     this.selectedHospital = hospital;
@@ -399,7 +414,12 @@ export class HomeComponent implements OnInit {
 
 
   checkAvaibility(form, value) {
-    value ? form.enable() : form.disable();
+    if (value) {
+      form.enable()
+    } else {
+      form.disable();
+      form.patchValue(null);
+    }
   }
 
 
@@ -654,15 +674,20 @@ export class HomeComponent implements OnInit {
     this.submitted = true
     let value;
     if (this.selectedMode == 'Bed') {
-      this.notifyBedForm.patchValue({
-        token: this.token,
-        state: this.listOfStates.find(res => res.state_id == +this.notifyBedForm.get('state').value).state_name,
-        city: this.listOfDistrict.find(res => res.district_id == +this.notifyBedForm.get('city').value).district_name
-      })
       if (this.notifyBedForm.invalid) {
         return;
       }
-      value = this.notifyBedForm.value
+      value = {
+        token: this.token,
+        state: this.listOfStates.find(res => res.state_id == +this.notifyBedForm.get('state').value).state_name,
+        city: this.listOfDistrict.find(res => res.district_id == +this.notifyBedForm.get('city').value).district_name,
+        name: this.notifyBedForm.get('name').value,
+        phonenumber: this.notifyBedForm.get('phonenumber').value,
+        pincode: this.notifyBedForm.get('pincode').value,
+        values: this.notifyBedForm.get('values').value,
+      }
+
+      // value = this.notifyBedForm.value
     } else if (this.selectedMode == 'Vaccine') {
       this.notifyVaccineForm.patchValue({
         state: this.listOfStates.find(res => res.state_id == +this.notifyVaccineForm.get('state').value).state_name,
