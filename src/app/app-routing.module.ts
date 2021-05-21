@@ -1,3 +1,4 @@
+import { VolunterComponent } from './block/volunter/volunter.component';
 import { SupporterComponent } from './block/supporter/supporter.component';
 import { LegalComponent } from './block/legal/legal.component';
 import { NgModule } from '@angular/core';
@@ -22,7 +23,7 @@ const routes: Routes = [
         path: 'supporter', component: SupporterComponent
       },
       {
-        path: 'volunteer', component: SupporterComponent
+        path: 'volunteer', component: VolunterComponent
       }
     ]
   },

@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
   phoneNumber = "^((\\+91-?)|0)?[0-9]{10}$";
   message: any;
   token: any;
-
+  minDate=new Date();
   constructor(private commonService: CommonService,
     private spinner: NgxSpinnerService,
     private http: HttpClient,
