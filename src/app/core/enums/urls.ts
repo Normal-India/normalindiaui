@@ -17,7 +17,7 @@ export const USER = {
 // }
 
 export const CASE = {
-    CaseUrl: 'https://api.covid19india.org/v3/data.json',
+    CaseUrl: 'https://api.covid19india.org/v4/min/data.min.json',
 }
 export const HOSPITAL = {
     StateUrl: 'https://cdn-api.co-vin.in/api/v2/admin/location/states',

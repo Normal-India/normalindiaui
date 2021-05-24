@@ -40,6 +40,7 @@ export class HomeComponent implements OnInit {
   newReportPlasmaForm: FormGroup;
   notifyVaccineForm: FormGroup;
   selectedHospital: any;
+  noRecordsFound: boolean = false
   filterList = [];
   listOfDonor = ['donor']
   listOfmyAge = ['18', '19', '20']
@@ -344,6 +345,11 @@ export class HomeComponent implements OnInit {
         if (statusFlag) {
           this.filterList = key ? res[key] : res;
         }
+        if(this.filterList.length === 0) {
+          this.noRecordsFound = true
+        } else {
+          this.noRecordsFound = false
+        }
       }
     );
   }
@@ -360,6 +366,7 @@ export class HomeComponent implements OnInit {
         .set("feetype", this.setValues(['Paid', 'Free']))
         .set("vaccinetype", this.setValues(['Covaxin', 'Covishield']))
         .set("agelimit", this.setValues(['45+', '18-44']))
+        .set("dosatype", this.setValues([]))
       this.commonCode(VACCINE.getAvailabilityByPin + '?' + params, 'centers');
     } else {
       const params = new HttpParams()

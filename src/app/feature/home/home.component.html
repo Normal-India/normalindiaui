@@ -188,6 +188,9 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div *ngIf="noRecordsFound">
+                                                            <p>No info available</p>
+                                                        </div>
                                                     </ng-container>
                                                     <ng-container *ngIf="selectedMode == 'Plasma'">
                                                         <div class="card shadow-sm mt-2" *ngFor="let bed of filterList">
@@ -267,6 +270,9 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div *ngIf="noRecordsFound">
+                                                            <p>No info available</p>
+                                                        </div>
                                                     </ng-container>
 
                                                     <ng-container *ngIf="selectedMode == 'Vaccine'">
@@ -332,6 +338,9 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                        <div *ngIf="noRecordsFound">
+                                                            <p>No info available</p>
                                                         </div>
                                                     </ng-container>
                                                     <!-- card for all vaccine -->
@@ -662,7 +671,11 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div *ngIf="noRecordsFound">
+                                                            <p>No info available</p>
+                                                        </div>
                                                     </ng-container>
+
                                                     <ng-container *ngIf="selectedMode == 'Plasma'">
                                                         <div class="card shadow-sm mt-2" *ngFor="let bed of filterList">
                                                             <div class="card-body text-left">
@@ -724,6 +737,9 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                        <div *ngIf="noRecordsFound">
+                                                            <p>No info available</p>
                                                         </div>
                                                     </ng-container>
 
@@ -788,6 +804,9 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                        <div *ngIf="noRecordsFound">
+                                                            <p>No info available</p>
                                                         </div>
                                                     </ng-container>
                                                     <!-- card for all start -->
