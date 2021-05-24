@@ -6,21 +6,21 @@
     <div class="card mainCard">
       <div class="card-body">
         <div class="row">
-          <div class="mainCardItems text-danger">
+          <div class="col-lg-3 text-danger">
             <small>Confirmed</small>
             <p>{{ confirmCasesCount |number : '1.0-0' }}</p>
             <small>Today: {{todayConfirmedCases | number}}</small>
           </div>
-          <div class="mainCardItems text-primary">
+          <div class="col-lg-3 text-primary">
             <small>Active</small>
             <p>{{confirmCasesCount - recoveredCount - diedCount | number}}</p>
           </div>
-          <div class="mainCardItems text-success">
+          <div class="col-lg-3 text-success">
             <small>Recovered</small>
             <p>{{recoveredCount | number}}</p>
             <small>Today: {{todayRecoveredCases | number}}</small>
           </div>
-          <div class="mainCardItems text-dark">
+          <div class="col-lg-3 text-dark">
             <small>Deceased</small>
             <p>{{diedCount | number}}</p>
             <small>Today: {{todayDiedCases | number}}</small>

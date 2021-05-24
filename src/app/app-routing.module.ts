@@ -24,7 +24,12 @@ const routes: Routes = [
       },
       {
         path: 'volunteer', component: VolunterComponent
-      }
+      },
+      {
+        path: 'cases',
+        loadChildren: () =>
+          import('./feature/cases/cases.module').then((m) => m.CasesModule),
+      },
     ]
   },
   
