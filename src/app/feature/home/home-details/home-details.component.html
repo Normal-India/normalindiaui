@@ -32,7 +32,7 @@
                   <i class="fa fa-thumbs-down" aria-hidden="true"></i>
                   {{hospitalDetails.downvote}}
                 </div>
-                <ng-conatiner *ngFor="let info of hospitalDetails?.org?.report?.information">
+                <ng-container *ngFor="let info of hospitalDetails?.org?.report?.information">
                   <div class="available-beds ml-2">
                     <i class="fa fa-heartbeat" aria-hidden="true"></i> {{info.type}}
                     <span class="d-block font-10">
@@ -42,7 +42,7 @@
                       <span class="hours">{{info.createdOn}}</span></span>
                     <div class="available-no">{{info.current}} of {{info.total}}</div>
                   </div>
-                </ng-conatiner>
+                </ng-container>
               </div>
             </div>
             <div class="plasma-available mt-3">
