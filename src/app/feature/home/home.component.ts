@@ -40,7 +40,6 @@ export class HomeComponent implements OnInit {
   newReportPlasmaForm: FormGroup;
   notifyVaccineForm: FormGroup;
   selectedHospital: any;
-
   filterList = [];
   listOfDonor = ['donor']
   listOfmyAge = ['18', '19', '20']
@@ -158,7 +157,9 @@ export class HomeComponent implements OnInit {
       city: ['', [Validators.required]],
       pincode: ['', [Validators.required]],
       token: [],
-      values: [[], [Validators.required]]
+      values: [[], [Validators.required]],
+      districtid: [],
+      type: []
     });
   }
 
@@ -170,7 +171,9 @@ export class HomeComponent implements OnInit {
       city: ['', [Validators.required]],
       pincode: ['', [Validators.required]],
       token: [],
-      values: [[], [Validators.required]]
+      values: [[], [Validators.required]],
+      districtid: [],
+      type: []
     });
   }
 
@@ -685,6 +688,8 @@ export class HomeComponent implements OnInit {
         phonenumber: this.notifyBedForm.get('phonenumber').value,
         pincode: this.notifyBedForm.get('pincode').value,
         values: this.notifyBedForm.get('values').value,
+        districtid: this.notifyBedForm.get('city').value,
+        type: 'Bed'
       }
 
       // value = this.notifyBedForm.value
@@ -692,7 +697,9 @@ export class HomeComponent implements OnInit {
       this.notifyVaccineForm.patchValue({
         state: this.listOfStates.find(res => res.state_id == +this.notifyVaccineForm.get('state').value).state_name,
         city: this.listOfDistrict.find(res => res.district_id == +this.notifyVaccineForm.get('city').value).district_name,
-        token: this.token
+        token: this.token,
+        districtid: this.notifyVaccineForm.get('city').value,
+        type: 'Vaccine'
       })
       if (this.notifyVaccineForm.invalid) {
         return;
@@ -704,6 +711,7 @@ export class HomeComponent implements OnInit {
         city: this.listOfDistrict.find(res => res.district_id == +this.notifyPlasmaForm.get('city').value).district_name,
         token: this.token
       })
+  
       if (this.notifyPlasmaForm.invalid) {
         return;
       }

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://normalindia-env.eba-mmedpu7m.ap-south-1.elasticbeanstalk.com/',
+  baseUrl: 'http://normalindia-qa-env.eba-mmedpu7m.ap-south-1.elasticbeanstalk.com/',
   stripe: 'pk_test_rI2ObieGIf2HL5nmZkUBSnn800u16zSXu6',
   reCaptcha_SiteKey: '6Lfa1_AZAAAAAKcRDyRDIVJCW5sXeOPV15Pgi4KW',
   reCaptcha: '6Lfa1_AZAAAAAMRfgwp-ef3fs68l_8GQ26kg6J8o',
