@@ -40,7 +40,7 @@ export const COMPONENTS = {
     getComponentdata: url + 'getcomponentdata',
     fecthdata: url + 'fetchdata',
     fetchdatabypin: url + 'fetchdatabypin',
-    notify: 'http://ninotificationservice-env.eba-j7q5natv.us-east-2.elasticbeanstalk.com/notify',
+    notify: 'https://notify.normalindia.com/notify',
 }
 
 export const DONOR = {
