@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  baseUrl: 'http://normalindia-qa-env.eba-mmedpu7m.ap-south-1.elasticbeanstalk.com/',
+  baseUrl: 'https://api.normalindia.com/',
   fileurl: 'https://testmcstorage.blob.core.windows.net/htmaster/',
   stripe: 'pk_test_rI2ObieGIf2HL5nmZkUBSnn800u16zSXu6',
   reCaptcha_SiteKey: '6Lfa1_AZAAAAAKcRDyRDIVJCW5sXeOPV15Pgi4KW',
