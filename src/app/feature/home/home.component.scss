@@ -100,3 +100,10 @@
   .w__25 {
     width: 32%;
   }
+
+
+  .form-control:disabled, .form-control:read-only {
+    /* background-color: #e9ecef; */
+    opacity: 1 !important;
+    background-color: white !important; ;
+}
