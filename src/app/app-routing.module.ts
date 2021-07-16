@@ -14,22 +14,24 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () =>
-          import('./feature/home/home.module').then((m) => m.HomeModule),
+        // as per sai decision shutdowning normal india 
+        //import('./feature/home/home.module').then((m) => m.HomeModule),
+        import('./feature/cases/cases.module').then((m) => m.CasesModule),
       },
-      {
-        path: 'legal', component: LegalComponent
-      },
-      {
-        path: 'supporter', component: SupporterComponent
-      },
-      {
-        path: 'volunteer', component: VolunterComponent
-      },
-      {
-        path: 'cases',
-        loadChildren: () =>
-          import('./feature/cases/cases.module').then((m) => m.CasesModule),
-      },
+      // {
+      //   path: 'legal', component: LegalComponent
+      // },
+      // {
+      //   path: 'supporter', component: SupporterComponent
+      // },
+      // {
+      //   path: 'volunteer', component: VolunterComponent
+      // },
+      // {
+      //   path: 'cases',
+      //   loadChildren: () =>
+      //     import('./feature/cases/cases.module').then((m) => m.CasesModule),
+      // },
     ]
   },
   
